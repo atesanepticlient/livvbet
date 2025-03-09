@@ -17,3 +17,10 @@ export const publicRoutes = ["/", "/casino", "/sports", "/bet-slip"];
  * @type {string}
  */
 export const apiAuthRoutePrefix = "/api";
+
+
+/**
+ * The prefix for provider api endpoints
+ * @type {string}
+ */
+export const providerApiPrefix = "/api/provider";

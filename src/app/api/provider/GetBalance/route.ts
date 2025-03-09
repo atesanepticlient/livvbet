@@ -6,6 +6,13 @@ export const GET = async (req: NextRequest) => {
   try {
     const { userName, cur } = (await req.json()) as GetBalanceInput;
 
+    if(!userName || !cur){
+      return Response.json({
+        type: "getBalanceResp",
+        err: "1002",
+      });
+    }
+
     const playerId = userName.replace("X01", "");
 
     const user = await db.users.findUnique({

@@ -17,7 +17,7 @@ export default auth(async (req) => {
   const isApiRoute = nextUrl.pathname.startsWith(apiAuthRoutePrefix);
   const isProvider = nextUrl.pathname.startsWith(providerApiPrefix);
 
-  if (session && isAuthRoute) {
+  if (session && isAuthRoute && !isProvider) {
     return Response.redirect(new URL("/", nextUrl));
   }
 

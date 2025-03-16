@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import AccountNavigation from "@/components/account/AccountNavigation";
-import Footer from "@/components/landing/footer/Footer";
+// import Footer from "@/components/landing/footer/Footer";
 import { Metadata } from "next";
 import React from "react";
 import Header from "@/components/landing/headers/Header";
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
 const AccountLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="bg-[#0B2B44]  ">
-      {/* <Header />
+      <Header />
       <div className="hidden md:block relative overflow-hidden">
         <div className="grid grid-cols-[18%,_82%]">
           <AccountNavigation />
@@ -21,8 +20,7 @@ const AccountLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
       <div className="md:hidden">{children}</div>
-      <Footer /> */}
-      hello
+      {/* <Footer /> */}
     </div>
   );
 };

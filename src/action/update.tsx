@@ -8,9 +8,7 @@ import {
   phoneNumberChangeSchema,
 } from "@/schema";
 import bcrypt from "bcryptjs";
-export const config = {
-  runtime: "nodejs",
-};
+
 import { findCurrentUser } from "@/data/user";
 import { CURRENT_ICORRECT_PASSOWRD, INTERNAL_SERVER_ERROR } from "@/error";
 import { NAME_CHANGED, PASSWORD_CHANGED, PHONE_CHANGED } from "@/success";

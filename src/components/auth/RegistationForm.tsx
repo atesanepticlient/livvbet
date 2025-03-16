@@ -31,6 +31,7 @@ const RegistationForm = () => {
       firstName: "",
       lastName: "",
       password: "",
+      promo: "",
       confirmPassword: "",
       currencyCode: "BDT",
     },
@@ -311,7 +312,7 @@ const RegistationForm = () => {
 
           <div className="flex items-center gap-2">
             <FormField
-              name="referCode"
+              name="promo"
               render={({ field }) => (
                 <FormItem className="flex-1">
                   <FormControl>

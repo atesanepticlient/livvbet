@@ -14,3 +14,5 @@ export const findCurrentUser = async () => {
   const session = await auth();
   return session?.user;
 };
+
+export const findAdmin = async () => await db.admin.findFirst({ where: {} });

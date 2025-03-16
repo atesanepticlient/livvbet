@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { PaymentMethod } from "./types";
+import { PaymentMethods } from "@/types/api";
 
 export const useUpdatePageNavigation = create<{
   page: string;
@@ -10,10 +10,10 @@ export const useUpdatePageNavigation = create<{
 }));
 
 export const usePaymentMethods = create<{
-  allMethods: PaymentMethod[];
-  methods: PaymentMethod[];
+  allMethods: PaymentMethods[];
+  methods: PaymentMethods[];
   currentMethod: string;
-  setAllMethods: (methods: PaymentMethod[]) => void;
+  setAllMethods: (methods: PaymentMethods[]) => void;
   setMethod: (methodName: string) => void;
 }>((set) => ({
   allMethods: [],
@@ -35,4 +35,3 @@ export const usePaymentMethods = create<{
       return { ...state, currentMethod: methodName, methods: [method!] };
     }),
 }));
-

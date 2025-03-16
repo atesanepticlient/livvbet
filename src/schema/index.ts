@@ -13,9 +13,9 @@ export const registerSchema = zod
       .min(2, "First name must be at least 2 characters")
       .max(10, "First namecannot be more than 6 characters long"),
     password: zod.string().min(6, "Password must be at least 6 characters"),
+    promo: zod.optional(zod.string()),
     confirmPassword: zod.string().min(1, "Confirm password is required"),
     currencyCode: zod.string().min(1, "Currency code is required"),
-    referCode: zod.optional(zod.string()),
   })
   .refine(
     (data) => {

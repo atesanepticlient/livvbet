@@ -1,16 +1,23 @@
-import { Deposit, PaymentWallet, Withdraw } from "@/store/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
+import { Prisma } from "@prisma/client";
 
-const PaymentMain = ({ wallet }: { wallet: PaymentWallet }) => {
+const PaymentMain = ({
+  wallet,
+}: {
+  wallet:
+    | Prisma.AdEWalletGetPayload<{ include: { eWallet: true } }>
+    | Prisma.AgEWalletGetPayload<{ include: { eWallet: true } }>;
+}) => {
   return (
     <div className=" w-[90%] md:w-[360px] rounded-sm shadow-sm">
       <div className="bg-white w-full  flex items-center justify-center py-2 md:py-4">
         <Image
           className="wallet-image w-[80px] object-cover mx-auto"
-          src={wallet.image}
-          alt={wallet.walletName}
+          src={wallet.eWallet.image}
+          alt={wallet.eWallet.walletName}
           width={80}
           height={40}
         />
@@ -25,7 +32,7 @@ const PaymentMain = ({ wallet }: { wallet: PaymentWallet }) => {
   );
 };
 
-const DepositContent = ({ deposit }: { deposit: Deposit }) => {
+const DepositContent = ({ deposit }: { deposit: any }) => {
   return (
     <div className="shadow-sm">
       <div className="flex justify-between items-center">
@@ -82,7 +89,7 @@ const DepositContent = ({ deposit }: { deposit: Deposit }) => {
   );
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const WithdrawContent = ({ withdraw }: { withdraw: Withdraw }) => {
+const WithdrawContent = ({ withdraw }: { withdraw: any }) => {
   return <div></div>;
 };
 export default PaymentMain;

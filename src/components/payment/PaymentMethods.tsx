@@ -1,11 +1,11 @@
 "use client";
-import { PaymentMethod } from "@/store/types";
 import { usePaymentMethods } from "@/store/useStore";
 import React from "react";
 import PaymentWalletCard from "./PaymentWalletCard";
+import { PaymentMethods } from "@/types/api";
 
 interface PaymentMethodsTypesProps {
-  method: PaymentMethod;
+  method: PaymentMethods;
 }
 const PaymentMethodsTypes = ({ method }: PaymentMethodsTypesProps) => {
   return (
@@ -22,7 +22,7 @@ const PaymentMethodsTypes = ({ method }: PaymentMethodsTypesProps) => {
   );
 };
 
-const PaymentMethods = () => {
+const PaymentMethodsC = () => {
   const { methods, allMethods } = usePaymentMethods((state) => state);
   return (
     <div className="flex flex-col gap-2 md:gap-4">
@@ -35,4 +35,4 @@ const PaymentMethods = () => {
   );
 };
 
-export default PaymentMethods;
+export default PaymentMethodsC;

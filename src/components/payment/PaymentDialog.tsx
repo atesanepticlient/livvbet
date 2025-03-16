@@ -2,15 +2,17 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import PaymentMain from "./PaymentMain";
-import { PaymentWallet } from "@/store/types";
 import { cn } from "@/lib/utils";
+import { Prisma } from "@prisma/client";
 
 const PaymentDialog = ({
   children,
   wallet,
 }: {
   children: React.ReactNode;
-  wallet: PaymentWallet;
+  wallet:
+    | Prisma.AdEWalletGetPayload<{ include: { eWallet: true } }>
+    | Prisma.AgEWalletGetPayload<{ include: { eWallet: true } }>;
 }) => {
   const [isDialogShow, setDialogShow] = useState(false);
   return (
@@ -27,8 +29,7 @@ const PaymentDialog = ({
       >
         <div
           className={cn(
-            "absolute top-0 left-0 w-full h-full bg-primary/25 transition-all slider-animation",
-            
+            "absolute top-0 left-0 w-full h-full bg-primary/25 transition-all slider-animation"
           )}
         ></div>
         <DialogContent onCloseClick={() => setDialogShow(false)}>

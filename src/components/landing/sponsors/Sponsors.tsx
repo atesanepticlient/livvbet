@@ -144,6 +144,7 @@ const Sponsors = () => {
         <div className="grid sponsor-grid gap-2 md:gap-3 grid-cols-[repeat(3,_minmax(0,1fr))] md:grid-cols-[repeat(5,_minmax(0,1fr))]  items-start justify-center"></div>
       </div>
     </div>
+
   );
 };
 

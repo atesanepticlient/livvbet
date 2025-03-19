@@ -1,14 +1,15 @@
 "use server";
-import { createAccount } from "@/provider/createAccount";
-export const createUser = async () => {
 
+import { createAccount } from "@/provider/createAccount";
+
+export const createUser = async () => {
   createAccount({
-    consumerId: +process.env.B2B_CONSUMER_ID!,
-    firstName: "Ate San",
-    lastName: "Epti",
+    consumerId: 387,
+    userName: "epti12348",
+    password: "123456",
     currencyCode: "BDT",
-    password: "1234",
-    userName: "epti12345",
+    firstName: "Ate San",
+    lastName: "EmptyName",
   })
     .then((res) => {
       console.log("TEST RESONSE ", res);

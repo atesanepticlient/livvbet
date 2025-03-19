@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
@@ -8,34 +9,51 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
-import game1 from "@/../public/assets/images/casino/slot/game-1.jpg";
-import game2 from "@/../public/assets/images/casino/slot/game-2.jpg";
-import game3 from "@/../public/assets/images/casino/slot/game-3.jpg";
-import game4 from "@/../public/assets/images/casino/slot/game-4.jpg";
-import game5 from "@/../public/assets/images/casino/slot/game-5.png";
-import game6 from "@/../public/assets/images/casino/slot/game-6.jpg";
 import GameCard from "@/components/games/GameCard";
-const casinoGames = [
-  { label: "Lion Gems: Hold & Win", image: game1 },
-  { label: "Hit Coins 2 Hold and Spin", image: game2 },
-  { label: "Cash Streak", image: game3 },
-  { label: "Wolf and Sheep", image: game4 },
-  { label: "Fortune Numbers", image: game5 },
-  { label: "Golden Crown", image: game6 },
-];
+import { useFetchGamesListQuery } from "@/lib/features/gamesApiSlice";
+import { Game } from "@/provider/type";
 
 const Casino = () => {
+  const { data, isLoading } = useFetchGamesListQuery();
+  const payload = data?.payload;
+
+  
+
   return (
-    <div className="mt-4 md:my-6 ">
-      <div className="flex items-center justify-between bg-secondary-foreground p-2 md:px-3 ">
+    <>
+      {data && !isLoading && (
+        <>
+          <CasinoGameSlider
+            gameList={[...payload!.games.slice(0,20)]}
+            gameType="Casino"
+            allGamesRedirect="#"
+          />
+        </>
+      )}
+    </>
+  );
+};
+
+export const CasinoGameSlider = ({
+  gameList,
+  gameType,
+  allGamesRedirect,
+}: {
+  gameType: string;
+  gameList: Game[];
+  allGamesRedirect: string;
+}) => {
+  return (
+    <div className="">
+      <div className="flex items-center justify-between bg-[#214061] p-2 md:px-3 ">
         <div className="flex gap-1 items-center">
           <MdCasino className="w-4 h-5 md:w-4 md:h-5 text-white" />
           <h4 className="font-semibold md:font-bold text-xs md:text-sm text-white uppercase">
-            Casino
+            {gameType}
           </h4>
         </div>
         <Link
-          href="#"
+          href={allGamesRedirect}
           className="text-sm md:text-base text-white flex items-center gap-1"
         >
           <MdKeyboardDoubleArrowRight className="w-4 h-4 md:w-5 md:h-5" />
@@ -52,9 +70,14 @@ const Casino = () => {
           }}
           modules={[Pagination]}
         >
-          {casinoGames.map((game, i) => (
+          {gameList.map((game, i) => (
             <SwiperSlide className="max-w-[50%] md:max-w-[20%] pb-8" key={i}>
-              <GameCard image={game.image} label={game.label} redirect="#" />
+              <GameCard
+                gameType={game.GameType}
+                image={game.ImageUrl}
+                label={game.GameNameDisplay}
+                gameName={game.GameName}
+              />
             </SwiperSlide>
           ))}
         </Swiper>

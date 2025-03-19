@@ -2,15 +2,19 @@ import {
   MakeWithdrawInput,
   PaymentDataOutput,
   MakeDepositInput,
+  TransactionsOutput,
 } from "@/types/api";
 import { apiSlice } from "./apiSlice";
 
 const paymentApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    fetchPaymentData: builder.query<PaymentDataOutput, void>({
-      query: () => ({
+    fetchPaymentData: builder.query<
+      PaymentDataOutput,
+      { type: "withdraw" | "deposit" }
+    >({
+      query: ({ type }) => ({
         method: "GET",
-        url: "/api/payment",
+        url: `/api/payment?type=${type}`,
       }),
     }),
 
@@ -31,6 +35,13 @@ const paymentApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["history"],
     }),
+
+    fetchTransactions: builder.query<TransactionsOutput, void>({
+      query: () => ({
+        url: "/api/payment/transactions",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -38,4 +49,5 @@ export const {
   useFetchPaymentDataQuery,
   useMakeDepositMutation,
   useMakeWithdrawMutation,
+  useFetchTransactionsQuery,
 } = paymentApiSlice;

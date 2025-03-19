@@ -63,3 +63,15 @@ export const phoneNumberChangeSchema = zod.object({
   password: zod.string().min(1, "Password is required"),
   phone: zod.string().min(1, "Phone number is required"),
 });
+
+export const makeDepositScehma = zod.object({
+  payTo: zod.string().min(1, "Payment Number is required"),
+  payFrom: zod.string().min(1, "Payment Number is required"),
+  amount: zod.string().min(1, "Enter Amount"),
+  transactionId: zod.string().min(1, "Transaction Id is require"),
+});
+
+export const makeWithdrawScehma = zod.object({
+  payTo: zod.string().min(1, "Payment Number is required"),
+  amount: zod.string().min(1, "Enter Amount"),
+});

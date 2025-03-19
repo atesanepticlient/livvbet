@@ -14,9 +14,10 @@ import SupportLine from "../SupportLine";
 const Footer = () => {
   return (
     <>
+      <Sponsors />
       <SiteContent />
       <About />
-      <Sponsors />
+
       <div className="mt-6 md:mt-8 bg-secondary-foreground px-5 md:px-8 py-6 md:py-8 shadow-sm">
         <div className="flex justify-center my-3 md:my-4">
           <Link href="#">

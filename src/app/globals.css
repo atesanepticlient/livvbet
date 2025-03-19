@@ -484,3 +484,13 @@
 .swal2-container {
   z-index: 9999999999999999 !important;
 }
+
+.game-label-gradient {
+  background-color: #001b30;
+  background-image: radial-gradient(
+    at center center,
+    hsl(207.1578947368, 100%, 37%),
+    hsla(207.1578947368, 100%, 37%, 0.75) 50%,
+    transparent
+  );
+}

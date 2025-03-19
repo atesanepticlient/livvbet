@@ -9,10 +9,10 @@ export const createAccount = async (data: CreateAccountInput) => {
       data,
       config
     );
-
+    
     return response.data;
   } catch (error) {
-    console.log({error})
+    console.log({ error });
     throw error;
   }
 };

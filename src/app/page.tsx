@@ -10,6 +10,7 @@ import Live from "@/components/games/live/Live";
 import CricketSlider from "@/components/sports/CricketSlider";
 import FootballSlider from "@/components/sports/FootballSlider";
 import CompanyGames from "@/components/landing/CompanyGames";
+import FootballFeatures from "@/components/landing/FootballFeatures";
 
 export default function Home() {
   const [pageLoaded, setPageLoaded] = useState(false);
@@ -26,10 +27,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-[#0B2B44] min-h-screen">
+    <div className="bg-[#0f324f] min-h-screen">
       <Header />
       <main className="container">
         <Hero />
+        <FootballFeatures />
         <CricketSlider />
         <FootballSlider />
         <CompanyGames />

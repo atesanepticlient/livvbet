@@ -28,6 +28,7 @@ model Users {
   playerId            String @unique
   role                UserRole @default(USER)
   password            String
+  casinoPassword      String
   refererType         String
   refererId           String
   isBanned            Boolean @default(false)
@@ -38,6 +39,7 @@ model Users {
   deposits            Deposit[]
   withdraws           Withdraw[]
   histories           PaymentHistory[]
+  messages            Message[]
   @@unique([email,playerId])
 }
 model wallet {
@@ -136,9 +138,11 @@ model Deposit{
   payFrom             String
   amount              Int
   transactionId       String
+  methodName          String
   status              PaymentStatus @default(PENDING)
   userId              String
   user                Users @relation(fields: [userId], references: [id])
+  transactions        PaymentHistory?
   createdAt           DateTime @default(now())
 }
 
@@ -146,10 +150,12 @@ model Withdraw{
   id                  String @id @default(cuid())
   payTo               String
   amount              Int
+  methodName          String
   status              PaymentStatus @default(PENDING)
   userId              String
   user                Users @relation(fields: [userId], references: [id])
   createdAt           DateTime @default(now())
+  transactions        PaymentHistory?
 }
 
 enum PaymentHistoryStatus {
@@ -165,11 +171,24 @@ enum PaymentHistoryType {
 
 model PaymentHistory {
   id                  String @id @default(cuid())
-  title               String
-  description         String?
   amount              Int?
   type                PaymentHistoryType
   status              PaymentHistoryStatus @default(PENDING)
+  createdAt           DateTime @default(now())
+  userId              String
+  user                Users @relation(fields: [userId], references: [id])
+  depositId           String? @unique
+  deposit             Deposit? @relation(fields: [depositId], references: [id])
+  withdrawId          String? @unique
+  withdraw            Withdraw? @relation(fields: [withdrawId], references: [id])
+}
+
+
+model Message {
+  id                  String @id @default(cuid())
+  title               String
+  description         String?
+  seen                Boolean @default(false)
   createdAt           DateTime @default(now())
   userId              String
   user                Users @relation(fields: [userId], references: [id])

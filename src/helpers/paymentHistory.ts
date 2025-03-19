@@ -1,21 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { findCurrentUser } from "@/data/user";
 import { db } from "@/lib/db";
-import { PaymentHistoryType } from "@prisma/client";
+import { PaymentHistoryType, Prisma } from "@prisma/client";
 
 export const createHistory = async (data: {
   type: PaymentHistoryType;
-  title: string;
-  description: string;
+  paymentId: string;
   amount: number;
 }) => {
-  const { description, title, amount, type } = data;
+  const { amount, type, paymentId } = data;
   const user = await findCurrentUser();
+
+  const paymentRelation: Prisma.PaymentHistoryCreateInput | any = {};
+
+  if (type == "DEPOSIT") {
+    paymentRelation.deposit = {
+      connect: {
+        id: paymentId,
+      },
+    };
+  } else if (type == "WITHDRAW") {
+    paymentRelation.withdraw = {
+      connect: {
+        id: paymentId,
+      },
+    };
+  }
   await db.paymentHistory.create({
     data: {
-      description,
-      title,
+      ...paymentRelation,
       amount,
-
       type,
       user: { connect: { id: user!.id } },
     },

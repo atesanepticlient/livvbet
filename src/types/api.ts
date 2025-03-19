@@ -1,3 +1,4 @@
+import { Game } from "@/provider/type";
 import { Prisma } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 
@@ -63,9 +64,31 @@ export interface MakeDepositInput {
   payTo: string;
   amount: number;
   transactionId: string;
+  walletId: string;
 }
 
 export interface MakeWithdrawInput {
   payTo: string;
   amount: number;
+  walletId: string;
+}
+
+export interface TransactionsOutput {
+  payload: Prisma.PaymentHistoryGetPayload<{
+    include: {
+      deposit: true;
+      withdraw: true;
+    };
+  }>[];
+}
+
+export interface MessageOutput {
+  payload: Prisma.MessageGetPayload<object>[];
+}
+
+export interface CasinoGamesOutput {
+  payload: {
+    errorCode: string;
+    games: Game[];
+  };
 }

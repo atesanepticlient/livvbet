@@ -4,7 +4,7 @@ import LoginForm from "@/components/auth/LoginForm";
 
 const Hero = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-4  py-4 md:py-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-4  py-0 md:py-6">
       <div className="w-full bg-white  hidden lg:block ">
         <div className="sticky top-0 z-20 w-full h-7 bg-brand-foreground text-center">
           <span className="text-xs md:text-sm uppercase text-white">

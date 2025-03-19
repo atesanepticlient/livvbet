@@ -7,14 +7,18 @@ import Mybets from "@/components/bet/Mybets";
 
 const BetSlipPage = () => {
   return (
-    <div className="bg-[#0B2B44] min-h-screen pb-24 md:pb-32">
+    <div className="bg-[#0f324f] min-h-screen pb-24 md:pb-32">
       <Header />
       <main className="container">
         <div className="px-2 py-2">
           <Tabs defaultValue="slip">
             <TabsList>
-              <TabsTrigger value="slip" className="rounded-sm">Bet Slip</TabsTrigger>
-              <TabsTrigger value="my" className="rounded-sm">My Bets</TabsTrigger>
+              <TabsTrigger value="slip" className="rounded-sm">
+                Bet Slip
+              </TabsTrigger>
+              <TabsTrigger value="my" className="rounded-sm">
+                My Bets
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="slip">
               <BetSlip />

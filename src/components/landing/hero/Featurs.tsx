@@ -97,14 +97,17 @@ const Featurs = () => {
                     className="w-full aspect-[10/4] object-cover select-none"
                   />
                   <div className="absolute top-0 left-0 w-full flex h-full flex-col justify-center items-start p-3 md:p-4">
-                    <h3 className="text-white uppercase text-base md:text-lg lg:text-3xl font-bold max-w-[250px] md:max-w-[430px]">
+                    <h3 className="text-white uppercase text-xs md:text-lg lg:text-3xl font-bold max-w-[250px] md:max-w-[430px]">
                       {f.title}
                     </h3>
-                    <span className="text-xs md:text-sm text-white my-3 block max-w-[290px] md:max-w-[320px] lg-max-w-[400px]">
+                    <span className="text-[10px] mt-2 md:text-sm text-white my-3 block max-w-[250px] md:max-w-[320px] lg-max-w-[400px]">
                       {f.description}
                     </span>
 
-                    <Button variant={"ghost"} className="mt-5">
+                    <Button
+                      size={"sm"}
+                      className="mt-6 !h-[15px] !px-2 text-white bg-brand-foreground hover:bg-brand-foreground/90 rounded-sm"
+                    >
                       <Link href={f.action}>{f.actionLabel}</Link>
                     </Button>
                   </div>

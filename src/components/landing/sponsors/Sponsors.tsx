@@ -82,26 +82,26 @@ const Sponsors = () => {
   return (
     <div className="mb-6 md:mb-8 bg-secondary-foreground px-5 md:px-8 py-6 md:py-8 shadow-sm">
       <div className="flex flex-col justify-center mb-3 md:mb-4">
-        <h4 className="text-white text-base md:text-lg font-bold text-center my-3">
+        <h4 className="uppercase text-sm md:text-base font-semibold text-center my-3">
           Our Sports Sponsors
         </h4>
         <Swiper
           slidesPerView={"auto"}
           pagination={{
-            dynamicBullets: true,
+            clickable: true,
           }}
           modules={[Pagination]}
-          className="mySwiper"
+          className="mySwiper w-[80%] mx-auto"
         >
           {sponsors.sports.map((s, i) => (
             <SwiperSlide key={i} className="pb-8 max-w-[25%] md:max-w-[250px]">
               <Link
                 href={s.redirect}
-                className="bg-secondary h-[60px] py-1  rounded-md flex items-center"
+                className=" h-[60px] py-1  rounded-md flex items-center"
                 title={s.name}
               >
                 <Image
-                  className="w-[35px] md:w-[50px] object-cover mx-auto"
+                  className="w-[55px] md:w-[60px] object-cover mx-auto"
                   src={s.image}
                   placeholder="blur"
                   alt={s.name}
@@ -113,16 +113,16 @@ const Sponsors = () => {
       </div>
 
       <div className="flex flex-col justify-center">
-        <h4 className="text-white text-base md:text-lg font-bold text-center my-3">
+        <h4 className="text-white uppercase text-sm md:text-base font-semibold text-center my-3">
           Our E- Sports Sponsors
         </h4>
         <Swiper
           slidesPerView={"auto"}
           pagination={{
-            dynamicBullets: true,
+            clickable: true,
           }}
           modules={[Pagination]}
-          className="mySwiper"
+          className="mySwiper w-[80%] mx-auto"
         >
           {sponsors.esports.map((s, i) => (
             <SwiperSlide key={i} className="pb-8 max-w-[25%] md:max-w-[250px]">
@@ -130,10 +130,10 @@ const Sponsors = () => {
                 href={s.redirect}
                 key={i}
                 title={s.name}
-                className="bg-secondary h-[60px] py-1  rounded-md flex items-center"
+                className=" h-[60px] py-1  rounded-md flex items-center"
               >
                 <Image
-                  className="w-[35px] md:w-[50px] object-cover mx-auto"
+                  className="w-[45px] md:w-[60px] object-cover mx-auto"
                   src={s.image}
                   alt={s.name}
                 />
@@ -144,7 +144,6 @@ const Sponsors = () => {
         <div className="grid sponsor-grid gap-2 md:gap-3 grid-cols-[repeat(3,_minmax(0,1fr))] md:grid-cols-[repeat(5,_minmax(0,1fr))]  items-start justify-center"></div>
       </div>
     </div>
-
   );
 };
 

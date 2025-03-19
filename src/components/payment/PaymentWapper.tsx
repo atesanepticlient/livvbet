@@ -5,22 +5,25 @@ import { usePaymentMethods } from "@/store/useStore";
 import React, { useEffect } from "react";
 
 const PaymentWapper = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type,
   children,
 }: {
-  type: "deposit" | "withdraw";
+  type: "withdraw" | "deposit";
   children: React.ReactNode;
 }) => {
-  const { data } = useFetchPaymentDataQuery();
+  const { data } = useFetchPaymentDataQuery({ type });
   const paymentData = data?.payload;
-
+  
   const { setAllMethods } = usePaymentMethods((state) => state);
   useEffect(() => {
     if (paymentData && Array.isArray(paymentData)) {
       setAllMethods(paymentData);
     }
   }, [setAllMethods, paymentData]);
+
+  useEffect(() => {
+    console.log({ data });
+  }, [data]);
 
   return <div>{children}</div>;
 };

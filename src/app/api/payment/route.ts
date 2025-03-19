@@ -1,8 +1,20 @@
 import { findAdmin, findCurrentUser } from "@/data/user";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { db } from "@/lib/db";
+import { NextRequest } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
+  const type = new URL(req.url).searchParams.get("type") as
+    | "withdraw"
+    | "deposit";
+
+  const withdraw = type === "withdraw";
+  const deposit = type === "deposit";
+
+  if (type != "withdraw" && type != "deposit") {
+    return Response.json({ message: "Please Request to a valid Route" });
+  }
+
   try {
     const admin = await findAdmin();
     const user = await findCurrentUser();
@@ -12,12 +24,32 @@ export const GET = async () => {
 
     if (admin?.id == user?.refererId) {
       eWallet = await db.adEWallet.findMany({
-        where: {},
-        include: { eWallet: true },
+        where: { isActive: true },
+        select: {
+          admin: true,
+          adminId: true,
+          id: true,
+          deposit,
+          withdraw,
+          eWallet: true,
+          eWalletId: true,
+          isActive: true,
+          isRecommended: true,
+        },
       });
       recommended = await db.adEWallet.findMany({
-        where: { isRecommended: true },
-        include: { eWallet: true },
+        where: { isRecommended: true, isActive: true },
+        select: {
+          admin: true,
+          adminId: true,
+          id: true,
+          deposit,
+          withdraw,
+          eWallet: true,
+          eWalletId: true,
+          isActive: true,
+          isRecommended: true,
+        },
       });
     } else {
       const agent = await db.agent.findUnique({
@@ -25,12 +57,32 @@ export const GET = async () => {
       });
 
       eWallet = await db.agEWallet.findMany({
-        where: { agentId: agent!.id },
-        include: { eWallet: true },
+        where: { agentId: agent!.id, isActive: true },
+        select: {
+          agent: true,
+          agentId: true,
+          id: true,
+          deposit,
+          withdraw,
+          eWallet: true,
+          eWalletId: true,
+          isActive: true,
+          isRecommended: true,
+        },
       });
       recommended = await db.agEWallet.findMany({
-        where: { isRecommended: true, agentId: agent!.id },
-        include: { eWallet: true },
+        where: { isRecommended: true, agentId: agent!.id, isActive: true },
+        select: {
+          agent: true,
+          agentId: true,
+          id: true,
+          deposit,
+          withdraw,
+          eWallet: true,
+          eWalletId: true,
+          isActive: true,
+          isRecommended: true,
+        },
       });
     }
 

@@ -9,9 +9,10 @@ import bcrypt from "bcryptjs";
 import { playerIdGenerate } from "@/lib/helpers";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { SIGNUP_SUCCESS } from "@/success";
+import { createAccount } from "@/provider/createAccount";
 
 export const register = async (data: zod.infer<typeof registerSchema>) => {
-  console.log("called");
+ 
   const exitingUser = await findUserByEmail(data.email);
   if (exitingUser) {
     return { error: "The Email already has an account" };
@@ -36,7 +37,7 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
     let refererType = "ad_ctrl";
     let refererId = admin!.id;
 
-    if (promo && (!agentWithPromo && promo !== admin?.promo)) {
+    if (promo && !agentWithPromo && promo !== admin?.promo) {
       return { error: "Promo code is not valid" };
     }
 
@@ -45,13 +46,14 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
       refererId = agentWithPromo.id;
     }
 
-    await db.users.create({
+    const newUsers = await db.users.create({
       data: {
         email,
         phone,
         firstName,
         lastName,
         password: hasedPassword,
+        casinoPassword: password,
         playerId: playerId!,
         refererId,
         refererType,
@@ -62,12 +64,23 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
           },
         },
       },
+      include: { wallet: true },
     });
 
+     await createAccount({
+      consumerId: +process.env.B2B_CONSUMER_ID!,
+      userName: newUsers.playerId,
+      password: newUsers.casinoPassword,
+      currencyCode: newUsers.wallet!.currencyCode,
+      firstName: newUsers.firstName,
+      lastName: newUsers.lastName,
+    });
+    
     return {
       success: SIGNUP_SUCCESS,
     };
-  } catch {
+  } catch  {
+
     return { error: INTERNAL_SERVER_ERROR };
   }
 };

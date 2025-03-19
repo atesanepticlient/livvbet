@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Link from "next/link";
 import React, { useState } from "react";
@@ -11,15 +10,11 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import GameCard from "@/components/games/GameCard";
 import { nDArrayMaker } from "@/lib/utils";
-
-interface CasinoGameProps {
-  label: string;
-  image: any;
-}
+import { Game } from "@/provider/type";
 
 interface CasinoCategoryRecommenedGameProps {
   gameType: string;
-  gamesList: CasinoGameProps[];
+  gamesList: Game[];
   allGamesRedirect: string;
 }
 const CasinoCategoryRecommenedGame = ({
@@ -27,19 +22,17 @@ const CasinoCategoryRecommenedGame = ({
   gamesList,
   allGamesRedirect,
 }: CasinoCategoryRecommenedGameProps) => {
-  const [dataInTwoDia] = useState(
-    nDArrayMaker<CasinoGameProps>([...gamesList], 4)
-  );
+  const [dataInTwoDia] = useState(nDArrayMaker<Game>([...gamesList], 4));
 
   return (
     <div className="mb-1 ">
       <div className="flex justify-between items-center py-2 px-1">
-        <span className="text-xs md:text-sm text-white font-bold md:font-semibold">
+        <span className="text-sm md:text-lg text-white font-bold md:font-semibold">
           {gameType}
         </span>
         <Link
           href={allGamesRedirect}
-          className="text-xs md:text-sm text-brand-foreground font-semibold"
+          className="text-sm md:text-lg text-brand-foreground font-semibold"
         >
           All
         </Link>
@@ -61,9 +54,10 @@ const CasinoCategoryRecommenedGame = ({
                 {games.map((game, j) => (
                   <GameCard
                     key={j}
-                    image={game.image}
-                    label={game.label}
-                    redirect=""
+                    image={game.ImageUrl}
+                    label={game.GameNameDisplay}
+                    gameName={game.GameName}
+                    gameType={game.GameType}
                   />
                 ))}
               </div>
@@ -72,10 +66,27 @@ const CasinoCategoryRecommenedGame = ({
         </Swiper>
       </div>
 
-      <div className="hidden md:grid grid-cols-4 gap-2">
-        {gamesList.map((g, i) => (
-          <GameCard key={i} image={g.image} label={g.label} redirect="#" />
-        ))}
+      <div className="hidden md:block">
+        <Swiper
+          slidesPerView={"auto"}
+          spaceBetween={5}
+          className="mySwiper"
+          pagination={{
+            dynamicBullets: true,
+          }}
+          modules={[Pagination]}
+        >
+          {gamesList.map((g, i) => (
+            <SwiperSlide key={i} className="max-w-[20%] pb-8">
+              <GameCard
+                image={g.ImageUrl}
+                label={g.GameNameDisplay}
+                gameName={g.GameName}
+                gameType={g.GameType}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
   );

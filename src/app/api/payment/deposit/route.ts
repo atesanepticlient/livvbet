@@ -1,4 +1,5 @@
-import { findCurrentUser } from "@/data/user";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { findAdmin, findCurrentUser } from "@/data/user";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { createHistory } from "@/helpers/paymentHistory";
 import { db } from "@/lib/db";
@@ -7,17 +8,52 @@ import { NextRequest } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { amount, transactionId, payFrom, payTo } =
+    const { amount, transactionId, payFrom, payTo, walletId } =
       (await req.json()) as MakeDepositInput;
 
     const user = await findCurrentUser();
+    const admin = await findAdmin();
 
-    await db.deposit.create({
+    let depositWallet;
+    if (user?.refererId == admin?.id) {
+      depositWallet = await db.adEWallet.findUnique({
+        where: { id: walletId },
+        include: { eWallet: true },
+      });
+    } else {
+      depositWallet = await db.agEWallet.findUnique({
+        where: { id: walletId },
+        include: { eWallet: true },
+      });
+    }
+
+    if (!depositWallet) {
+      return Response.json({ message: "Try with another Payment Wallet" });
+    }
+
+    const depositData: any = depositWallet.deposit;
+
+    if (amount < +depositData.min) {
+      return Response.json(
+        { message: `Minimum deposit amount ${depositData.min}` },
+        { status: 400 }
+      );
+    }
+
+    if (amount > +depositData.max) {
+      return Response.json(
+        { message: `Miximum deposit amount ${depositData.max}` },
+        { status: 400 }
+      );
+    }
+
+    const deposit = await db.deposit.create({
       data: {
         amount,
         payFrom,
         payTo,
         transactionId,
+        methodName: depositWallet.eWallet.walletName,
         user: {
           connect: {
             id: user!.id,
@@ -28,9 +64,8 @@ export const POST = async (req: NextRequest) => {
 
     await createHistory({
       amount,
-      description: "Your Desposit Request was successfully submited",
       type: "DEPOSIT",
-      title: "Desposit Added",
+      paymentId: deposit.id,
     });
 
     return Response.json(

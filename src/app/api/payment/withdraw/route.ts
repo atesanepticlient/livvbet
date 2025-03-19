@@ -1,4 +1,5 @@
-import { findCurrentUser } from "@/data/user";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { findAdmin, findCurrentUser } from "@/data/user";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { createHistory } from "@/helpers/paymentHistory";
 import { db } from "@/lib/db";
@@ -7,11 +8,47 @@ import { NextRequest } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { amount, payTo } = (await req.json()) as MakeWithdrawInput;
+    const { amount, payTo, walletId } = (await req.json()) as MakeWithdrawInput;
 
     const user = await findCurrentUser();
+    const admin = await findAdmin();
 
-    const wallet = await db.wallet.findUnique({ where: { userId: user!.id } });
+    let withdrawWallet;
+    if (user?.refererId == admin?.id) {
+      withdrawWallet = await db.adEWallet.findUnique({
+        where: { id: walletId },
+        include: { eWallet: true },
+      });
+    } else {
+      withdrawWallet = await db.agEWallet.findUnique({
+        where: { id: walletId },
+        include: { eWallet: true },
+      });
+    }
+
+    if (!withdrawWallet) {
+      return Response.json({ message: "Try with another Payment Wallet" });
+    }
+
+    const withdraw: any = withdrawWallet.withdraw;
+
+    if (amount < +withdraw.min) {
+      return Response.json(
+        { message: `Minimum withdraw amount ${withdraw.min}` },
+        { status: 400 }
+      );
+    }
+
+    if (amount > +withdraw.max) {
+      return Response.json(
+        { message: `Miximum withdraw amount ${withdraw.max}` },
+        { status: 400 }
+      );
+    }
+
+    const wallet = await db.wallet.findUnique({
+      where: { userId: user!.id },
+    });
 
     if (amount > +wallet!.balance) {
       return Response.json(
@@ -20,11 +57,12 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    await db.$transaction([
+    const resposse = await db.$transaction([
       db.withdraw.create({
         data: {
           amount,
           payTo,
+          methodName: withdrawWallet!.eWallet.walletName,
           user: {
             connect: {
               id: user!.id,
@@ -40,16 +78,16 @@ export const POST = async (req: NextRequest) => {
 
     await createHistory({
       amount,
-      description: "Your Withdraw Request was successfully submited",
       type: "WITHDRAW",
-      title: "Withdraw Added",
+      paymentId: resposse[0].id,
     });
 
     return Response.json(
       { message: "Deposit Successfully Added" },
       { status: 201 }
     );
-  } catch {
+  } catch (error) {
+    console.log({ error });
     return Response.json({ message: INTERNAL_SERVER_ERROR }, { status: 500 });
   }
 };

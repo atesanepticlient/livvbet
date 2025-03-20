@@ -26,11 +26,11 @@ const WithdrawPage = () => {
             </div>
 
             <p className="text-[#2d3842] text-xs md:text-sm w-[70%]">
-              আপনি যদি ১২ ঘন্টার মধ্যে ডিপোজিটের টাকা না পান, তাহলে অনুগ্রহ করে
+              আপনি যদি ৭২ ঘন্টার মধ্যে ডিপোজিটের টাকা না পান, তাহলে অনুগ্রহ করে
               সকল স্টেটমেন্ট সহ transaction-bn@1xbet-team.com ইমেইলে যোগাযোগ
               করুন পরবর্তী বিবরণে দয়া করে লিখুন আপনার Player id, Wallet Number,
               Date, Time, Amount, Request ID, ২ দিন সময়কালের ভিডিও/ If You have
-              not received funds within 12 hours, please write to email
+              not received funds within 72 hours, please write to email
               transaction-bn@1xbet-team.com with next details: Player id, Wallet
               number, Date, Time, Amount, Request ID and Video including 1 day
               before and after withdraw date

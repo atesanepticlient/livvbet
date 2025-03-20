@@ -92,3 +92,4 @@ export interface CasinoGamesOutput {
     games: Game[];
   };
 }
+

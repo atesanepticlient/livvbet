@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/menubar";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
-import Menusm from "./Menu";
+import { AppSidebar } from "./Menu";
 import { cn } from "@/lib/utils";
 import AuthModal from "@/components/auth/AuthModal";
 import Login from "@/components/auth/Login";
@@ -208,9 +208,15 @@ const Header = () => {
                 Top-Events <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>EPL</MenubarItem>
-                <MenubarItem>LaLiga</MenubarItem>
-                <MenubarItem>IPL</MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/loadin">EPL</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/loadin">LaLiga</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/loadin">IPL</Link>
+                </MenubarItem>
                 <MenubarSeparator />
                 {/* <MenubarSub>
                   <MenubarSubTrigger>Share</MenubarSubTrigger>
@@ -232,8 +238,12 @@ const Header = () => {
                 Spotrs <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Cricket</MenubarItem>
-                <MenubarItem>Soccer</MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/loadin">Cricket</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/loadin">Soccer</Link>
+                </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
 
@@ -242,8 +252,12 @@ const Header = () => {
                 Live <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Bet On Your Nation</MenubarItem>
-                <MenubarItem>Multi-Live</MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/loadin">Bet On Your Nation</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/loadin">Multi-Live</Link>
+                </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
 
@@ -252,10 +266,18 @@ const Header = () => {
                 Casino <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>SLOT</MenubarItem>
-                <MenubarItem>POCKET</MenubarItem>
-                <MenubarItem>Routel Wheel</MenubarItem>
-                <MenubarItem>Crash</MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/casino/Slots">SLOT</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/casino">POCKET</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/casino">Routel Wheel</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/casino">Crash</Link>
+                </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
 
@@ -264,32 +286,35 @@ const Header = () => {
                 Esports <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Live</MenubarItem>
-                <MenubarItem>Pre Match</MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/casino">Live</Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href="/sports/casino">Pre Match</Link>
+                </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
         </nav>
 
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-2 pr-2 py-3">
           <div className="">
             <AuthButtons />
           </div>
-
           {user && (
             <div className="flex items-center gap-2">
-              <Button className="bg-brand-foreground hover:bg-brand-foreground/90 text-white">
+              <Button className="bg-brand-foreground rounded-sm hover:bg-brand-foreground/90 text-white">
                 <Link href="/account/deposit">Deposit</Link>
               </Button>
-              <button>
+              <Link href={"/account/profile"}>
                 <FaUser className="w-4 h-4 text-accent" />
-              </button>
+              </Link>
             </div>
           )}
 
-          <Menusm>
-            <BiMenuAltRight className="w-5 h-5 text-accent" />
-          </Menusm>
+          <AppSidebar>
+            <BiMenuAltRight className="w-6 h-6 ml-2 text-accent" />
+          </AppSidebar>
         </div>
       </div>
     </header>

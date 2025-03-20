@@ -55,9 +55,9 @@ const DialogContent = ({
   onCloseClick: () => void;
 }) => {
   return (
-    <div className="w-max relative mx-auto mt-24 md:mt-20 ">
+    <div className=" relative mx-auto mt-24 md:mt-20 w-[95%] md:w-[350px]">
       <div onClick={() => onCloseClick()} className="cursor-pointer">
-        <IoMdClose className="w-4 h-4 text-black absolute -right-6 top-2" />
+        <IoMdClose className="w-4 h-4 text-black absolute -right-2 top-2" />
       </div>
       {children}
     </div>

@@ -8,6 +8,7 @@ import { GrTransaction } from "react-icons/gr";
 import { IoIosLogOut } from "react-icons/io";
 
 import AccountMenuItem from "./AccountMenuItem";
+
 const AccountMenu = () => {
   return (
     <div className="p-1 md:p-2">
@@ -25,32 +26,32 @@ const AccountMenu = () => {
         />
 
         <AccountMenuItem
-          lable="bet history"
-          href="#"
+          lable="My Message"
+          href="/account/my-messages"
           icon={<MdOutlineHistory className="w-5 h-5 text-white" />}
         />
 
         <AccountMenuItem
           lable="desposit"
-          href="#"
+          href="/account/deposit"
           icon={<PiHandDepositBold className="w-5 h-5 text-white" />}
         />
 
         <AccountMenuItem
           lable="withdraw"
-          href="#"
+          href="/account/withdraw"
           icon={<PiHandWithdrawFill className="w-5 h-5 text-white" />}
         />
 
         <AccountMenuItem
           lable="Transaction history"
-          href="#"
+          href="/account/transaction"
           icon={<GrTransaction className="w-5 h-5 text-white" />}
         />
 
         <AccountMenuItem
           lable="log out"
-          href="#"
+          href="/logout"
           icon={<IoIosLogOut className="w-5 h-5 text-white" />}
         />
       </ul>

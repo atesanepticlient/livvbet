@@ -21,6 +21,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SweetToast from "../ui/SweetToast";
 import { register } from "@/action/register";
 import RequestLoader from "../loaders/RequestLoader";
+import { redirect } from "next/navigation";
+
 
 const RegistationForm = () => {
   const [pending, startTransition] = useTransition();
@@ -56,6 +58,7 @@ const RegistationForm = () => {
             showConfirmButton: false,
             timer: 2000,
           });
+          redirect("/login");
         } else if (res.error) {
           SweetToast.fire({
             icon: "error",

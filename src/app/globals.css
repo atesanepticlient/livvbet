@@ -326,74 +326,74 @@
     transform: rotate(360deg);
   }
 }
-
-.pre-logo__outer,
-.pre-logo__inner,
-.pre-logo__logo {
+/* ====================== */
+.pre-logo__outer-2,
+.pre-logo__inner-2,
+.pre-logo__logo-2 {
   fill-rule: evenodd;
 }
-.pre-logo__outer,
-.pre-logo__inner {
+.pre-logo__outer-2,
+.pre-logo__inner-2 {
   -webkit-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
 }
-.pre-logo__outer {
+.pre-logo__outer-2 {
   fill: #002f5e;
   -webkit-animation: preloader-rotate 5s linear infinite;
   animation: preloader-rotate 5s linear infinite;
 }
-.pre-logo__inner {
+.pre-logo__inner-2 {
   fill: #14a0ff;
   animation: preloader-rotate 3s linear infinite reverse;
 }
-.pre-logo__logo {
+.pre-logo__logo-2 {
   fill: url(#preloader-gradient);
 }
-.pre-logo__color {
+.pre-logo__color-2 {
   stop-color: #002f5e;
 }
-.pre-logo__color:nth-child(1) {
+.pre-logo__color-2:nth-child(1) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.5s;
   animation: preloader-gradient 3s linear infinite 0.5s;
 }
-.pre-logo__color:nth-child(2) {
+.pre-logo__color-2:nth-child(2) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.45s;
   animation: preloader-gradient 3s linear infinite 0.45s;
 }
-.pre-logo__color:nth-child(3) {
+.pre-logo__color-2:nth-child(3) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.4s;
   animation: preloader-gradient 3s linear infinite 0.4s;
 }
-.pre-logo__color:nth-child(4) {
+.pre-logo__color-2:nth-child(4) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.35s;
   animation: preloader-gradient 3s linear infinite 0.35s;
 }
-.pre-logo__color:nth-child(5) {
+.pre-logo__color-2:nth-child(5) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.3s;
   animation: preloader-gradient 3s linear infinite 0.3s;
 }
-.pre-logo__color:nth-child(6) {
+.pre-logo__color-2:nth-child(6) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.25s;
   animation: preloader-gradient 3s linear infinite 0.25s;
 }
-.pre-logo__color:nth-child(7) {
+.pre-logo__color-2:nth-child(7) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.2s;
   animation: preloader-gradient 3s linear infinite 0.2s;
 }
-.pre-logo__color:nth-child(8) {
+.pre-logo__color-2:nth-child(8) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.15s;
   animation: preloader-gradient 3s linear infinite 0.15s;
 }
-.pre-logo__color:nth-child(9) {
+.pre-logo__color-2:nth-child(9) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.1s;
   animation: preloader-gradient 3s linear infinite 0.1s;
 }
-.pre-logo__color:nth-child(10) {
+.pre-logo__color-2:nth-child(10) {
   -webkit-animation: preloader-gradient 3s linear infinite 0.05s;
   animation: preloader-gradient 3s linear infinite 0.05s;
 }
-.pre-logo__color:nth-child(11) {
+.pre-logo__color-2:nth-child(11) {
   -webkit-animation: preloader-gradient 3s linear infinite 0s;
   animation: preloader-gradient 3s linear infinite 0s;
 }
@@ -455,6 +455,8 @@
     scale: 1;
   }
 }
+
+
 
 .payment-nav .payment-menu {
   border-left: 2px solid #d0dae1;

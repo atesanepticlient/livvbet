@@ -9,6 +9,6 @@ export const config: AxiosRequestConfig = {
     Accept: "application/json",
     "Content-Type": "application/json",
     VerificationKey:
-      "6a002b794bca52fe8d232583d1747247f1d22430bad23b3ecef9a17c14cd87e0JHQP3dMgamerDZMJqPdDKw==2d70e917f5a1cb00406d25d6c213b2c3",
+      "6a002b794bca52fe8d232583d17472479d2fd40f568449dbfedb932800e26babJHQP3dMgamerDZMJqPdDKw==2d70e917f5a1cb00406d25d6c213b2c3",
   } as RawAxiosRequestHeaders,
 };

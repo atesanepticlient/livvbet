@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface CreateAccountInput {
   consumerId: number;
@@ -45,4 +47,18 @@ export interface LoginMinesInput extends GameLoginInput {
 
 export interface LoginCrashInput extends GameLoginInput {
   isMobile: boolean;
+}
+
+export interface CreateSportBookAccount {
+  userName: string;
+  secret: string;
+  agent: string;
+}
+
+
+export interface SportBookLoginInput {
+  userName: string;
+  secret: string;
+  agent: string;
+  language : string;
 }

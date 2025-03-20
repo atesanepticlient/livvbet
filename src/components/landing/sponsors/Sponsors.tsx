@@ -80,9 +80,9 @@ const sponsors = {
 
 const Sponsors = () => {
   return (
-    <div className="mb-6 md:mb-8 bg-secondary-foreground px-5 md:px-8 py-6 md:py-8 shadow-sm">
+    <div className="mb-6 md:mb-8  px-5 md:px-8 py-6 md:py-8 shadow-sm">
       <div className="flex flex-col justify-center mb-3 md:mb-4">
-        <h4 className="uppercase text-sm md:text-base font-semibold text-center my-3">
+        <h4 className="text-white uppercase text-sm md:text-base font-semibold text-center my-3">
           Our Sports Sponsors
         </h4>
         <Swiper
@@ -91,10 +91,10 @@ const Sponsors = () => {
             clickable: true,
           }}
           modules={[Pagination]}
-          className="mySwiper w-[80%] mx-auto"
+          className="mySwiper w-[70%] md:w-[40%] mx-auto"
         >
           {sponsors.sports.map((s, i) => (
-            <SwiperSlide key={i} className="pb-8 max-w-[25%] md:max-w-[250px]">
+            <SwiperSlide key={i} className="pb-8  max-w-[20%]">
               <Link
                 href={s.redirect}
                 className=" h-[60px] py-1  rounded-md flex items-center"
@@ -122,15 +122,15 @@ const Sponsors = () => {
             clickable: true,
           }}
           modules={[Pagination]}
-          className="mySwiper w-[80%] mx-auto"
+          className="mySwiper w-[70%] md:w-[40%] mx-auto"
         >
           {sponsors.esports.map((s, i) => (
-            <SwiperSlide key={i} className="pb-8 max-w-[25%] md:max-w-[250px]">
+            <SwiperSlide key={i} className="pb-8 max-w-[20%]">
               <Link
                 href={s.redirect}
                 key={i}
                 title={s.name}
-                className=" h-[60px] py-1  rounded-md flex items-center"
+                className=" h-[60px] py-1 rounded-md flex items-center"
               >
                 <Image
                   className="w-[45px] md:w-[60px] object-cover mx-auto"

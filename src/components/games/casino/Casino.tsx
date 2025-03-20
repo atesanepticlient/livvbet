@@ -12,21 +12,26 @@ import { Pagination } from "swiper/modules";
 import GameCard from "@/components/games/GameCard";
 import { useFetchGamesListQuery } from "@/lib/features/gamesApiSlice";
 import { Game } from "@/provider/type";
+import { FadeLoader } from "react-spinners";
 
 const Casino = () => {
   const { data, isLoading } = useFetchGamesListQuery();
   const payload = data?.payload;
 
-  
-
   return (
     <>
+      {!data ||
+        (isLoading && (
+          <div className="w-full my-4">
+            <FadeLoader color="#fff" className="w-8 h-8 mx-auto" />
+          </div>
+        ))}
       {data && !isLoading && (
         <>
           <CasinoGameSlider
-            gameList={[...payload!.games.slice(0,20)]}
+            gameList={[...payload!.games.slice(0, 20)]}
             gameType="Casino"
-            allGamesRedirect="#"
+            allGamesRedirect="/casino"
           />
         </>
       )}

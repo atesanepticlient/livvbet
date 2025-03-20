@@ -35,3 +35,23 @@ export const usePaymentMethods = create<{
       return { ...state, currentMethod: methodName, methods: [method!] };
     }),
 }));
+
+interface CasinoSearchProps {
+  search: string;
+  gameType: string;
+  isSearchShow: boolean;
+
+  setSearch: (search: string) => void;
+  setGameType: (gameType: string) => void;
+  setSearchShow: (isSearchShow: boolean) => void;
+}
+
+export const useCasinoSearch = create<CasinoSearchProps>((set) => ({
+  search: "",
+  gameType: "casino",
+  isSearchShow: false,
+
+  setSearch: (search) => set((state) => ({ ...state, search })),
+  setGameType: (gameType) => set((state) => ({ ...state, gameType })),
+  setSearchShow: (isSearchShow) => set((state) => ({ ...state, isSearchShow })),
+}));

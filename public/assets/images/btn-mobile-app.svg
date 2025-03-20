@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 127 48">
+  <g filter="url(#a)">
+    <path fill="#FF6060" d="M87.45 11.45A7.45 7.45 0 0 1 94.9 4a16 16 0 0 1 16 16v99.8h-16a7.45 7.45 0 0 1-7.45-7.45V11.45Z"></path>
+  </g>
+  <path fill="#834848" fill-opacity=".9" d="M6.47 21.15a10.6 10.6 0 0 1 10.6-10.6h77.52a10.6 10.6 0 0 1 10.6 10.6v98.9H6.47v-98.9Z"></path>
+  <path fill="#C4C4C4" fill-rule="evenodd" d="M1 20.15C1 11.23 8.25 4 17.16 4h77.7C103.77 4 111 11.23 111 20.15v99.9h-6.56v-98.9a10.6 10.6 0 0 0-10.6-10.6h-9.59a7.06 7.06 0 0 1-7.06 7.02H35.06a7.06 7.06 0 0 1-7.07-7.01h-9.83a10.6 10.6 0 0 0-10.6 10.6v98.89H1.02V87.2A1.4 1.4 0 0 1 0 85.86V72c0-.64.43-1.17 1-1.34v-3.89c-.57-.16-1-.7-1-1.33V51.55c0-.63.43-1.17 1-1.33v-7.17c-.57-.17-1-.7-1-1.34v-6.05c0-.63.43-1.17 1-1.33V20.15Z" clip-rule="evenodd"></path>
+  <path fill="#234F7B" d="M3.75 19.53a12 12 0 0 1 12-12h78.5a13 13 0 0 1 13 13V120H3.75V19.53Z"></path>
+  <path fill="#14A0FF" fill-rule="evenodd" d="M1 20.15C1 11.23 8.25 4 17.16 4h77.7C103.77 4 111 11.23 111 20.15v35c.29.26.47.64.47 1.05v20.99c0 .41-.18.79-.47 1.04v41.81h-6.56V21.16a10.6 10.6 0 0 0-10.6-10.6h-9.58a7.06 7.06 0 0 1-7.07 7.07H35.06A7.06 7.06 0 0 1 28 10.56h-9.84a10.6 10.6 0 0 0-10.6 10.6v98.89H1.02V87.2A1.4 1.4 0 0 1 0 85.86V72c0-.64.43-1.17 1-1.34v-3.89c-.57-.16-1-.7-1-1.33V51.55c0-.63.43-1.17 1-1.33v-7.17c-.57-.17-1-.7-1-1.34v-6.05c0-.63.43-1.17 1-1.33V20.15Z" clip-rule="evenodd"></path>
+  <rect width="12.87" height="1.77" x="49.45" y="11.4" fill="#000" fill-opacity=".15" rx=".88"></rect>
+  <path stroke="url(#b)" stroke-width=".5" d="M2.27 120V20.26a15 15 0 0 1 15-15h77.46a15 15 0 0 1 15 15V120"></path>
+  <path stroke="url(#c)" stroke-width=".5" d="M3.24 120V20.27a14 14 0 0 1 14-14H94.7a14 14 0 0 1 14 14V120"></path>
+  <path fill="#010715" fill-opacity=".15" fill-rule="evenodd" d="M50.34 11.4a.88.88 0 0 0-.85 1.09c.1-.38.44-.67.85-.67h11.1c.4 0 .75.29.85.67a.88.88 0 0 0-.85-1.1h-11.1Z" clip-rule="evenodd"></path>
+  <path fill="url(#d)" fill-opacity=".1" d="M105.83 8.82c.73 0 5 5 5 11v100.5h-5V8.81Z"></path>
+  <path fill="#fff" d="M47.37 33.32c0-1.29.54-2.26 1.65-2.98a3.49 3.49 0 0 0-2.8-1.57c-1.16-.1-2.44.73-2.9.73-.5 0-1.64-.7-2.53-.7-1.84.04-3.79 1.57-3.79 4.69 0 .92.16 1.87.47 2.85.43 1.3 1.95 4.46 3.54 4.4.83-.01 1.41-.62 2.5-.62 1.04 0 1.59.63 2.51.63 1.6-.03 2.98-2.9 3.39-4.2-2.15-1.08-2.04-3.16-2.04-3.23Zm-1.86-5.77c.9-1.14.81-2.18.79-2.55-.8.05-1.72.58-2.24 1.23a3.5 3.5 0 0 0-.84 2.52c.86.07 1.64-.4 2.29-1.2Zm25.74 5.02-5.58-5.61 7.1 4.08-1.52 1.53Zm-7.06-5.95 6.53 6.5-6.53 6.5a.93.93 0 0 1-.56-.88V27.5c0-.4.2-.7.56-.89ZM75 32.37c.23.17.35.43.35.77.02.33-.1.59-.33.76l-1.52.86-1.65-1.63 1.65-1.62 1.5.86Zm-9.32 6.93 5.58-5.6 1.53 1.52-7.11 4.08Z"></path>
+  <defs>
+    <linearGradient id="b" x1="2.79" x2="111.26" y1="65.65" y2="65.13" gradientUnits="userSpaceOnUse">
+      <stop stop-opacity=".03"></stop>
+      <stop offset="1" stop-opacity=".04"></stop>
+    </linearGradient>
+    <linearGradient id="c" x1="3.74" x2="110.2" y1="66.13" y2="65.62" gradientUnits="userSpaceOnUse">
+      <stop stop-opacity=".03"></stop>
+      <stop offset="1" stop-opacity=".04"></stop>
+    </linearGradient>
+    <linearGradient id="d" x1="105.83" x2="110.83" y1="56.33" y2="56.34" gradientUnits="userSpaceOnUse">
+      <stop stop-opacity="0"></stop>
+      <stop offset=".64"></stop>
+      <stop offset="1" stop-opacity="0"></stop>
+    </linearGradient>
+    <filter id="a" width="47.45" height="139.8" x="79.45" y="0" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+      <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
+      <feOffset dx="4" dy="8"></feOffset>
+      <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"></feColorMatrix>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_17_97"></feBlend>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow_17_97" result="shape"></feBlend>
+    </filter>
+  </defs>
+</svg>

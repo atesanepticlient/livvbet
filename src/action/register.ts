@@ -10,9 +10,9 @@ import { playerIdGenerate } from "@/lib/helpers";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { SIGNUP_SUCCESS } from "@/success";
 import { createAccount } from "@/provider/createAccount";
+import { createSportBookAccount } from "@/provider/createSportbook";
 
 export const register = async (data: zod.infer<typeof registerSchema>) => {
- 
   const exitingUser = await findUserByEmail(data.email);
   if (exitingUser) {
     return { error: "The Email already has an account" };
@@ -67,7 +67,7 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
       include: { wallet: true },
     });
 
-     await createAccount({
+    await createAccount({
       consumerId: +process.env.B2B_CONSUMER_ID!,
       userName: newUsers.playerId,
       password: newUsers.casinoPassword,
@@ -75,12 +75,19 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
       firstName: newUsers.firstName,
       lastName: newUsers.lastName,
     });
-    
+
+    const sportsBookRes = await createSportBookAccount({
+      agent: process.env.SPORTBOOK_AGENT_NAME!,
+      secret: process.env.SPORTBOOK_CONSUMER_SECERT!,
+      userName: newUsers!.playerId,
+    });
+
+    console.log({ sportsBookRes });
+
     return {
       success: SIGNUP_SUCCESS,
     };
-  } catch  {
-
+  } catch {
     return { error: INTERNAL_SERVER_ERROR };
   }
 };

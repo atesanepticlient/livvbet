@@ -8,7 +8,7 @@ const About = () => {
     <div className="my-2 md:my-3">
       <div
         onClick={() => setCollapse(!isCollapse)}
-        className="w-full bg-secondary px-2 md:px-4 py-2 flex items-center justify-between cursor-pointer"
+        className="w-full bg-primary-foreground px-2 md:px-4 py-2 flex items-center justify-between cursor-pointer"
       >
         <span className="text-sm md:text-base text-white">
           More about gambling

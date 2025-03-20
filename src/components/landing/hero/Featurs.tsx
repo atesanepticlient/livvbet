@@ -106,7 +106,7 @@ const Featurs = () => {
 
                     <Button
                       size={"sm"}
-                      className="mt-6 !h-[15px] !px-2 text-white bg-brand-foreground hover:bg-brand-foreground/90 rounded-sm"
+                      className="mt-6 text-[10px] py-1 !h-[15px] !px-2 text-white bg-brand-foreground hover:bg-brand-foreground/90 rounded-sm"
                     >
                       <Link href={f.action}>{f.actionLabel}</Link>
                     </Button>

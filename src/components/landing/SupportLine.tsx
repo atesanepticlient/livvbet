@@ -12,10 +12,10 @@ const SupportLine = () => {
     >
       <Image src={help_line} alt="Customer support" className="w-[60px]" />
       <div>
-        <h3 className="text-lg text-white font-bold uppercase">
+        <h3 className="text-sm text-white font-semibold uppercase">
           Customer Support
         </h3>
-        <span className="text-white text-xs md:text-sm">Ask Any question</span>
+        <span className="text-white text-xs ">Ask Any question</span>
       </div>
     </Link>
   );

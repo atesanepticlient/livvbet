@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { IoFootballSharp } from "react-icons/io5";
@@ -9,7 +10,7 @@ const FootballOddsCard = ({ data }: FootballOddsCardProps) => {
   const { eventName, time, teams, score, odds, redirectPath } = data;
   return (
     <Link
-      href={redirectPath}
+      href={"/sports/loading"}
       className="bg-white rounded-md block p-2 md:p-3 shadow-sm"
     >
       <div className="flex justify-between items-center border-b border-b-border pb-2">

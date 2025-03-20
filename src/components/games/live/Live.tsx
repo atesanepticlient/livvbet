@@ -41,7 +41,7 @@ const Live = () => {
           </h4>
         </div>
         <Link
-          href="#"
+          href="/casino"
           className="text-sm md:text-base text-white flex items-center gap-1"
         >
           <MdKeyboardDoubleArrowRight className="w-4 h-4 md:w-5 md:h-5" />

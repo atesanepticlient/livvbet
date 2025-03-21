@@ -24,7 +24,7 @@ const Contact = () => {
       <div className="px-3 py-3">
         <Link
           href="/register"
-          className="w-full  py-2 flex items-center justify-center gap-3 text-white text-sm"
+          className="w-full bg-brand-foreground py-2 flex items-center justify-center gap-3 text-white text-sm"
         >
           <AiOutlineLogin className="w-4 h-4 " />
           Registation

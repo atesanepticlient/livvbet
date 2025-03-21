@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import visa_master_card from "@/../public/assets/images/visa_mastercard.png";
+import gcb from "@/../public/assets/svg/gcb-logo--green.svg";
 import SiteContent from "../content/SiteContent";
 import About from "../about/About";
 import Sponsors from "../sponsors/Sponsors";
@@ -31,13 +32,20 @@ const Footer = () => {
           </p>
 
           <div className="my-3 md:my-4 pb-12 flex justify-center">
-            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center text-white text-sm border-2 border-white">
-              18+
+            <div>
+              <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center text-white text-sm border-2 border-white">
+                18+
+              </div>
+              <Image
+                src={visa_master_card}
+                alt="visa and master card"
+                className="w-[100px] md:w-[120px]"
+              />
             </div>
             <Image
-              src={visa_master_card}
-              alt="visa and master card"
-              className="w-[100px] md:w-[120px]"
+              src={gcb}
+              alt="gcb"
+              className="w-[130px] md:w-[140px] mx-auto mt-2"
             />
           </div>
         </div>

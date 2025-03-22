@@ -1,58 +1,40 @@
-import crypto from "crypto";
 import CryptoJS from "crypto-js";
 
-/**
- * Generate a random 8-character alphanumeric string
- */
-function generateRandomString(): string {
-  const chars =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array.from(
-    { length: 8 },
-    () => chars[Math.floor(Math.random() * chars.length)]
-  ).join("");
-}
-
-/**
- * Compute the MD5 hash of a string
- */
-function md5Hash(value: string): string {
-  return crypto.createHash("md5").update(value).digest("hex");
-}
-
-/**
- * Encrypt password using AES-256 ECB mode
- */
-function encryptPassword(password: string, agentId: string): string {
-  // Use SHA-256 hash of agent ID as the AES key
-  const key = CryptoJS.SHA256(agentId);
-  const encrypted = CryptoJS.AES.encrypt(password, key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7,
-  });
-
-  return encrypted.toString();
-}
-
-/**
- * Generate the final verification key
- */
 export function generateVerificationKey(
-  consumerPassword: string,
-  agentId: string
-): string {
-  const randomStr1 = generateRandomString();
-  const md5Random1 = md5Hash(randomStr1);
+  agentId: string,
+  password: string,
+  randomString1: string,
+  randomString2: string
+) {
+  // Step 1: Compute MD5 hashes for the random strings
+  const md5Part1 = CryptoJS.MD5(randomString1).toString();
+  const md5Part2 = CryptoJS.MD5(randomString2).toString();
 
-  const currentDate = new Date();
-  const utcDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
-  const md5Date = md5Hash(utcDate);
+  // Step 2: Get the current UTC date in yyyymmdd format and then hash it with MD5
+  const currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  const md5CurrentDate = CryptoJS.MD5(currentDate).toString();
 
-  const encryptedPassword = encryptPassword(consumerPassword, agentId);
+  // Step 3: Generate SHA-256 hash of the Authorization Key for AES key
+  const key = CryptoJS.SHA256(agentId).toString(CryptoJS.enc.Hex);
 
-  const randomStr2 = generateRandomString();
-  const md5Random2 = md5Hash(randomStr2);
+  // Step 4: Encrypt the password using AES-256 with the SHA-256 key
+  const encryptedPassword = CryptoJS.AES.encrypt(
+    password,
+    CryptoJS.enc.Hex.parse(key),
+    {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7,
+    }
+  ).toString();
 
-  // Concatenate all parts to form the verification key
-  return `${md5Random1}${md5Date}${encryptedPassword}${md5Random2}`;
+  // Step 5: Concatenate all parts to form the verification key
+  const verificationKey =
+    md5Part1 + md5CurrentDate + encryptedPassword + md5Part2;
+  return {
+    verificationKey,
+    md5Part1,
+    md5Part2,
+    md5CurrentDate,
+    encryptedPassword,
+  };
 }

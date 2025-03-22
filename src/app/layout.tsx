@@ -17,10 +17,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "1xBet - Betting Company Online Betting",
+  title: "1xBet Company Trusted Online Betting Site in Bangladesh",
   icons: "/assets/images/icon.ico",
   description:
-    "Join 1xbet companl for the ultimate betting experience! Enjoy sports betting, casino games, live dealers, Aviator crash game, and more. Get the best odds and exciting bonuses. Sign up now!",
+    "1xBet Company Trusted Online Betting Site in Bangladesh, Join 1xbet companl for the ultimate betting experience! Enjoy sports betting, casino games, live dealers, Aviator crash game, and more. Get the best odds and exciting bonuses. Sign up now!",
 };
 
 export default async function RootLayout({

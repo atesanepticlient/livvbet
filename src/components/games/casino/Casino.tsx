@@ -20,12 +20,12 @@ const Casino = () => {
 
   return (
     <>
-      {!data ||
-        (isLoading && (
+      {(!data ||
+        isLoading) && (
           <div className="w-full my-4">
             <FadeLoader color="#fff" className="w-8 h-8 mx-auto" />
           </div>
-        ))}
+        )}
       {data && !isLoading && (
         <>
           <CasinoGameSlider

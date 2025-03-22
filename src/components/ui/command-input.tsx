@@ -16,6 +16,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { currencies } from "@/data/currency";
+import Image from "next/image";
 
 const InputCommand = ({
   onChange,
@@ -48,11 +49,43 @@ const InputCommand = ({
           aria-expanded={open}
           className="w-full bg-transparent justify-between border !border-border text-accent capitalize font-medium  hover:bg-transparent"
         >
-          {value
-            ? currencies.find(
-                (allowedValue) => allowedValue.currency.toString() == value
-              )?.full
-            : currencies[0].full}
+          {value ? (
+            <>
+              <Image
+                src={
+                  currencies.find(
+                    (allowedValue) => allowedValue.currency.toString() == value
+                  )!.flag
+                }
+                width={20}
+                height={15}
+                unoptimized
+                alt={
+                  currencies.find(
+                    (allowedValue) => allowedValue.currency.toString() == value
+                  )!.currency
+                }
+                className="w-[20px] h-auto "
+              />
+              {
+                currencies.find(
+                  (allowedValue) => allowedValue.currency.toString() == value
+                )!.full
+              }
+            </>
+          ) : (
+            <>
+              <Image
+                src={currencies[0].flag}
+                width={20}
+                height={15}
+                unoptimized
+                alt={currencies[0].country}
+                className="w-[20px] h-auto "
+              />
+              {currencies[0].full}
+            </>
+          )}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -69,7 +102,16 @@ const InputCommand = ({
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
+                  className="flex gap-2 items-center"
                 >
+                  <Image
+                    src={currency.flag}
+                    width={20}
+                    height={15}
+                    unoptimized
+                    alt={currency.currency}
+                    className="w-[20px] h-auto "
+                  />
                   {currency.full}
                   <Check
                     className={cn(

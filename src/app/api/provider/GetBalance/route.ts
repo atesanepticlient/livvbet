@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { GetBalanceInput } from "@/types/api";
 import { NextRequest } from "next/server.js";
 
-export const GET = async (req: NextRequest) => {
+export const POST = async (req: NextRequest) => {
   try {
     const { userName, cur } = (await req.json()) as GetBalanceInput;
 
@@ -50,9 +50,10 @@ export const GET = async (req: NextRequest) => {
       userName,
       cur: user?.wallet?.currencyCode,
       amt: user?.wallet?.balance,
-      Err: "0",
+      err: "0",
     });
-  } catch {
+  } catch (error){
+    console.log("error : ", error)
     return Response.json(
       { type: "getBalanceResp", err: "9999" },
       { status: 500 }

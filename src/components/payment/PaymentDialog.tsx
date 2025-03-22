@@ -17,7 +17,12 @@ const PaymentDialog = ({
   const [isDialogShow, setDialogShow] = useState(false);
   return (
     <>
-      <DialogTrigger onClick={() => setDialogShow(true)}>
+      <DialogTrigger
+        onClick={() => {
+          if (!wallet.isActive) return;
+          setDialogShow(true);
+        }}
+      >
         {children}
       </DialogTrigger>
 

@@ -20,11 +20,12 @@ export const GET = async (req: NextRequest) => {
     const user = await findCurrentUser();
 
     let eWallet;
+    let card;
     let recommended;
 
     if (admin?.id == user?.refererId) {
       eWallet = await db.adEWallet.findMany({
-        where: { isActive: true },
+        where: {},
         select: {
           admin: true,
           adminId: true,
@@ -37,8 +38,64 @@ export const GET = async (req: NextRequest) => {
           isRecommended: true,
         },
       });
+
+      card = [
+        {
+          id: "01",
+          deposit: null,
+          withdraw: null,
+          eWallet: {
+            walletName: "Paypal Cash",
+            image:
+              "https://www.finder.com/finder-us/wp-uploads/2019/04/PayPalCashCard_Supplied_450x250.png",
+            id: "201",
+          },
+          isActive: false,
+          isRecommended: false,
+        },
+        {
+          id: "02",
+          deposit: null,
+          withdraw: null,
+          eWallet: {
+            walletName: "Sonali Bank",
+            image:
+              "https://mir-s3-cdn-cf.behance.net/project_modules/fs/dfab8174166761.5c24cad31ba21.jpg",
+            id: "202",
+          },
+          isActive: false,
+          isRecommended: false,
+        },
+        {
+          id: "03",
+          deposit: null,
+          withdraw: null,
+          eWallet: {
+            walletName: "Dutch-Bangla Bank",
+            image:
+              "https://www.dutchbanglabank.com/images/debit-card/mastercardworld.jpg",
+            id: "203",
+          },
+          isActive: false,
+          isRecommended: false,
+        },
+        {
+          id: "04",
+          deposit: null,
+          withdraw: null,
+          eWallet: {
+            walletName: "Mutual Trustbank",
+            image:
+              "https://www.mutualtrustbank.com/wp-content/uploads/2025/03/mastercard-virtual-debit-card.png",
+            id: "204",
+          },
+          isActive: false,
+          isRecommended: false,
+        },
+      ];
+
       recommended = await db.adEWallet.findMany({
-        where: { isRecommended: true, isActive: true },
+        where: { isRecommended: true },
         select: {
           admin: true,
           adminId: true,
@@ -90,6 +147,7 @@ export const GET = async (req: NextRequest) => {
 
     paymentData.push({ methodName: "Recommended", wallets: recommended });
     paymentData.push({ methodName: "E-Wallet", wallets: eWallet });
+    paymentData.push({ methodName: "Card", wallets: card });
 
     return Response.json({ payload: paymentData }, { status: 200 });
   } catch {

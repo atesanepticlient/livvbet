@@ -1,10 +1,11 @@
+"use client"
 import React from "react";
 import ProfileInfoItem from "./ProfileInfoItem";
 import { FaLock, FaPencilAlt } from "react-icons/fa";
 import ProfileMenuContextWapper from "./ProfileMenuContextWapper";
-import { findCurrentUser } from "@/data/user";
 import { countryNameFinder } from "@/lib/helpers";
 import moment from "moment";
+import useCurrentUser from "@/hook/useCurrentUser";
 interface ProfileInfoItemProps {
   label: string;
   value: string;
@@ -39,8 +40,8 @@ const ProfileInfoItemLg = ({
   );
 };
 
-const ProfileInfo = async () => {
-  const user = await findCurrentUser();
+const ProfileInfo =  () => {
+  const user = useCurrentUser()
 
   return (
     <div className="px-0 md:px-3">

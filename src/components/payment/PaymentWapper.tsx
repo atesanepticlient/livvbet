@@ -21,9 +21,7 @@ const PaymentWapper = ({
     }
   }, [setAllMethods, paymentData]);
 
-  useEffect(() => {
-    console.log({ data });
-  }, [data]);
+ 
 
   return <div>{children}</div>;
 };

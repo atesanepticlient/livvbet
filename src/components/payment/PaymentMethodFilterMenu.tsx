@@ -5,7 +5,7 @@ import PaymentMethodFilterMenuItem from "./PaymentMethodFilterMenuItem";
 
 const PaymentMethodFilterMenu = () => {
   const { allMethods } = usePaymentMethods((state) => state);
-
+  console.log({allMethods})
   const totalMethodsCount = allMethods.reduce(
     (accum, i) => i.wallets.length + accum,
     0

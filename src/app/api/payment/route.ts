@@ -56,7 +56,7 @@ export const GET = async (req: NextRequest) => {
         {
           id: "02",
           deposit: null,
-          withdraw: null,
+          withdraw:null,
           eWallet: {
             walletName: "Sonali Bank",
             image:

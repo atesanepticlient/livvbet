@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import useCurrentUser from "@/hook/useCurrentUser";
+import Link from "next/link";
 
 const Wallet = () => {
   const user = useCurrentUser();
@@ -23,18 +24,23 @@ const Wallet = () => {
       </div>
 
       <div className="mt-3 md:my-4 mb-2 md:mb-3">
-        <Button
-          size={"sm"}
-          className="bg-[#7daa2fbe] hover:bg-[#7daa2fbe]/90 rounded-none text-white uppercase mb-2 w-full block "
-        >
-          deposit
-        </Button>
-        <Button
-          size={"sm"}
-          className="bg-[#7daa2fbe] hover:bg-[#7daa2fbe]/90 rounded-none text-white uppercase mb-2  w-full block"
-        >
-          Withdraw
-        </Button>
+        <Link href="/account/deposit">
+          <Button
+            size={"sm"}
+            className="bg-[#7daa2fbe] hover:bg-[#7daa2fbe]/90 rounded-none text-white uppercase mb-2 w-full block "
+          >
+            deposit
+          </Button>
+        </Link>
+
+        <Link href={"/account/withdraw"}>
+          <Button
+            size={"sm"}
+            className="bg-[#7daa2fbe] hover:bg-[#7daa2fbe]/90 rounded-none text-white uppercase mb-2  w-full block"
+          >
+            Withdraw
+          </Button>
+        </Link>
       </div>
     </div>
   );

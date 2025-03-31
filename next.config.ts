@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
       "mir-s3-cdn-cf.behance.net",
       "www.dutchbanglabank.com",
       "www.mutualtrustbank.com",
+      "mir-s3-cdn-cf.behance.net",
+      "cdn.prod.website-files.com",
     ],
   },
 };

@@ -248,8 +248,9 @@
 } */
 
 .wallet-bg {
-  background-color: #7b65ff;
-  background: linear-gradient(#000000a9, #000000a9) url("../../public/assets/images/wallet-bg.jpg") no-repeat ;
+  
+  background: linear-gradient(#000000a9, #000000a9)
+    url("../../public/assets/images/wallet-bg.jpg") no-repeat;
   background-position: center;
   background-size: cover;
 }

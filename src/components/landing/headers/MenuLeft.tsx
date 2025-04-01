@@ -37,7 +37,7 @@ const Menusm = ({ children }: { children: React.ReactNode }) => {
         <SheetTrigger>{children}</SheetTrigger>
         <SheetContent
           side={"left"}
-          className="!bg-transparent !px-0 !border-none"
+          className="!bg-[#113455] !px-0 !border-none"
         >
           <SheetHeader>
             <SheetTitle></SheetTitle>

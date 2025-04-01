@@ -356,7 +356,7 @@ const WithdrawContent = ({
                       <input
                         disabled={isLoading}
                         {...field}
-                        placeholder={`e.g.min=${withdraw.min.toString()}-max=${withdraw.max.toString()}`}
+                        placeholder={`e.g.min=${withdraw?.min?.toString()}-max=${withdraw?.max?.toString()}`}
                         className="bg-white outline-none  placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] "
                       />
                     </FormControl>

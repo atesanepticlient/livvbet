@@ -25,7 +25,7 @@ export const GET = async (req: NextRequest) => {
 
     if (admin?.id == user?.refererId) {
       eWallet = await db.adEWallet.findMany({
-        where: {},
+        where: { isActive: true },
         select: {
           admin: true,
           adminId: true,
@@ -56,7 +56,7 @@ export const GET = async (req: NextRequest) => {
         {
           id: "02",
           deposit: null,
-          withdraw:null,
+          withdraw: null,
           eWallet: {
             walletName: "Sonali Bank",
             image:
@@ -110,7 +110,7 @@ export const GET = async (req: NextRequest) => {
       });
     } else {
       const agent = await db.agent.findUnique({
-        where: { id: user!.refererId },
+        where: { id: user!.refererId ,},
       });
 
       eWallet = await db.agEWallet.findMany({

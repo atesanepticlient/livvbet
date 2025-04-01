@@ -7,10 +7,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Link from "next/link";
-import Image from "next/image";
-
-import logo from "@/../public/assets/svg/logo2.svg";
 
 // import {
 //   MdSportsBaseball,
@@ -39,20 +35,12 @@ const Menusm = ({ children }: { children: React.ReactNode }) => {
     <div>
       <Sheet>
         <SheetTrigger>{children}</SheetTrigger>
-        <SheetContent side={"left"}>
+        <SheetContent
+          side={"left"}
+          className="!bg-transparent !px-0 !border-none"
+        >
           <SheetHeader>
-            <SheetTitle className=" relative">
-              <Link href="/" className="max-w-max relative bg-red-500">
-                <Image
-                  src={logo}
-                  alt="1XBet Companl"
-                  className="w-[80px] md:w-[100px] "
-                />
-              </Link>
-              <span className="absolute top-0 left-24 text-[10px] text-white bg-brand-foreground rounded-sm  w-max text-center px-1 leading-[14px] uppercase">
-                Company
-              </span>
-            </SheetTitle>
+            <SheetTitle></SheetTitle>
           </SheetHeader>
 
           <div className="h-full flex flex-col">

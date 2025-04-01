@@ -31,7 +31,7 @@ const Footer = () => {
             before playing.
           </p>
 
-          <div className="my-3 md:my-4 pb-12 flex justify-center">
+          <div className="my-3 md:my-4 pb-12  flex flex-col justify-center">
             <div>
               <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center text-white text-sm border-2 border-white">
                 18+

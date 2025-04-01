@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/tooltip";
 import QrModal from "../QrModal";
 import AuthButtons from "@/components/auth/AuthButtons";
+import Menusm from "./MenuLeft";
 
 const Header = () => {
   const user = useCurrentUser();
@@ -306,9 +307,9 @@ const Header = () => {
               <Button className="bg-brand-foreground rounded-sm hover:bg-brand-foreground/90 text-white">
                 <Link href="/account/deposit">Deposit</Link>
               </Button>
-              <Link href={"/account/profile"}>
+              <Menusm>
                 <FaUser className="w-4 h-4 text-accent" />
-              </Link>
+              </Menusm>
             </div>
           )}
 

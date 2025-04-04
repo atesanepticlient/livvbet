@@ -67,7 +67,7 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
       include: { wallet: true },
     });
 
-    await createAccount({
+   const casinoAccount = await createAccount({
       consumerId: +process.env.B2B_CONSUMER_ID!,
       userName: newUsers.playerId,
       password: newUsers.casinoPassword,
@@ -83,6 +83,7 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
     });
 
     console.log({ sportsBookRes });
+    console.log({ casinoAccount });
 
     return {
       success: SIGNUP_SUCCESS,

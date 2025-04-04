@@ -15,7 +15,7 @@ export const logInCasino = async (data: {
     const { gameType, gameName } = data;
 
     const user = await findCurrentUser();
-    console.log("called");
+  
     let response;
     if (gameType == "Slots") {
       response = await loginSlots({
@@ -23,7 +23,7 @@ export const logInCasino = async (data: {
         culture: "en-US",
         gameid: `${gameName}@`,
         password: user!.casinoPassword,
-        userName: `TB8${user!.playerId}`,
+        userName: `LBD${user!.playerId}`,
       });
     } else if (gameType == "Bingo") {
       response = await loginBingo({
@@ -31,7 +31,7 @@ export const logInCasino = async (data: {
         culture: "en-US",
         gameid: `${gameName}@`,
         password: user!.casinoPassword,
-        userName: `TB8${user!.playerId}`,
+        userName: `LBD${user!.playerId}`,
         isMobile: true,
       });
     } else if (gameType == "Mines") {
@@ -40,7 +40,7 @@ export const logInCasino = async (data: {
         culture: "en-US",
         gameid: `${gameName}@`,
         password: user!.casinoPassword,
-        userName: `TB8${user!.playerId}`,
+        userName: `LBD${user!.playerId}`,
         isMobile: true,
       });
     } else if (gameType == "Crash") {
@@ -49,7 +49,7 @@ export const logInCasino = async (data: {
         culture: "en-US",
         gameid: `${gameName}@`,
         password: user!.casinoPassword,
-        userName: `TB8${user!.playerId}`,
+        userName: `LBD${user!.playerId}`,
         isMobile: true,
       });
     }

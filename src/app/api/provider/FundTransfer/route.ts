@@ -32,7 +32,7 @@ export const POST = async (req: NextRequest) => {
       });
     }
 
-    const playerId = userName.replace("TB8", "");
+    const playerId = userName.replace("LBD", "");
 
     const user = await db.users.findUnique({
       where: {

@@ -54,7 +54,7 @@ export const logInCasino = async (data: {
       });
     }
 
-    console.log({ response });
+   
     if (response?.error === "0") {
       return { error: INTERNAL_SERVER_ERROR };
     }

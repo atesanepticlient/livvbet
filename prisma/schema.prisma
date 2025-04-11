@@ -94,6 +94,8 @@ model adminEmailVerificationToken {
 }
 
 
+
+
 model eWallet{
   id                  String @id @default(cuid())
   walletName          String
@@ -193,7 +195,6 @@ model Message {
   userId              String
   user                Users @relation(fields: [userId], references: [id])
 }
-
 
 
 model Contact {

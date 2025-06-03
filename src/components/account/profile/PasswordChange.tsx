@@ -21,12 +21,11 @@ import { passwordChangeSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { FaLock } from "react-icons/fa";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { passageChange } from "@/action/update";
 import SweetToast from "@/components/ui/SweetToast";
-import RequestLoader from "@/components/loaders/RequestLoader";
+import PrimaryButton from "@/components/buttons/primary-button";
 
 const PasswordChange = ({ children }: { children: React.ReactNode }) => {
   const [pending, startTransition] = useTransition();
@@ -77,9 +76,9 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-secondary p-4 md:p-6 ">
+      <DialogContent className="bg-white p-4 md:p-6 ">
         <DialogHeader>
-          <DialogTitle className="text-white uppercase font-medium text-sm">
+          <DialogTitle className="text-[#212121] uppercase text-center  font-medium text-base">
             password change
           </DialogTitle>
         </DialogHeader>
@@ -98,7 +97,7 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
                             {...field}
                             type={previousPassType}
                             placeholder="Previous password"
-                            className="placeholder:text-muted text-white  border-none"
+                            className=" placeholder:text-[#3b3b3bcb] text-[#3b3b3b]  border-none"
                           />
                         </div>
 
@@ -112,13 +111,13 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
                             }
                           >
                             {previousPassType == "text" ? (
-                              <EyeOff className="text-white w-4 h-4 md:w-5 md:h-5" />
+                              <EyeOff className="text-[#212121] w-4 h-4 md:w-5 md:h-5" />
                             ) : (
-                              <Eye className="text-white w-4 h-4 md:w-5 md:h-5" />
+                              <Eye className="text-[#212121] w-4 h-4 md:w-5 md:h-5" />
                             )}
                           </button>
 
-                          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#d5e4f0]"></div>
+                          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#c9c9c9]"></div>
                         </div>
                       </div>
                     </FormControl>
@@ -140,7 +139,7 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
                             {...field}
                             type={newPassType}
                             placeholder="New password"
-                            className="placeholder:text-muted text-white border-none"
+                            className="placeholder:text-[#3b3b3bcb] text-[#3b3b3b]  border-none"
                           />
                         </div>
 
@@ -154,13 +153,13 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
                             }
                           >
                             {newPassType == "text" ? (
-                              <EyeOff className="text-white w-4 h-4 md:w-5 md:h-5" />
+                              <EyeOff className="text-[#212121] w-4 h-4 md:w-5 md:h-5" />
                             ) : (
-                              <Eye className="text-white w-4 h-4 md:w-5 md:h-5" />
+                              <Eye className="text-[#212121] w-4 h-4 md:w-5 md:h-5" />
                             )}
                           </button>
 
-                          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#d5e4f0]"></div>
+                          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#c9c9c9]"></div>
                         </div>
                       </div>
                     </FormControl>
@@ -182,7 +181,7 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
                             type={confirmPassType}
                             {...field}
                             placeholder="Confirm password"
-                            className="placeholder:text-muted text-white border-none"
+                            className="placeholder:text-[#3b3b3bcb] text-[#3b3b3b]  border-none"
                           />
                         </div>
 
@@ -196,13 +195,13 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
                             }
                           >
                             {confirmPassType == "text" ? (
-                              <EyeOff className="text-white w-4 h-4 md:w-5 md:h-5" />
+                              <EyeOff className="text-[#212121] w-4 h-4 md:w-5 md:h-5" />
                             ) : (
-                              <Eye className="text-white w-4 h-4 md:w-5 md:h-5" />
+                              <Eye className="text-[#212121] w-4 h-4 md:w-5 md:h-5" />
                             )}
                           </button>
 
-                          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#d5e4f0]"></div>
+                          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#c9c9c9]"></div>
                         </div>
                       </div>
                     </FormControl>
@@ -212,16 +211,14 @@ const PasswordChange = ({ children }: { children: React.ReactNode }) => {
                 control={form.control}
               />
 
-              {pending ? (
-                <div className="mt-2">
-                  <RequestLoader />
-                </div>
-              ) : (
-                <Button className="mt-2 w-full text-white">
-                  <FaLock className="w-3 h-3 " />
-                  SAVE
-                </Button>
-              )}
+              <PrimaryButton
+                disabled={pending}
+                className="mt-2 w-full text-black flex gap-2 items-center justify-center"
+              >
+                <FaLock className="w-4 h-4 " />
+                {pending ? "SAVING..." : "SAVE"}
+                SAVE
+              </PrimaryButton>
             </form>
           </Form>
         </div>

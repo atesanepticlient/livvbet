@@ -21,12 +21,11 @@ import { nameChangeSchema } from "@/schema";
 
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { FaLock } from "react-icons/fa";
 import { nameChange } from "@/action/update";
 import SweetToast from "@/components/ui/SweetToast";
-import RequestLoader from "@/components/loaders/RequestLoader";
 import useCurrentUser from "@/hook/useCurrentUser";
+import PrimaryButton from "@/components/buttons/primary-button";
 
 const NameChange = ({ children }: { children: React.ReactNode }) => {
   const user = useCurrentUser();
@@ -74,9 +73,9 @@ const NameChange = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-secondary p-4 md:p-6">
+      <DialogContent className="bg-white p-4 md:p-6">
         <DialogHeader>
-          <DialogTitle className="text-white uppercase text-sm font-medium">
+          <DialogTitle className="text-[#212121] uppercase text-center  font-medium text-base">
             Change Your name
           </DialogTitle>
         </DialogHeader>
@@ -92,7 +91,7 @@ const NameChange = ({ children }: { children: React.ReactNode }) => {
                         disabled={pending}
                         {...field}
                         placeholder="Your First name"
-                        className="placeholder:text-muted text-white  border-border border mb-2"
+                        className="placeholder:text-[#3b3b3bcb] text-[#3b3b3b]  border-border border mb-2"
                       />
                     </FormControl>
                     <FormMessage />
@@ -110,7 +109,7 @@ const NameChange = ({ children }: { children: React.ReactNode }) => {
                         {...field}
                         disabled={pending}
                         placeholder="Your Last name"
-                        className="placeholder:text-muted text-white  border-border border"
+                        className="placeholder:text-[#3b3b3bcb] text-[#3b3b3b]  border-border border"
                       />
                     </FormControl>
                     <FormMessage />
@@ -119,19 +118,13 @@ const NameChange = ({ children }: { children: React.ReactNode }) => {
                 control={form.control}
               />
 
-              {pending ? (
-                <div className="mt-2">
-                  <RequestLoader />
-                </div>
-              ) : (
-                <Button
-                  
-                  className="mt-2 w-full text-white"
-                >
-                  <FaLock className="w-3 h-3 " />
-                  SAVE
-                </Button>
-              )}
+              <PrimaryButton
+                disabled={pending}
+                className="mt-2 w-full text-black flex items-center justify-center gap-2"
+              >
+                <FaLock className="w-3 h-3 " />
+                {pending ? "SAVING..." : "SAVE"}
+              </PrimaryButton>
             </form>
           </Form>
         </div>

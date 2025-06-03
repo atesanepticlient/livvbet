@@ -21,12 +21,11 @@ import {
 
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { FaLock } from "react-icons/fa";
 import { phoneNumberChangeSchema } from "@/schema";
 import useCurrentUser from "@/hook/useCurrentUser";
 import { phoneChange } from "@/action/update";
-import RequestLoader from "@/components/loaders/RequestLoader";
+import PrimaryButton from "@/components/buttons/primary-button";
 
 const NumberChange = ({ children }: { children: React.ReactNode }) => {
   const [pending, startTransition] = useTransition();
@@ -77,9 +76,9 @@ const NumberChange = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-secondary p-6 md:p-8">
+      <DialogContent className="bg-white p-6 md:p-8">
         <DialogHeader>
-          <DialogTitle className="text-white uppercase font-medium text-sm">
+          <DialogTitle className="text-[#212121] uppercase text-center  font-medium text-base">
             Change phone number
           </DialogTitle>
         </DialogHeader>
@@ -96,7 +95,7 @@ const NumberChange = ({ children }: { children: React.ReactNode }) => {
                         {...field}
                         type="password"
                         placeholder="Current Password"
-                        className="placeholder:text-muted text-white  border-border border mb-2"
+                        className="placeholder:text-[#3b3b3bcb] text-[#3b3b3b]  border-border border mb-2"
                       />
                     </FormControl>
                     <FormMessage />
@@ -114,7 +113,7 @@ const NumberChange = ({ children }: { children: React.ReactNode }) => {
                         disabled={pending}
                         {...field}
                         placeholder="New Phone number"
-                        className="placeholder:text-muted text-white  border-border border"
+                        className="placeholder:text-[#3b3b3bcb] text-[#3b3b3b]  border-border border"
                       />
                     </FormControl>
                     <FormMessage />
@@ -123,19 +122,13 @@ const NumberChange = ({ children }: { children: React.ReactNode }) => {
                 control={form.control}
               />
 
-              {pending ? (
-                <div className="mt-2">
-                  <RequestLoader />
-                </div>
-              ) : (
-                <Button
-                  variant={"destructive"}
-                  className="mt-2 w-full !bg-brand-foreground"
-                >
-                  <FaLock className="w-3 h-3 text-white" />
-                  SAVE
-                </Button>
-              )}
+              <PrimaryButton
+                disabled={pending}
+                className="mt-2 w-full flex items-center justify-center gap-2"
+              >
+                <FaLock className="w-3 h-3 text-white" />
+                {pending ? "SAVING..." : "SAVE"}
+              </PrimaryButton>
             </form>
           </Form>
         </div>

@@ -90,6 +90,7 @@ const Sponsors = () => {
           pagination={{
             clickable: true,
           }}
+          spaceBetween={10}
           modules={[Pagination]}
           className="mySwiper w-[70%] md:w-[40%] mx-auto"
         >
@@ -97,7 +98,7 @@ const Sponsors = () => {
             <SwiperSlide key={i} className="pb-8  max-w-[20%]">
               <Link
                 href={s.redirect}
-                className=" h-[60px] py-1  rounded-md flex items-center"
+                className=" h-[70px]  rounded-md flex items-center bg-[#212121] py-2"
                 title={s.name}
               >
                 <Image
@@ -121,6 +122,7 @@ const Sponsors = () => {
           pagination={{
             clickable: true,
           }}
+          spaceBetween={10}
           modules={[Pagination]}
           className="mySwiper w-[70%] md:w-[40%] mx-auto"
         >
@@ -130,7 +132,7 @@ const Sponsors = () => {
                 href={s.redirect}
                 key={i}
                 title={s.name}
-                className=" h-[60px] py-1 rounded-md flex items-center"
+                className=" h-[70px] py-1 rounded-md flex items-center bg-[#212121]"
               >
                 <Image
                   className="w-[45px] md:w-[60px] object-cover mx-auto"

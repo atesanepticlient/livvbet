@@ -3,69 +3,81 @@ import { Input } from "@/components/ui/input";
 import React from "react";
 import ProfileMenuContextWapper from "./ProfileMenuContextWapper";
 import { FaPencilAlt } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
 import { useUpdatePageNavigation } from "@/store/useStore";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
+import useCurrentUser from "@/hook/useCurrentUser";
+import { countryNameFinder } from "@/lib/helpers";
+import SecondaryButton from "@/components/buttons/secondary-button";
 
 const ProfileUpdate = () => {
-  const setPage = useUpdatePageNavigation((state) => state.setPage);
+  const { setPage } = useUpdatePageNavigation((state) => state);
+  const user = useCurrentUser();
   return (
-    <div className="bg-[#213f61] py-2 px-3">
-      <div className="border border-border flex items-center mb-2">
+    <div className="bg-[#fff] py-2 px-3">
+      <div className="border border-[#9a9a9a49] flex items-center mb-2">
         <Input
           readOnly
           placeholder="******"
-          className="placeholder:text-muted flex-1 border-none"
+          className="placeholder:text-[#9a9a9a49] flex-1 border-none"
         />
         <ProfileMenuContextWapper type="password">
-          <button className="p-2 bg-primary">
+          <button className="p-2 bg-[#212121]">
             <FaPencilAlt className="text-white w-4 h-4" />
           </button>
         </ProfileMenuContextWapper>
       </div>
 
-      <div className="border border-border flex items-center mb-2">
+      <div className="border border-[#9a9a9a49] flex items-center mb-2">
         <Input
           readOnly
           placeholder="User name"
-          className="placeholder:text-muted flex-1 border-none"
+          className="placeholder:text-[#9a9a9a49] flex-1 border-none"
         />
         <ProfileMenuContextWapper type="name">
-          <button className="p-2 bg-primary">
+          <button className="p-2 bg-[#212121]">
             <FaPencilAlt className="text-white w-4 h-4" />
           </button>
         </ProfileMenuContextWapper>
       </div>
 
-      <div className="border border-border flex items-center mb-2">
+      <div className="border border-[#9a9a9a49] flex items-center mb-2">
         <Input
           readOnly
           placeholder="Phone number"
-          className="placeholder:text-muted flex-1 border-none"
+          className="placeholder:text-[#9a9a9a49] flex-1 border-none"
         />
         <ProfileMenuContextWapper type="name">
-          <button className="p-2 bg-primary">
+          <button className="p-2 bg-[#212121]">
             <FaPencilAlt className="text-white w-4 h-4" />
           </button>
         </ProfileMenuContextWapper>
       </div>
 
-      <div className="border border-white/50 bg-[#193a59] flex items-center mb-2">
+      <div className="border border-[#9a9a9a49] flex items-center mb-2">
         <Input
           readOnly
-          placeholder="Country"
-          className="placeholder:text-white/50 flex-1 border-none"
+          placeholder={countryNameFinder(user!.wallet!.currencyCode)}
+          className="placeholder:text-[#9a9a9a49] flex-1 border-none"
         />
-        <MdKeyboardArrowDown className="w-6 h-6 text-white/50 pr-2" />
+        <MdKeyboardArrowDown className="w-6 h-6 text-[#9a9a9a49] pr-2" />
       </div>
 
-      <Button
-        className="bg-brand w-full text-white"
+      <div className="border border-[#9a9a9a49] flex items-center mb-2">
+        <Input
+          readOnly
+          placeholder={user!.wallet!.currencyCode}
+          className="placeholder:text-[#9a9a9a49] flex-1 border-none"
+        />
+        <MdKeyboardArrowDown className="w-6 h-6 text-[#9a9a9a49] pr-2" />
+      </div>
+
+      <SecondaryButton
+        className=" w-full "
         onClick={() => setPage("")}
       >
         Cancel
-      </Button>
+      </SecondaryButton>
     </div>
   );
 };

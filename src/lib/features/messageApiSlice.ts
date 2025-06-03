@@ -11,10 +11,14 @@ const paymentApiSlice = apiSlice.injectEndpoints({
       providesTags: ["message"],
     }),
 
-    deleteMessages: builder.mutation<{ message: string }, { id: string }>({
-      query: ({ id }) => ({
+    deleteMessages: builder.mutation<
+      { message: string },
+      { messagesId: string[] }
+    >({
+      query: ({ messagesId }) => ({
         method: "DELETE",
-        url: `/api/messages/${id}`,
+        url: `/api/messages`,
+        body: { messagesId },
       }),
       invalidatesTags: ["message"],
     }),

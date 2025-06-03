@@ -16,15 +16,15 @@ const PageHeader = ({
     router.back();
   };
   return (
-    <div className="flex md:hidden items-center justify-between   bg-[#213f61] ">
+    <div className="flex md:hidden items-center justify-between   bg-[#dedede] ">
       <div className="flex gap-2 items-center">
         <button
-          className="p-2 bg-[#c2d5e3] h-[40px] text-primary-foreground"
+          className="p-2 bg-[#2E2E2E] h-[40px] text-white"
           onClick={handleBack}
         >
           <IoIosArrowBack className="w-4 h-4" />
         </button>
-        <span className="text-xs md:text-sm font-bold md:font-semibold text-white uppercase ">
+        <span className="text-sm font-semibold text-[#2E2E2E] uppercase ">
           {label}
         </span>
       </div>

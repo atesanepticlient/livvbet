@@ -2,13 +2,13 @@
 import Link from "next/link";
 import React from "react";
 
-import btn_mobila from "@/../public/assets/images/btn-mobile-app.svg";
-import logo from "@/../public/assets/svg/logo2.svg";
-import Image from "next/image";
+// import btn_mobila from "@/../public/assets/images/btn-mobile-app.svg";
+// import logo from "@/../public/assets/svg/logo2.svg";
+// import Image from "next/image";
 
 import { BsTelegram } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa6";
-import SupportLine from "../SupportLine";
+// import SupportLine from "../SupportLine";
 import { MdOutlineEmail } from "react-icons/md";
 import { AiOutlineLogin } from "react-icons/ai";
 import { useFetchContactQuery } from "@/lib/features/contactApiSlice";
@@ -24,16 +24,16 @@ const Contact = () => {
       <div className="px-3 py-3">
         <Link
           href="/register"
-          className="w-full bg-brand-foreground py-2 flex items-center justify-center gap-3 text-white text-sm"
+          className="w-full bg-[#FCCD20] py-2 flex items-center justify-center gap-3 text-black text-sm"
         >
           <AiOutlineLogin className="w-4 h-4 " />
           Registation
         </Link>
       </div>
-      <div className="px-4">
+      {/* <div className="px-4">
         <Link
           href="#"
-          className="bg-[#24507d] flex items-center justify-center gap-2 my-3 "
+          className="bg-[#1A1A1A] flex items-center justify-center gap-2 my-3 "
         >
           <Image src={btn_mobila} alt="mobila app" className="w-[150px]" />
           <div className="flex flex-col gap-1">
@@ -41,7 +41,7 @@ const Contact = () => {
             <span className="text-xs text-white">Mobile Application</span>
           </div>
         </Link>
-      </div>
+      </div> */}
       {data && !isLoading && (
         <div className="px-2">
           <div className="flex justify-center items-center my-3 gap-2">
@@ -81,7 +81,7 @@ const Contact = () => {
         </div>
       )}
 
-      <SupportLine />
+      {/* <SupportLine /> */}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import React, { Suspense } from "react";
 const LoginPage = () => {
   return (
     <Suspense fallback={<h1>Loading..</h1>}>
-      <div className="bg-[#0B2B44] w-full flex justify-center items-center h-screen pb-24 md:pb-32">
+      <div className="bg-[#1A1A1A] w-full flex justify-center items-center h-screen pb-24 md:pb-32">
         <div className="w-[95%] md:w-[350px] mx-auto">
           <FormLoader label="Login">
             <LoginForm />

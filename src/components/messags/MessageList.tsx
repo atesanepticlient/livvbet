@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {
@@ -20,7 +21,7 @@ const MessageList = () => {
     []
   );
 
-  const [messageDeleteApi] = useDeleteMessagesMutation();
+  // const [messageDeleteApi] = useDeleteMessagesMutation();
   const [seenMessageApi] = useSeenMessagesMutation();
 
   useEffect(() => {
@@ -29,10 +30,10 @@ const MessageList = () => {
     }
   }, [payload]);
 
-  const handleMessage = (id: string) => {
-    setMessages((state) => state.filter((m) => m.id != id));
-    messageDeleteApi({ id }).unwrap();
-  };
+  // const handleMessage = (id: string) => {
+  //   setMessages((state) => state.filter((m) => m.id != id));
+  //   messageDeleteApi({ id }).unwrap();
+  // };
 
   useEffect(() => {
     seenMessageApi().unwrap();
@@ -46,7 +47,7 @@ const MessageList = () => {
           No MessageDelegate
         </p>
       )}
-      {!isLoading &&
+      {/* {!isLoading &&
         message &&
         message?.map((m, i) => (
           <MessageListItem
@@ -54,7 +55,7 @@ const MessageList = () => {
             key={i}
             onMessageDelete={(id) => handleMessage(id)}
           />
-        ))}
+        ))} */}
     </div>
   );
 };

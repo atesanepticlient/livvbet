@@ -14,6 +14,8 @@ const AccountPage = () => {
         <div className="hidden md:block "></div>
       </main>
       <TabBar />
+
+      
     </div>
   );
 };

@@ -19,14 +19,14 @@ const PaymentMethodFilterMenuItem = ({
     <div
       onClick={handleFilter}
       className={cn(
-        " w-full payment-menu px-2 md:px-4 py-2  hover:bg-bg-[#4682B4] flex items-center justify-between cursor-pointer hover:bg-white/90",
-        `${isActive ? "bg-[#4682b4] hover:bg-[#4682b4]/90" : "bg-white"}`
+        " w-full payment-menu px-2 md:px-4 py-2  hover:bg-bg-[#336633] flex items-center justify-between cursor-pointer hover:bg-white/90",
+        `${isActive ? "bg-[#336633] hover:bg-[#336633]/90" : "bg-white"}`
       )}
     >
       <span
         className={cn(
           "text-xs md:text-sm  capitalize",
-          `${isActive ? "text-white" : "text-accent"}`
+          `${isActive ? "text-white" : "text-[#141B1F]"}`
         )}
       >
         {label}

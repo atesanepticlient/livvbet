@@ -10,8 +10,6 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { FloatingInput, FloatingLabel } from "../ui/floating-label-input";
-import { Button } from "../ui/button";
-import SocialMediaLogin from "./SocialMediaLogin";
 import InputCommand from "../ui/command-input";
 import { Eye, EyeOff } from "lucide-react";
 import zod from "zod";
@@ -20,9 +18,10 @@ import { registerSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SweetToast from "../ui/SweetToast";
 import { register } from "@/action/register";
-import RequestLoader from "../loaders/RequestLoader";
 import { redirect } from "next/navigation";
-
+import Link from "next/link";
+import PrimaryButton from "../buttons/primary-button";
+import { ScaleLoader } from "react-spinners";
 
 const RegistationForm = () => {
   const [pending, startTransition] = useTransition();
@@ -125,11 +124,11 @@ const RegistationForm = () => {
                         type="email"
                         id="floating-email"
                         disabled={pending}
-                        className=" "
+                        className="text-[#3b3b3b]"
                       />
                       <FloatingLabel
                         htmlFor="floating-email"
-                        className="font-normal"
+                        className="font-normal text-[#3b3b3b]"
                       >
                         Email
                       </FloatingLabel>
@@ -151,11 +150,11 @@ const RegistationForm = () => {
                         type="text"
                         disabled={pending}
                         id="floating-phone"
-                        className=" "
+                        className="text-[#3b3b3b] "
                       />
                       <FloatingLabel
                         htmlFor="floating-phone"
-                        className="font-normal"
+                        className="font-normal text-[#3b3b3b]"
                       >
                         Phone
                       </FloatingLabel>
@@ -180,11 +179,11 @@ const RegistationForm = () => {
                         type="text"
                         disabled={pending}
                         id="floating-firstName"
-                        className=" "
+                        className=" text-[#3b3b3b]"
                       />
                       <FloatingLabel
                         htmlFor="floating-firstName"
-                        className="font-normal"
+                        className="font-normal text-[#3b3b3b]"
                       >
                         First Name
                       </FloatingLabel>
@@ -206,11 +205,11 @@ const RegistationForm = () => {
                         type="text"
                         disabled={pending}
                         id="floating-lastName"
-                        className=" "
+                        className="text-[#3b3b3b] "
                       />
                       <FloatingLabel
                         htmlFor="floating-lastName"
-                        className="font-normal"
+                        className="font-normal text-[#3b3b3b]"
                       >
                         Last Name
                       </FloatingLabel>
@@ -236,11 +235,11 @@ const RegistationForm = () => {
                           type={passwordType}
                           disabled={pending}
                           id="floating-password"
-                          className=" border-none"
+                          className=" border-none text-[#3b3b3b]"
                         />
                         <FloatingLabel
                           htmlFor="floating-password"
-                          className="font-normal"
+                          className="font-normal text-[#3b3b3b]"
                         >
                           Password
                         </FloatingLabel>
@@ -249,9 +248,9 @@ const RegistationForm = () => {
                       <div className="p-2 w-12 relative flex justify-center items-center">
                         <button type="button" onClick={togglePasswordType}>
                           {passwordType == "text" ? (
-                            <EyeOff className="text-accent w-4 h-4 " />
+                            <EyeOff className="text-[#3b3b3b] w-4 h-4 " />
                           ) : (
-                            <Eye className="text-accent w-4 h-4 " />
+                            <Eye className="text-[#3b3b3b] w-4 h-4 " />
                           )}
                         </button>
 
@@ -275,12 +274,12 @@ const RegistationForm = () => {
                           {...field}
                           type={confirmPasswordTrype}
                           id="floating-confirm-password"
-                          className=" border-none"
+                          className=" border-none text-[#3b3b3b]"
                           disabled={pending}
                         />
                         <FloatingLabel
                           htmlFor="floating-confirm-password"
-                          className="font-normal"
+                          className="font-normal text-[#3b3b3b]"
                         >
                           Confirm Password
                         </FloatingLabel>
@@ -292,9 +291,9 @@ const RegistationForm = () => {
                           onClick={toggleConfirmPasswordType}
                         >
                           {confirmPasswordTrype == "text" ? (
-                            <EyeOff className="text-accent w-4 h-4 " />
+                            <EyeOff className="text-[#3b3b3b] w-4 h-4 " />
                           ) : (
-                            <Eye className="text-accent w-4 h-4 " />
+                            <Eye className="text-[#3b3b3b] w-4 h-4 " />
                           )}
                         </button>
 
@@ -325,11 +324,11 @@ const RegistationForm = () => {
                         type="text"
                         id="floating-promo"
                         disabled={pending}
-                        className=" "
+                        className=" text-[#3b3b3b]"
                       />
                       <FloatingLabel
                         htmlFor="floating-promo"
-                        className="font-normal"
+                        className="font-normal text-[#3b3b3b]"
                       >
                         Enter Promo Code
                       </FloatingLabel>
@@ -341,22 +340,39 @@ const RegistationForm = () => {
               control={form.control}
             />
             <div className="flex-1">
-              {pending ? (
-                <RequestLoader />
-              ) : (
-                <Button className="!w-full !h-9" variant={"ghost"}>
-                  Registation
-                </Button>
-              )}
+              <PrimaryButton className="w-full max-h-[40px] h-[40px]">
+                {pending ? (
+                  <ScaleLoader
+                    color="#000"
+                    cssOverride={{ scale: 0.5 }}
+                    className="-translate-y-4"
+                  />
+                ) : (
+                  "Login"
+                )}
+              </PrimaryButton>
             </div>
           </div>
         </form>
 
-        <span className="text-[10px] md:text-xs text-muted-foreground my-3 block text-center">
-          You can log in to the website via:
+        <span className="text-[10px] md:text-xs text-[#3b3b3b] my-4 md:my-7 block text-center">
+          By clicking this button you confirm that you have read and agree to
+          the Terms and Conditions and Privacy Policy of the company and confirm
+          that you are of legal age
         </span>
 
-        <SocialMediaLogin />
+        <div className="my-5 flex justify-center">
+          <div className="w-full md:w-300px] bg-border h-[1px]"></div>
+        </div>
+        <p className="text-xs text-center text-[#3b3b3b]">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-[#FFB805] font-medium hover:underline"
+          >
+            Log in
+          </Link>
+        </p>
       </Form>
     </div>
   );

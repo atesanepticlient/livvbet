@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { findAdmin, findCurrentUser } from "@/data/user";
+import { findCurrentUser } from "@/data/user";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { createHistory } from "@/helpers/paymentHistory";
 import { db } from "@/lib/db";
@@ -11,37 +10,28 @@ export const POST = async (req: NextRequest) => {
     const { amount, payTo, walletId } = (await req.json()) as MakeWithdrawInput;
 
     const user = await findCurrentUser();
-    const admin = await findAdmin();
 
-    let withdrawWallet;
-    if (user?.refererId == admin?.id) {
-      withdrawWallet = await db.adEWallet.findUnique({
-        where: { id: walletId },
-        include: { eWallet: true },
-      });
-    } else {
-      withdrawWallet = await db.agEWallet.findUnique({
-        where: { id: walletId },
-        include: { eWallet: true },
-      });
-    }
+    const withdrawWallet = await db.withdrawEWallet.findUnique({
+      where: { id: walletId },
+    });
 
     if (!withdrawWallet) {
-      return Response.json({ message: "Try with another Payment Wallet" });
+      return Response.json(
+        { message: "Try with another Payment Wallet" },
+        { status: 404 }
+      );
     }
 
-    const withdraw: any = withdrawWallet.withdraw;
-
-    if (amount < +withdraw.min) {
+    if (amount < 1000) {
       return Response.json(
-        { message: `Minimum withdraw amount ${withdraw.min}` },
+        { message: `Minimum withdraw amount 1000` },
         { status: 400 }
       );
     }
 
-    if (amount > +withdraw.max) {
+    if (amount > 25000) {
       return Response.json(
-        { message: `Miximum withdraw amount ${withdraw.max}` },
+        { message: `Miximum withdraw amount 25000` },
         { status: 400 }
       );
     }
@@ -61,11 +51,15 @@ export const POST = async (req: NextRequest) => {
       db.withdraw.create({
         data: {
           amount,
-          payTo,
-          methodName: withdrawWallet!.eWallet.walletName,
+          paymentWalletNumber: payTo,
           user: {
             connect: {
               id: user!.id,
+            },
+          },
+          withdrawEWallet: {
+            connect: {
+              id: walletId,
             },
           },
         },

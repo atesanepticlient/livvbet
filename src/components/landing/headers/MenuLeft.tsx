@@ -32,12 +32,12 @@ const Menusm = ({ children }: { children: React.ReactNode }) => {
   // };
 
   return (
-    <div>
+    <div className="left-menu-bar">
       <Sheet>
         <SheetTrigger>{children}</SheetTrigger>
         <SheetContent
           side={"left"}
-          className="!bg-[#113455] !px-0 !border-none"
+          className="!bg-[#1A1A1A] !px-0 !border-none w-[60%]"
         >
           <SheetHeader>
             <SheetTitle></SheetTitle>

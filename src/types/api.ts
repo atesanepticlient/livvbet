@@ -48,20 +48,28 @@ export interface FundTransferInput {
   jackpotBetAmt: number;
 }
 
-export interface PaymentMethods {
+export interface DepostisMethods {
   methodName: string;
   wallets:
-    | Prisma.AdEWalletGetPayload<{ include: { eWallet: true } }>[]
-    | Prisma.AgEWalletGetPayload<{ include: { eWallet: true } }>[];
+    | Prisma.DepositEWalletGetPayload<object>[]
+    | Prisma.DepositEWalletGetPayload<object>[];
+}
+export interface WithdrawMethods {
+  methodName: string;
+  wallets:
+    | Prisma.DepositEWalletGetPayload<object>[]
+    | Prisma.DepositEWalletGetPayload<object>[];
 }
 
 export interface PaymentDataOutput {
-  payload: PaymentMethods[];
+  payload: {
+    withdraw: WithdrawMethods[];
+    deposit: DepostisMethods[];
+  };
 }
 
 export interface MakeDepositInput {
   payFrom: string;
-  payTo: string;
   amount: number;
   transactionId: string;
   walletId: string;
@@ -74,12 +82,14 @@ export interface MakeWithdrawInput {
 }
 
 export interface TransactionsOutput {
-  payload: Prisma.PaymentHistoryGetPayload<{
-    include: {
-      deposit: true;
-      withdraw: true;
-    };
-  }>[];
+  payload: {
+    withdraws: Prisma.WithdrawGetPayload<{
+      include: { withdrawEWallet: true };
+    }>[];
+    deposits: Prisma.DepositGetPayload<{
+      include: { ewallet: true };
+    }>[];
+  };
 }
 
 export interface MessageOutput {
@@ -92,4 +102,3 @@ export interface CasinoGamesOutput {
     games: Game[];
   };
 }
-

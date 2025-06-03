@@ -7,23 +7,23 @@ const PaymentWalletCard = ({
   wallet,
 }: {
   wallet:
-    | Prisma.AdEWalletGetPayload<{ include: { eWallet: true } }>
-    | Prisma.AgEWalletGetPayload<{ include: { eWallet: true } }>;
+    | Prisma.DepositEWalletGetPayload<object>
+    | Prisma.DepositEWalletGetPayload<object>;
 }) => {
   return (
     <PaymentDialog wallet={wallet}>
       <div className="cursor-pointer hover:shadow-md">
-        <div className="h-[45px] bg-white flex justify-center items-center">
+        <div className="h-[65px] bg-white flex justify-center items-center">
           <Image
-            src={wallet.eWallet.image}
+            src={wallet.walletImage}
             width={90}
             height={40}
-            alt={wallet.eWallet.walletName}
+            alt={wallet.walletName}
             className="w-[90px] h-[40px] wallet-image mx-auto object-cover"
           />
         </div>
-        <div className="bg-primary text-white w-full py-1 md:py-2">
-          {wallet.eWallet.walletName}
+        <div className="bg-[#555555] text-white w-full py-1 md:py-2">
+          {wallet.walletName}
         </div>
       </div>
     </PaymentDialog>

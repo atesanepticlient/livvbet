@@ -5,7 +5,7 @@ const SiteContentTitle = ({ title }: { title: string }) => {
   return (
     <h4 className="text-sm md:text-balance font-medium text-white uppercase relative">
       {title}{" "}
-      <div className="absolute left-0 -bottom-2 w-5 h-1 bg-primary"></div>
+      <div className="absolute left-0 -bottom-2 w-5 h-1 bg-[#FFCE00]"></div>
     </h4>
   );
 };

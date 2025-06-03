@@ -6,13 +6,29 @@ export const GET = async () => {
   try {
     const user = await findCurrentUser();
 
-    const transactions = await db.paymentHistory.findMany({
+    const deposits = await db.deposit.findMany({
       where: { userId: user!.id },
-      include: { withdraw: true, deposit: true },
+      include: {
+        ewallet: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
     });
-    console.log({ transactions });
-    return Response.json({ payload: transactions }, { status: 200 });
-  } catch {
+
+    const withdraws = await db.withdraw.findMany({
+      where: { userId: user!.id },
+      include: {
+        withdrawEWallet: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return Response.json({ payload: { deposits, withdraws } }, { status: 200 });
+  } catch (error) {
+    console.log({ error });
     return Response.json({ message: INTERNAL_SERVER_ERROR }, { status: 500 });
   }
 };

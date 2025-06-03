@@ -15,15 +15,14 @@ import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FloatingInput, FloatingLabel } from "../ui/floating-label-input";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { Label } from "@/components/ui/label";
-import SocialMediaLogin from "./SocialMediaLogin";
 import { loginSchema } from "@/schema";
 import { login } from "@/action/login";
 import SweetToast from "../ui/SweetToast";
-import RequestLoader from "../loaders/RequestLoader";
 import { redirect, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import PrimaryButton from "../buttons/primary-button";
+import { ScaleLoader } from "react-spinners";
 const LoginForm = () => {
   const loginRedirect = useSearchParams().get("redirect") || "/";
 
@@ -88,17 +87,20 @@ const LoginForm = () => {
                           {...field}
                           disabled={pending}
                           id="floating-customize"
-                          className=" border-none "
+                          className=" border-none text-[#3b3b3b] "
                         />
-                        <FloatingLabel htmlFor="floating-customize">
+                        <FloatingLabel
+                          htmlFor="floating-customize"
+                          className="text-[#3b3b3b]"
+                        >
                           ID OR Email
                         </FloatingLabel>
                       </div>
 
                       <div className="p-2 w-12 relative flex justify-center items-center">
-                        <Mail className="text-accent w-4 h-4 md:w-5 md:h-5" />
+                        <Mail className="text-[#3b3b3b] w-4 h-4 md:w-5 md:h-5" />
 
-                        <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#d5e4f0]"></div>
+                        <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#3b3b3b75]"></div>
                       </div>
                     </div>
                   </FormControl>
@@ -119,10 +121,13 @@ const LoginForm = () => {
                           {...field}
                           disabled={pending}
                           type={passwordType}
-                          id="floating-customize-2"
-                          className="border-none"
+                          id="floating-customize-pass"
+                          className="border-none text-[#3b3b3b]"
                         />
-                        <FloatingLabel htmlFor="floating-customize-2">
+                        <FloatingLabel
+                          htmlFor="floating-customize-pass "
+                          className="text-[#3b3b3b]"
+                        >
                           Password
                         </FloatingLabel>
                       </div>
@@ -130,13 +135,13 @@ const LoginForm = () => {
                       <div className="p-2 w-12 relative flex justify-center items-center">
                         <button type="button" onClick={togglePasswordType}>
                           {passwordType == "text" ? (
-                            <EyeOff className="text-accent w-4 h-4 md:w-5 md:h-5" />
+                            <EyeOff className="text-[#3b3b3b] w-4 h-4 md:w-5 md:h-5" />
                           ) : (
-                            <Eye className="text-accent w-4 h-4 md:w-5 md:h-5" />
+                            <Eye className="text-[#3b3b3b] w-4 h-4 md:w-5 md:h-5" />
                           )}
                         </button>
 
-                        <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#d5e4f0]"></div>
+                        <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[2px] h-7 bg-[#3b3b3b75]"></div>
                       </div>
                     </div>
                   </FormControl>
@@ -151,7 +156,7 @@ const LoginForm = () => {
                 <input type="checkbox" id="emember" />
                 <Label
                   htmlFor="remember"
-                  className="text-sm text-primary-foreground font-medium"
+                  className="text-sm text-[#3b3b3b] font-medium"
                 >
                   Remember
                 </Label>
@@ -159,28 +164,36 @@ const LoginForm = () => {
 
               <Link
                 href="#"
-                className="text-[10px] text-xs text-muted-foreground hover:underline hover:text-brand-foreground"
+                className="text-[10px] text-xs text-[#c79925] hover:underline hover:text-[#ebbb41]"
               >
                 Forgot your password?
               </Link>
             </div>
 
-            {pending ? (
-              <div>
-                <RequestLoader />
-              </div>
-            ) : (
-              <Button variant={"ghost"} className="w-full">
-                Login
-              </Button>
-            )}
+            <PrimaryButton className="w-full max-h-[40px] h-[40px]">
+              {pending ? (
+                <ScaleLoader
+                  color="#000"
+                  cssOverride={{ scale: 0.5 }}
+                  className="-translate-y-4"
+                />
+              ) : (
+                "Login"
+              )}
+            </PrimaryButton>
           </form>
-
-          <span className="text-[10px] md:text-xs text-muted-foreground my-3 block text-center">
-            You can log in to the website via:
-          </span>
-
-          <SocialMediaLogin />
+          <div className="my-5 flex justify-center">
+            <div className="w-full md:w-300px] bg-border h-[1px]"></div>
+          </div>
+          <p className="text-xs text-center text-[#3b3b3b]">
+            Don&apos;t you have an account?{" "}
+            <Link
+              href="/register"
+              className="text-[#FFB805] font-medium hover:underline"
+            >
+              Register
+            </Link>
+          </p>
         </Form>
       </div>
     </Suspense>

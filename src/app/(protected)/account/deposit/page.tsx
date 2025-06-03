@@ -6,13 +6,13 @@ import Payment from "@/components/payment/Payment";
 import PaymentWapper from "@/components/payment/PaymentWapper";
 const DepositPage = () => {
   return (
-    <div className="bg-white  md:px-4 md:py-5">
+    <div className="bg-white rounded-sm shadow-sm  p-2">
       <main>
         <PageHeader label="Deposit into personal account" />
 
         <div className="p-1">
           <div className="py-2">
-            <h4 className="text-accent uppercase text-base md:text-xl font-bold md:font-semibold ">
+            <h4 className="text-[#212121] uppercase text-base md:text-xl font-bold md:font-semibold ">
               Account Id : 18435789
             </h4>
             <p className="hidden md:text-sm text-accent">

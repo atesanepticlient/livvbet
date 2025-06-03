@@ -2,114 +2,119 @@
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSearchParams } from "next/navigation";
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import useCurrentUser from "@/hook/useCurrentUser";
 import { useFetchTransactionsQuery } from "@/lib/features/paymentApiSlice";
-import RequestLoader from "../loaders/RequestLoader";
-import { PaymentHistoryType, PaymentStatus } from "@prisma/client";
+import { PaymentStatus } from "@prisma/client";
+import moment from "moment";
+import { ScaleLoader } from "react-spinners";
 
 const TransactionList = () => {
-  const defaultTab = useSearchParams().get("type");
   const { data, isLoading } = useFetchTransactionsQuery();
-  const payload = data?.payload;
+
+  const withdraws = data?.payload?.withdraws;
+  const deposits = data?.payload?.deposits;
+  console.log({ data });
   const user = useCurrentUser();
 
-  const filteredPayments = (type: PaymentHistoryType) => {
-    return payload?.filter((p) => p.type == type);
-  };
-
   return (
-    <div>
+    <div className="bg-[#E8E8E8] py-3 md:py-0 px-2 md:px-0 min-h-screen md:min-h-auto">
       {isLoading && !data && (
-        <div className="my-10">
-          <RequestLoader />
+        <div className="my-10 w-full h-[300px] flex justify-center items-center">
+          <ScaleLoader color="#2E2E2E" />
         </div>
       )}
       {!isLoading && data && (
-        <Tabs defaultValue={defaultTab!}>
+        <Tabs defaultValue={"deposits"}>
           <TabsList>
-            <TabsTrigger value="deposits" className="bg-gray-300 !text-black">
+            <TabsTrigger
+              value="deposits"
+              className="capitalize font-normal tracking-wide px-4 lg:px-8 bg-[#1a1a1a10] !text-[#1A1A1A] data-[state=active]:!text-white data-[state=active]:bg-[#2e2e2e] hover:bg-[#4F4F4F] hover:!text-white rounded-s-xl"
+            >
               Deposits
             </TabsTrigger>
-            <TabsTrigger value="withdraws" className="bg-gray-300 !text-black">
+            <TabsTrigger
+              value="withdraws"
+              className="capitalize font-normal tracking-wide px-4 lg:px-8 bg-[#1a1a1a10] !text-[#1A1A1A] data-[state=active]:bg-[#2e2e2e] data-[state=active]:!text-white hover:bg-[#4F4F4F] hover:!text-white rounded-e-xl"
+            >
               Withdraws
             </TabsTrigger>
           </TabsList>
-
+          <p className="py-4 text-base lg:text-lg font-semibold  text-[#2e2e2e] ">
+            Account 345734590
+          </p>
           <TabsContent value="deposits">
-            <Table>
-              <TableCaption>
-                A list of your Transactions - Deposits
-              </TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[100px]">Amount</TableHead>
-                  <TableHead>Transactions</TableHead>
-                  <TableHead>Method</TableHead>
-                  <TableHead className="text-right">Paid At</TableHead>
-                  <TableHead className="text-right">Paid From</TableHead>
-                  <TableHead className="text-right">Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredPayments("DEPOSIT")?.map((t, i) => (
-                  <TableRow key={i}>
-                    <TableCell className="font-medium">
-                      {user!.wallet?.currencyCode} {t.amount}
-                    </TableCell>
-                    <TableCell>{t.deposit?.transactionId || ""}</TableCell>
-                    <TableCell>{t.deposit?.methodName}</TableCell>
-                    <TableCell>{t.deposit?.payTo || ""}</TableCell>
-                    <TableCell>{t.deposit?.payFrom || ""}</TableCell>
+            <div className="  ">
+              {deposits!.length == 0 && (
+                <div className="bg-white rounded-3xl relative w-full h-[300px] lg:h-[400px]">
+                  <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-center">
+                    <h3 className="text-base lg:text-lg font-semibold text-[#3B3B3B]">
+                      No transactions
+                    </h3>
+                    <p className="font-normal text-xs lg:text-sm text-[#3b3b3ba8] max-w-[250px] mx-auto">
+                      Your monetary transactions will be displayed here
+                    </p>
+                  </div>
+                </div>
+              )}
 
-                    <TableCell className="text-right">
-                      <PaymentStatusText status={t.deposit!.status} />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+              {deposits!.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-5">
+                  {deposits?.map((deposit, i) => (
+                    <div
+                      key={i}
+                      className="bg-white flex items-center justify-between px-3 py-2 rounded-sm shadow-sm"
+                    >
+                      <div>
+                        <h4 className="text-sm font-semibold text-[#1A1A1A] tracking-wide">
+                          {+deposit.amount} {user?.wallet?.currencyCode} Deposit
+                          Request
+                        </h4>
+                        <span className="text-xs font-normal text-[#1a1a1acb]">
+                          {moment(deposit.createdAt).calendar()}
+                        </span>
+                      </div>
+                      <PaymentStatusText status={deposit.status} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </TabsContent>
           <TabsContent value="withdraws">
-            <Table>
-              <TableCaption>
-                A list of your Transactions - Withdraws
-              </TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[100px]">Amount</TableHead>
-
-                  <TableHead>Method</TableHead>
-                  <TableHead>Wallet Number</TableHead>
-                  <TableHead className="text-right">Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredPayments("WITHDRAW")?.map((t, i) => (
-                  <TableRow key={i}>
-                    <TableCell className="font-medium">
-                      {user!.wallet?.currencyCode} {t.amount}
-                    </TableCell>
-                    <TableCell>{t.withdraw?.methodName}</TableCell>
-
-                    <TableCell>{t.withdraw?.payTo}</TableCell>
-                    <TableCell className="text-right">
-                      <PaymentStatusText status={t.withdraw!.status} />
-                    </TableCell>
-                  </TableRow>
+            {withdraws!.length == 0 && (
+              <div className="bg-white rounded-3xl relative w-full h-[300px] lg:h-[400px]">
+                <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-center">
+                  <h3 className="text-base lg:text-lg font-semibold text-[#3B3B3B]">
+                    No transactions
+                  </h3>
+                  <p className="font-normal text-xs lg:text-sm text-[#3b3b3ba8] max-w-[250px] mx-auto">
+                    Your monetary transactions will be displayed here
+                  </p>
+                </div>
+              </div>
+            )}
+            {withdraws!.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-5">
+                {deposits?.map((deposit, i) => (
+                  <div
+                    key={i}
+                    className="bg-white flex items-center justify-between px-3 py-2 rounded-sm shadow-sm"
+                  >
+                    <div>
+                      <h4 className="text-sm font-semibold text-[#1A1A1A] tracking-wide">
+                        {+deposit.amount} {user?.wallet?.currencyCode} Deposit
+                        Request
+                      </h4>
+                      <span className="text-xs font-normal text-[#1a1a1acb]">
+                        {moment(deposit.createdAt).calendar()}
+                      </span>
+                    </div>
+                    <PaymentStatusText status={deposit.status} />
+                  </div>
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       )}
@@ -120,12 +125,12 @@ const TransactionList = () => {
 const PaymentStatusText = ({ status }: { status: PaymentStatus }) => {
   return (
     <span
-      className={`${
+      className={`px-2 lg:px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase ${
         status === "PENDING"
-          ? "text-[#FFC107]"
+          ? "text-[#FFC107] bg-[#ffc10728]"
           : status === "ACCEPTED"
-          ? "text-emerald-700"
-          : "text-destructive"
+          ? "bg-blue-600 bg-blue-600/15"
+          : "text-red-600 bg-red-600/15"
       }`}
     >
       {status}

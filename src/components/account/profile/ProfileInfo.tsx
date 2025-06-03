@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import ProfileInfoItem from "./ProfileInfoItem";
 import { FaLock, FaPencilAlt } from "react-icons/fa";
@@ -20,44 +20,42 @@ const ProfileInfoItemLg = ({
 }: ProfileInfoItemProps) => {
   return (
     <div className="px-3 py-2 flex items-center justify-between profile-info-item">
-      <span className="text-sm text-secondary-foreground">{label}</span>
+      <span className="text-sm text-[#212121]">{label}</span>
       <div className="flex items-center gap-2">
-        <span className="text-sm font-semibold text-secondary-foreground">
-          {value}
-        </span>
+        <span className="text-sm font-semibold text-[#212121]">{value}</span>
 
         {editable && (
           <ProfileMenuContextWapper type={type!}>
             <button disabled={!editable} className="p-1">
-              <FaPencilAlt className="w-3 h-3 text-accent" />
+              <FaPencilAlt className="w-3 h-3 text-[#212121]" />
             </button>
           </ProfileMenuContextWapper>
         )}
 
-        {!editable && <FaLock className="w-3 h-3 text-accent" />}
+        {!editable && <FaLock className="w-3 h-3 text-[#212121]" />}
       </div>
     </div>
   );
 };
 
-const ProfileInfo =  () => {
-  const user = useCurrentUser()
+const ProfileInfo = () => {
+  const user = useCurrentUser();
 
   return (
     <div className="px-0 md:px-3">
       <div className="hidden md:block bg-white px-4  py-2 my-5">
         <div className="py-3">
-          <h4 className="text-secondary-foreground font-3xl font-semibold uppercase">
+          <h4 className="text-[#212121] font-3xl font-semibold uppercase">
             Personal profile
           </h4>
-          <span className="text-sm font-semibold text-secondary-foreground">
+          <span className="text-sm font-semibold text-[#212121a9]">
             Fill in the empty fields to take advantage of the enhanced features
             of the website!
           </span>
         </div>
         <div className="flex gap-3">
           <div className="flex-1 profile-info">
-            <div className="bg-[#4682B4] px-3 py-2">
+            <div className="bg-[#555555] px-3 py-2">
               <span className="text-sm text-white font-semibold uppercase">
                 Account info
               </span>
@@ -90,9 +88,15 @@ const ProfileInfo =  () => {
               value={countryNameFinder(user!.wallet!.currencyCode)!}
               editable={false}
             />
+
+            <ProfileInfoItemLg
+              label="Currency"
+              value={user!.wallet!.currencyCode}
+              editable={false}
+            />
           </div>
           <div className="flex-1 profile-info">
-            <div className="bg-[#4682B4] px-3 py-2">
+            <div className="bg-[#555555] px-3 py-2">
               <span className="text-sm text-white font-semibold uppercase">
                 Contact details
               </span>
@@ -113,13 +117,13 @@ const ProfileInfo =  () => {
         </div>
       </div>
 
-      <div className="block md:hidden pt-2 pb-5 bg-[#213f61]">
+      <div className="block md:hidden pt-2 pb-5 bg-[#fff]">
         <ul className="flex flex-col gap-3">
           <ProfileInfoItem label="Account Number" value="505046728" />
           <ProfileInfoItem label="Password" value="*******" />
           <ProfileInfoItem label="Registration date" value="16/05/2024" />
           <ProfileInfoItem label="Phone" value="01735156550" />
-          <ProfileInfoItem label="email" value="epti060@gmail.com" />
+          <ProfileInfoItem label="Email" value="epti060@gmail.com" />
           <ProfileInfoItem label="First Name" value="San Bin" />
           <ProfileInfoItem label="Surname Name" value="San Bin" />
           <ProfileInfoItem label="Country" value="Bangladesh" />

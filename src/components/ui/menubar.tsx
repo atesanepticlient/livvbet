@@ -55,7 +55,7 @@ const MenubarTrigger = React.forwardRef<
   <MenubarPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex cursor-default select-none text-accent hover:text-accent/70 uppercase  items-center rounded-sm px-3 py-1 text-sm font-medium outline-none   data-[state=open]:text-[#66C4FF] data-[state=open]:menu-bar-trigger",
+      "flex cursor-default select-none text-black/70 hover:text-black uppercase  items-center rounded-sm px-3 py-1 text-sm font-medium outline-none   data-[state=open]:text-[black] data-[state=open]:menu-bar-trigger",
       className
     )}
     {...props}
@@ -114,7 +114,7 @@ const MenubarContent = React.forwardRef<
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          "z-[5000] min-w-[12rem] overflow-hidden rounded-md border-t-2 border-t-[#66C4FF] bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+          "z-[5000] min-w-[12rem] overflow-hidden rounded-md border-t-2 border-t-[#ffc614] bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
           className
         )}
         {...props}
@@ -133,7 +133,7 @@ const MenubarItem = React.forwardRef<
   <MenubarPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-default text-accent select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:text-black data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default text-black/50  select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:text-[#e9b23d] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className
     )}

@@ -9,8 +9,8 @@ import bcrypt from "bcryptjs";
 import { playerIdGenerate } from "@/lib/helpers";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { SIGNUP_SUCCESS } from "@/success";
-import { createAccount } from "@/provider/createAccount";
-import { createSportBookAccount } from "@/provider/createSportbook";
+// import { createAccount } from "@/provider/createAccount";
+// import { createSportBookAccount } from "@/provider/createSportbook";
 
 export const register = async (data: zod.infer<typeof registerSchema>) => {
   const exitingUser = await findUserByEmail(data.email);
@@ -25,28 +25,7 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
     const hasedPassword = bcrypt.hashSync(password, 10);
     const playerId = await playerIdGenerate();
 
-    const admin = await db.admin.findFirst({
-      where: {},
-      select: { id: true, promo: true },
-    });
-    const agentWithPromo = await db.agent.findFirst({
-      where: { promo: promo || "" },
-      select: { id: true },
-    });
-
-    let refererType = "ad_ctrl";
-    let refererId = admin!.id;
-
-    if (promo && !agentWithPromo && promo !== admin?.promo) {
-      return { error: "Promo code is not valid" };
-    }
-
-    if (agentWithPromo && agentWithPromo.id) {
-      refererType = "ag_ctr";
-      refererId = agentWithPromo.id;
-    }
-
-    const newUsers = await db.users.create({
+    const newUser = await db.users.create({
       data: {
         email,
         phone,
@@ -55,8 +34,9 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
         password: hasedPassword,
         casinoPassword: password,
         playerId: playerId!,
-        refererId,
-        refererType,
+        referral: {
+          create: {},
+        },
         wallet: {
           create: {
             balance: 0,
@@ -67,28 +47,57 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
       include: { wallet: true },
     });
 
-   const casinoAccount = await createAccount({
-      consumerId: +process.env.B2B_CONSUMER_ID!,
-      userName: newUsers.playerId,
-      password: newUsers.casinoPassword,
-      currencyCode: newUsers.wallet!.currencyCode,
-      firstName: newUsers.firstName,
-      lastName: newUsers.lastName,
+    const promoUser = await db.users.findFirst({
+      where: { referId: promo },
+      include: { referral: true },
     });
 
-    const sportsBookRes = await createSportBookAccount({
-      agent: process.env.SPORTBOOK_AGENT_NAME!,
-      secret: process.env.SPORTBOOK_CONSUMER_SECERT!,
-      userName: newUsers!.playerId,
-    });
+    if (promoUser) {
+      await db.$transaction([
+        db.referral.update({
+          where: { userId: promoUser.id },
+          data: {
+            referredUsers: {
+              connect: {
+                id: newUser.id,
+              },
+            },
+          },
+        }),
+        db.users.update({
+          where: { id: newUser.id },
+          data: {
+            referral: {
+              connect: { id: promoUser!.referral!.id },
+            },
+          },
+        }),
+      ]);
+    }
 
-    console.log({ sportsBookRes });
-    console.log({ casinoAccount });
+    // const casinoAccount = await createAccount({
+    //   consumerId: +process.env.B2B_CONSUMER_ID!,
+    //   userName: newUser.playerId,
+    //   password: newUser.casinoPassword,
+    //   currencyCode: newUser.wallet!.currencyCode,
+    //   firstName: newUser.firstName,
+    //   lastName: newUser.lastName,
+    // });
+
+    // const sportsBookRes = await createSportBookAccount({
+    //   agent: process.env.SPORTBOOK_AGENT_NAME!,
+    //   secret: process.env.SPORTBOOK_CONSUMER_SECERT!,
+    //   userName: newUser!.playerId,
+    // });
+
+    // console.log({ sportsBookRes });
+    // console.log({ casinoAccount });
 
     return {
       success: SIGNUP_SUCCESS,
     };
-  } catch {
+  } catch (error) {
+    console.log("Signup error ", error);
     return { error: INTERNAL_SERVER_ERROR };
   }
 };

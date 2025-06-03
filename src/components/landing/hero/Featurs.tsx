@@ -1,161 +1,71 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-import depositSm from "@/../public/assets/images/features/deposit-sm.png";
-import freeBetSm from "@/../public/assets/images/features/free-bet.webp";
-import signupSm from "@/../public/assets/images/features/signup-sm.jpg";
-
-const data = {
-  desktop: [
-    {
-      image: "/assets/images/features/signup.png",
-      title: "100% bonus Signup Bonus",
-      description:
-        "Register with 1xBet and get a guaranteed 100% bonus on your 1st deposit!",
-      actionLabel: "Register",
-      action: "#",
-    },
-    {
-      image: "/assets/images/features/deposit.jpg",
-      title: "100% bonus on 1st deposit",
-      description: "Get 10% cashback on the deposit amount as a promo code",
-      actionLabel: "Make a deposit",
-      action: "#",
-    },
-  ],
-  phone: [
-    {
-      image: depositSm,
-      title: "FIRST DEPOSIT BONUS",
-      action: "#",
-    },
-    {
-      image: freeBetSm,
-      title: "Weekly Free Bets",
-      action: "#",
-    },
-    {
-      image: signupSm,
-      title: "100% Signup Bonus",
-
-      action: "#",
-    },
-    {
-      image: depositSm,
-      title: "FIRST DEPOSIT BONUS",
-      action: "#",
-    },
-  ],
-};
+import { Navigation, Pagination, Mousewheel, Keyboard } from "swiper/modules";
+import PrimaryButton from "@/components/buttons/primary-button";
 
 const Featurs = () => {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [count, setCount] = React.useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const carouselRef = React.useRef<any>(null);
-  React.useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
-
   return (
     <>
-      <Carousel
-        setApi={setApi}
-        className="!w-full relative  "
-        ref={carouselRef}
+      <Swiper
+        cssMode={true}
+        navigation={true}
+        pagination={true}
+        mousewheel={true}
+        keyboard={true}
+        spaceBetween={10}
+        slidesPerView={"auto"}
+        modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+        className="mySwiper"
       >
-        <CarouselContent className=" h-full  ">
-          {data.desktop.map((f, i) => (
-            <CarouselItem key={i}>
-              <div className={cn(`w-full  `)}>
-                <div className="relative ">
-                  <img
-                    src={f.image}
-                    alt={f.title}
-                    className="w-full aspect-[10/4] object-cover select-none"
-                  />
-                  <div className="absolute top-0 left-0 w-full flex h-full flex-col justify-center items-start p-3 md:p-4">
-                    <h3 className="text-white uppercase text-xs md:text-lg lg:text-3xl font-bold max-w-[250px] md:max-w-[430px]">
-                      {f.title}
-                    </h3>
-                    <span className="text-[10px] mt-2 md:text-sm text-white my-3 block max-w-[250px] md:max-w-[320px] lg-max-w-[400px]">
-                      {f.description}
-                    </span>
+        <SwiperSlide>
+          <div className="w-full slider-1 md:rounded-3xl overflow-hidden">
+            <div className="shadow-left w-full h-full flex flex-col justify-center pl-20 md:pl-24">
+              <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-bold uppercase">
+                Your 100% welcome bonus
+              </h2>
+              <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-bold uppercase">
+                up to 1200bdt
+              </h2>
+              <p className="text-white text-sm uppercase my-4">
+                and emotions to the game
+              </p>
+              <PrimaryButton className="w-max">FIND OUT MORE</PrimaryButton>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="w-full slider-2 md:rounded-3xl overflow-hidden">
+            <div className="shadow-left w-full h-full flex flex-col justify-center pl-20 md:pl-24">
+              <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-bold uppercase">
+                Grand slam - grand win
+              </h2>
 
-                    <Button
-                      size={"sm"}
-                      className="mt-6 text-[10px] py-1 !h-[15px] !px-2 text-white bg-brand-foreground hover:bg-brand-foreground/90 rounded-sm"
-                    >
-                      <Link href={f.action}>{f.actionLabel}</Link>
-                    </Button>
-                  </div>
-                </div>
+              <p className="text-white text-sm  my-4">Game set, Free</p>
+              <PrimaryButton className="w-max">TAKE A PART</PrimaryButton>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="w-full slider-3 md:rounded-3xl overflow-hidden">
+            <div className="w-full slider-2  overflow-hidden">
+              <div className="shadow-left w-full h-full flex flex-col justify-center pl-20 md:pl-24">
+                <h2 className="text-white text-xl md:text-2xl lg:text-3xl font-bold uppercase">
+                  Grand slam - grand win
+                </h2>
+
+                <p className="text-white text-sm  my-4">Game set, Free</p>
+                <PrimaryButton className="w-max">TAKE A PART</PrimaryButton>
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-
-        <div className="absolute hidden md:flex z-10 bottom-3 left-1/2 -translate-x-1/2 w-[70%]  gap-2">
-          {data.desktop.map((_, i) => (
-            <div
-              className={cn(
-                `flex-1 max-w-10 h-1  ${
-                  current == i + 1 ? "bg-brand-foreground" : "bg-white"
-                }`
-              )}
-              key={i}
-            ></div>
-          ))}
-        </div>
-      </Carousel>
-
-      {/* <Carousel className="block md:hidden">
-        <CarouselContent className="flex md:hidden  carousel-content items-stretch">
-          {data.phone.map((f, i) => (
-            <CarouselItem
-              key={i}
-              className="basis-1/3 min-h-[155px] carousel-item"
-            >
-              <div className="p-2 w-full rounded-md shadow-md bg-white h-full  ">
-                <Image
-                  placeholder="blur"
-                  src={f.image}
-                  alt={f.title}
-                  className="w-full max-h-[90px] aspect-square object-cover rounded-sm"
-                  unoptimized
-                />
-                <div className="py-3">
-                  <span className="text-xs text-accent text-center block leading-3">
-                    {f.title}
-                  </span>
-                </div>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel> */}
+            </div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
     </>
   );
 };

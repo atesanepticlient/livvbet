@@ -1,11 +1,11 @@
 import React from "react";
 import Featurs from "./Featurs";
-import LoginForm from "@/components/auth/LoginForm";
+// import LoginForm from "@/components/auth/LoginForm";
 
 const Hero = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-4  py-0 md:py-6">
-      <div className="w-full bg-white  hidden lg:block ">
+    <div className="grid grid-cols-1 gap-4  py-0 md:py-6">
+      {/* <div className="w-full bg-white  hidden lg:block ">
         <div className="sticky top-0 z-20 w-full h-7 bg-brand-foreground text-center">
           <span className="text-xs md:text-sm uppercase text-white">
             100% bonus on the 1st deposit
@@ -30,9 +30,9 @@ const Hero = () => {
             <LoginForm />
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="w-full ">
+      <div className="w-full mb-8 md:mb-10">
         <Featurs />
       </div>
     </div>

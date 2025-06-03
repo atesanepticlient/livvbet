@@ -11,8 +11,8 @@ const PaymentDialog = ({
 }: {
   children: React.ReactNode;
   wallet:
-    | Prisma.AdEWalletGetPayload<{ include: { eWallet: true } }>
-    | Prisma.AgEWalletGetPayload<{ include: { eWallet: true } }>;
+    | Prisma.DepositEWalletGetPayload<object>
+    | Prisma.DepositEWalletGetPayload<object>;
 }) => {
   const [isDialogShow, setDialogShow] = useState(false);
   return (
@@ -34,7 +34,7 @@ const PaymentDialog = ({
       >
         <div
           className={cn(
-            "absolute top-0 left-0 w-full h-full bg-primary/25 transition-all slider-animation"
+            "absolute top-0 left-0 w-full h-full bg-[#141B1F]/25 transition-all slider-animation"
           )}
         ></div>
         <DialogContent onCloseClick={() => setDialogShow(false)}>
@@ -60,9 +60,9 @@ const DialogContent = ({
   onCloseClick: () => void;
 }) => {
   return (
-    <div className=" relative mx-auto mt-24 md:mt-20 w-[95%] md:w-[350px]">
+    <div className=" fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto mt-24 md:mt-20 w-[95%] md:w-[350px]">
       <div onClick={() => onCloseClick()} className="cursor-pointer">
-        <IoMdClose className="w-4 h-4 text-black absolute -right-2 top-2" />
+        <IoMdClose className="w-4 h-4 text-black absolute -right-8 top-4" />
       </div>
       {children}
     </div>

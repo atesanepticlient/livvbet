@@ -72,7 +72,10 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
   return (
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
-      <SheetContent className="!bg-[#1e3b5ad9] w-[50%] !border-none" side={"right"}>
+      <SheetContent
+        className="!bg-[#ffd500b0] w-[50%] !border-none"
+        side={"right"}
+      >
         <SheetHeader>
           <SheetTitle></SheetTitle>
         </SheetHeader>

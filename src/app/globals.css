@@ -71,7 +71,7 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 0 0% 100%;
 
     --foreground: 0 0% 98%;
 
@@ -83,7 +83,7 @@
 
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 0% 98%;
+    --primary: 45, 100%, 54%;
 
     --primary-foreground: 0 0% 9%;
 
@@ -248,7 +248,6 @@
 } */
 
 .wallet-bg {
-  
   background: linear-gradient(#000000a9, #000000a9),
     url("../../public/assets/images/wallet-bg.jpg") no-repeat;
   background-position: center;
@@ -536,4 +535,118 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.game-main .play {
+  @apply bg-transparent;
+}
+.game-main:hover .play {
+  @apply bg-black/75;
+}
+.game-main .play .button {
+  @apply translate-y-5 opacity-0;
+}
+.game-main:hover .play {
+  @apply flex;
+}
+
+.game-main:hover .play .button {
+  @apply visible translate-y-0 opacity-100 transition-all;
+}
+/* play button */
+svg#play {
+  width: 200px;
+  margin: 120px auto;
+  display: block;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+}
+
+svg#play #triangle {
+  fill: rgba(255, 251, 6, 0);
+  transition: 500ms;
+  transform-origin: 50% 50%;
+}
+
+svg#play:hover #triangle {
+  fill: #fccd20;
+  transform-origin: 50% 50%;
+}
+
+svg#play #lineOne,
+svg#play #lineTwo {
+  transform-origin: 50% 50%;
+  transition: 1s;
+}
+
+svg#play:hover #lineOne {
+  transform: rotate(260deg);
+  -webkit-transform: rotate(260deg);
+  -moz-transform: rotate(260deg);
+  -o-transform: rotate(260deg);
+  transform-origin: 50% 50%;
+}
+
+svg#play:hover #lineTwo {
+  transform: rotate(-450deg);
+  transform-origin: 50% 50%;
+}
+
+/* slider bg */
+.slider {
+  background-position: center;
+  background-size: top;
+  background-repeat: no-repeat;
+  @apply h-[250px] md:h-[260px] lg:h-[280px];
+}
+.slider-1 {
+  background-image: url("../../public/assets/images/features/2151702096-min.jpg");
+  background-position: center;
+  background-size: top;
+  background-repeat: no-repeat;
+  @apply h-[200px] md:h-[260px] lg:h-[280px];
+}
+/* linear-gradient(90deg #000000b4, #0000)  */
+.slider-2 {
+  background: url("../../public/assets/images/features/2151827486-min.jpg")
+    no-repeat;
+  background-position: center;
+  background-size: cover;
+  @apply h-[200px] md:h-[260px] lg:h-[280px];
+}
+.slider-3 {
+  background: url("../../public/assets/images/features/american-football-players-wearing-equipment-min.jpg")
+    no-repeat;
+  background-position: center;
+  background-size: cover;
+  @apply h-[200px] md:h-[260px] lg:h-[280px];
+}
+
+/* update swiper js styles */
+.swiper-pagination-bullet {
+  @apply !rounded-sm !bg-[#9C9B9B];
+}
+.swiper-pagination-bullet-active {
+  @apply !bg-white !rounded-full !w-[15px] md:!w-[25px];
+}
+.swiper-button-next::after {
+  @apply !text-white/50 !scale-50 md:!scale-100 !bg-[#1A1A1A] hover:!bg-[#434343] hover:!text-white !p-2 !rounded-s-sm;
+}
+
+.swiper-button-prev::after {
+  @apply !text-white/50 !bg-[#1A1A1A] !scale-50 md:!scale-100 hover:!bg-[#434343] hover:!text-white !p-2 !rounded-e-sm;
+}
+
+.casino .swiper-button-next::after {
+  @apply !bg-white/80 hover:!bg-white/95 !px-6 !rounded-s-full !text-black/80;
+}
+.casino .swiper-button-prev::after {
+  @apply !bg-white/80 hover:!bg-white/95 !px-6 !rounded-e-full !text-black/80;
+}
+.shadow-left {
+  background: linear-gradient(90deg, #000000 20%, #0000);
+}
+
+.left-menu-bar .dialog-close {
+  @apply !hidden !opacity-0;
 }

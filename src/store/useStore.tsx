@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { PaymentMethods } from "@/types/api";
+import { DepostisMethods, WithdrawMethods } from "@/types/api";
 
 export const useUpdatePageNavigation = create<{
   page: string;
@@ -10,15 +10,19 @@ export const useUpdatePageNavigation = create<{
 }));
 
 export const usePaymentMethods = create<{
-  allMethods: PaymentMethods[];
-  methods: PaymentMethods[];
+  type?: "withdraw" | "deposit";
+  allMethods: WithdrawMethods[] | DepostisMethods[];
+  methods: WithdrawMethods[] | DepostisMethods[];
   currentMethod: string;
-  setAllMethods: (methods: PaymentMethods[]) => void;
+  setAllMethods: (methods: WithdrawMethods[] | DepostisMethods[]) => void;
   setMethod: (methodName: string) => void;
+  setType: (type: "withdraw" | "deposit") => void;
 }>((set) => ({
+  type: undefined,
   allMethods: [],
   methods: [],
   currentMethod: "",
+  setType: (type) => set((state) => ({ ...state, type })),
   setAllMethods: (methods) =>
     set((state) => ({
       ...state,

@@ -47,7 +47,7 @@ const InputCommand = ({
           disabled={disabled}
           role="combobox"
           aria-expanded={open}
-          className="w-full bg-transparent justify-between border !border-border text-accent capitalize font-medium  hover:bg-transparent"
+          className="w-full bg-transparent justify-between border !border-border text-[#3b3b3b] capitalize font-medium  hover:bg-transparent"
         >
           {value ? (
             <>

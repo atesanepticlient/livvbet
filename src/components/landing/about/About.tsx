@@ -8,7 +8,7 @@ const About = () => {
     <div className="my-2 md:my-3">
       <div
         onClick={() => setCollapse(!isCollapse)}
-        className="w-full bg-primary-foreground px-2 md:px-4 py-2 flex items-center justify-between cursor-pointer"
+        className="w-full bg-[#1A1A1A] px-2 md:px-4 py-2 flex items-center justify-between cursor-pointer"
       >
         <span className="text-sm md:text-base text-white">
           More about gambling
@@ -30,12 +30,12 @@ const About = () => {
       >
         <div className="p-4 md:p-6">
           <h4 className="text-white text-lg md:text-2xl font-semibold">
-            1xBet Betting Company – Online Sports Betting
+            Livvbet Betting Company – Online Sports Betting
           </h4>
 
           <div className="my-3 md:my-4">
             <h5 className="text-white text-sm md:text-lg uppercase font-semibold mb-2 md:mb-3">
-              🥇1XBET BETTING COMPANY — WHAT WOULD YOU LIKE TO KNOW?
+              Livvbet — WHAT WOULD YOU LIKE TO KNOW?
             </h5>
             <p className="text-xs md:text-sm text-white">
               1xBet was founded in 2007 and in recent years has become one of

@@ -29,8 +29,7 @@ model Users {
   role                UserRole @default(USER)
   password            String
   casinoPassword      String
-  refererType         String
-  refererId           String
+  referId             String?
   isBanned            Boolean @default(false)
   isNewUser           Boolean @default(true)
   createdAt           DateTime @default(now())
@@ -39,9 +38,21 @@ model Users {
   deposits            Deposit[]
   withdraws           Withdraw[]
   histories           PaymentHistory[]
-  messages            Message[]
+  messages            Message[] @relation(name: "messages")
+  referral            Referral ?
+  referredBy          Referral ? @relation("ReferredUsers", fields: [referredById], references: [id])
+  referredById        String?
   @@unique([email,playerId])
 }
+
+model Referral  {
+  id                  String @id @default(cuid())
+  userId              String @unique
+  user                Users     @relation(fields: [userId], references: [id])
+
+  referredUsers       Users[] @relation("ReferredUsers")
+}
+
 model wallet {
   id                  String @id @default(cuid())
   balance             Decimal 
@@ -93,9 +104,6 @@ model adminEmailVerificationToken {
 
 }
 
-
-
-
 model eWallet{
   id                  String @id @default(cuid())
   walletName          String
@@ -133,31 +141,62 @@ enum PaymentStatus {
   ACCEPTED
   REJECTED
 }
+enum TrxType {
+  SENDMONEY
+  CASHOUT
+  PAYMENT
+}
+model DepositEWallet {
+  id                  String @id @default(cuid())
+  walletName          String
+  walletImage         String
+  walletNumber        String
+  minDeposit          Decimal
+  maxDeposit          Decimal
+  rules               String?
+  isRecommended       Boolean @default(true)
+  isActive            Boolean @default(true)
+  trxType             TrxType @default(SENDMONEY)
+  deposits            Deposit[]
 
+}
+
+model WithdrawEWallet {
+  id                  String @id @default(cuid())
+  walletName          String
+  walletImage         String
+  isRecommended       Boolean @default(true)
+  isActive            Boolean @default(true)
+  rules               String?
+  
+  withdraws           Withdraw[]
+}
 model Deposit{
   id                  String @id @default(cuid())
-  payTo               String
   payFrom             String
   amount              Int
   transactionId       String
-  methodName          String
   status              PaymentStatus @default(PENDING)
   userId              String
   user                Users @relation(fields: [userId], references: [id])
   transactions        PaymentHistory?
   createdAt           DateTime @default(now())
+  ewalletId           String
+  ewallet             DepositEWallet @relation(fields: [ewalletId], references: [id], onDelete: Cascade)
 }
 
 model Withdraw{
   id                  String @id @default(cuid())
-  payTo               String
+  paymentWalletNumber               String
   amount              Int
-  methodName          String
   status              PaymentStatus @default(PENDING)
   userId              String
   user                Users @relation(fields: [userId], references: [id])
   createdAt           DateTime @default(now())
   transactions        PaymentHistory?
+
+  withdrawEWalletID   String?
+  withdrawEWallet     WithdrawEWallet? @relation(fields: [withdrawEWalletID], references: [id])
 }
 
 enum PaymentHistoryStatus {
@@ -193,7 +232,7 @@ model Message {
   seen                Boolean @default(false)
   createdAt           DateTime @default(now())
   userId              String
-  user                Users @relation(fields: [userId], references: [id])
+  user                Users @relation(name: "messages", fields: [userId], references: [id])
 }
 
 
@@ -202,4 +241,8 @@ model Contact {
   telegram            String?
   email               String?
   facebook            String?
+  instagram           String?
+  twitter             String?
+  youtube             String?
 }
+

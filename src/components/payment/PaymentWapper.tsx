@@ -3,6 +3,7 @@ import { useFetchPaymentDataQuery } from "@/lib/features/paymentApiSlice";
 
 import { usePaymentMethods } from "@/store/useStore";
 import React, { useEffect } from "react";
+import { ScaleLoader } from "react-spinners";
 
 const PaymentWapper = ({
   type,
@@ -11,19 +12,39 @@ const PaymentWapper = ({
   type: "withdraw" | "deposit";
   children: React.ReactNode;
 }) => {
-  const { data } = useFetchPaymentDataQuery({ type });
+  const { data, isLoading } = useFetchPaymentDataQuery({ type });
   const paymentData = data?.payload;
-  
-  const { setAllMethods } = usePaymentMethods((state) => state);
+  const deposits = paymentData?.deposit;
+  const withdraws = paymentData?.withdraw;
+
+  const { setAllMethods, setType } = usePaymentMethods((state) => state);
   useEffect(() => {
-    if (paymentData && Array.isArray(paymentData)) {
-      setAllMethods(paymentData);
+    if (
+      deposits &&
+      withdraws &&
+      Array.isArray(deposits) &&
+      Array.isArray(withdraws)
+    ) {
+      if (type == "withdraw") {
+        setAllMethods(withdraws!);
+        setType("withdraw");
+      } else if (type == "deposit") {
+        setType("deposit");
+        setAllMethods(deposits!);
+      }
     }
-  }, [setAllMethods, paymentData]);
+  }, [setAllMethods, paymentData, type]);
 
- 
-
-  return <div>{children}</div>;
+  return (
+    <div className="min-h-[50vh]">
+      {isLoading && (
+        <div className="w-full h-[50vh] flex items-center justify-center">
+          <ScaleLoader color="#212121" />
+        </div>
+      )}
+      {!isLoading && data && <>{children}</>}
+    </div>
+  );
 };
 
 export default PaymentWapper;

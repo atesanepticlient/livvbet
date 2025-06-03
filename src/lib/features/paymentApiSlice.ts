@@ -5,6 +5,7 @@ import {
   TransactionsOutput,
 } from "@/types/api";
 import { apiSlice } from "./apiSlice";
+import { Prisma } from "@prisma/client";
 
 const paymentApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -42,6 +43,16 @@ const paymentApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    fetchWallet: builder.query<
+      { wallet: Prisma.walletGetPayload<object> },
+      void
+    >({
+      query: () => ({
+        url: "/api/payment/wallet",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -50,4 +61,5 @@ export const {
   useMakeDepositMutation,
   useMakeWithdrawMutation,
   useFetchTransactionsQuery,
+  useFetchWalletQuery,
 } = paymentApiSlice;

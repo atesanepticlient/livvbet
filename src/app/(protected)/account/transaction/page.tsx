@@ -4,11 +4,11 @@ import React from "react";
 
 const TransactionPage = () => {
   return (
-    <div className="md:px-4 md:py-5 h-screen bg-white">
+    <div className="md:px-4 md:py-5 h-screen ">
       <main>
         <PageHeader label="Your Transactions" />
-        <div className="p-1">
-            <TransactionList/>
+        <div className="p-0 md:p-1">
+          <TransactionList />
         </div>
       </main>
     </div>

@@ -1,15 +1,38 @@
 import { CasinoGamesOutput } from "@/types/api";
 import { apiSlice } from "./apiSlice";
+import { GameContent, GamesList } from "@/types/game";
 
 const gamesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    fetchGamesList: builder.query<CasinoGamesOutput, void>({
+    fetchGamesListb2b: builder.query<CasinoGamesOutput, void>({
       query: () => ({
         method: "GET",
         url: "/api/GetCasinoGamesList",
       }),
     }),
+
+    fetchGamesList: builder.query<
+      { success: boolean; gamesList: GamesList },
+      void
+    >({
+      query: () => ({
+        url: "api/asiaapi",
+        method: "GET",
+      }),
+    }),
+
+    openGame: builder.mutation<GameContent, { gameId: string; demo: string }>({
+      query: (body) => ({
+        url: `api/open-game`,
+        method: "POST",
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useFetchGamesListQuery } = gamesApiSlice;
+export const {
+  useFetchGamesListQuery,
+  useFetchGamesListb2bQuery,
+  useOpenGameMutation,
+} = gamesApiSlice;

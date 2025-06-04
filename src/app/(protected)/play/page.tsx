@@ -24,12 +24,13 @@ const Play = () => {
           if (iframeMode == "0") {
             location.href = url;
           } else {
+            console.log("url ", url);
             setIframe(url);
           }
         }
       })
       .catch((error) => {
-        console.log("Opend game error ", error)
+        console.log("Opend game error ", error);
         setError(true);
       });
   }, [gameId]);
@@ -37,7 +38,7 @@ const Play = () => {
   return (
     <div>
       {isLoading && <GameOpeningLoader />}
-      {isLoading && !error && iframe && (
+      {!isLoading && !error && iframe && (
         <div className="w-full h-screen ">
           <iframe
             src={iframe}

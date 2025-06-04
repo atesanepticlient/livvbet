@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { findCurrentUser } from "@/data/user";
 import { INTERNAL_SERVER_ERROR } from "@/error";
+import { db } from "@/lib/db";
 import axios from "axios";
 import { NextRequest } from "next/server";
 
@@ -11,6 +12,15 @@ export const POST = async (req: NextRequest) => {
     if (!user)
       return Response.json({ error: "Refresh the page" }, { status: 401 });
 
+    const playerId = (
+      await db.users.findUnique({
+        where: { email: user?.email },
+        select: {
+          playerId: true,
+        },
+      })
+    )?.playerId;
+
     const { gameId, demo } = await req.json();
 
     if (!gameId) {
@@ -20,7 +30,7 @@ export const POST = async (req: NextRequest) => {
     const data = JSON.stringify({
       hall: process.env.HALL_ID,
       key: process.env.HALL_KEY,
-      login: user.playerId,
+      login: playerId,
       gameId: gameId,
       cmd: "openGame",
       demo: "0",
@@ -33,7 +43,7 @@ export const POST = async (req: NextRequest) => {
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://asiaapi.net/API/openGame/",
+      url: `${process.env.HALL_HOST}/openGame/`,
       headers: {
         Cookie: "PHPSESSID=tc6on5bce3tcgpiu8c9o8mqtb9",
         "Content-Type": "application/json",
@@ -41,13 +51,14 @@ export const POST = async (req: NextRequest) => {
       data: data,
     };
     const response = await axios.request(config);
-    console.log("data", response.data)
+    console.log("data", response.data);
     if (response.data.status == "fail") {
       return Response.json({ error: "Try Again" }, { status: 500 });
     }
 
     const content = response.data.content;
     console.log("Content from route ", content);
+
     return Response.json({ content: content }, { status: 200 });
   } catch (error) {
     console.log("OPEN GAME ERROR ", error);

@@ -6,11 +6,12 @@ import { useEffect } from "react";
 
 const GamesLoader = () => {
   const { data: data, isLoading } = useFetchGamesListQuery();
-  console.log("game form game loader ", data);
+  
   const { setLoading, setGames } = useGames((state) => state);
 
   useEffect(() => {
     if (data && !isLoading) {
+      console.log("game form game loader ", data);
       setLoading(false);
       setGames(data.gamesList);
     }

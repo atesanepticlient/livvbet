@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "./nav";
 import Header from "@/components/landing/headers/Header";
+import Footer from "@/components/landing/footer/Footer";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
@@ -11,6 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

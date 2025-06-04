@@ -7,11 +7,11 @@ export const registerSchema = zod
     firstName: zod
       .string()
       .min(2, "First name must be at least 2 characters")
-      .max(10, "First namecannot be more than 6 characters long"),
+      .max(15, "First namecannot be more than 15 characters long"),
     lastName: zod
       .string()
       .min(2, "First name must be at least 2 characters")
-      .max(10, "First namecannot be more than 6 characters long"),
+      .max(15, "First namecannot be more than 15 characters long"),
     password: zod.string().min(6, "Password must be at least 6 characters"),
     promo: zod.optional(zod.string()),
     confirmPassword: zod.string().min(1, "Confirm password is required"),

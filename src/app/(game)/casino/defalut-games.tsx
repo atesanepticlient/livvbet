@@ -52,7 +52,7 @@ const DefalutGames = () => {
       )}
 
       {!popularsChunk && (
-        <div className="flex items-center justify-center w-full h-[220px]">
+        <div className="flex items-center justify-center w-full  h-[220px] mt-7 ">
           <GameCardLoader length={10} />
         </div>
       )}
@@ -82,11 +82,7 @@ const DefalutGames = () => {
           </Swiper>
         </div>
       )}
-      {!slotsChunk && (
-        <div className="flex items-center justify-center w-full h-[220px]">
-          <GameCardLoader length={10} />
-        </div>
-      )}
+     
 
       {slotsChunk && (
         <div>
@@ -113,11 +109,7 @@ const DefalutGames = () => {
           </Swiper>
         </div>
       )}
-      {!slotsChunk && (
-        <div className="flex items-center justify-center w-full h-[220px]">
-          <GameCardLoader length={10} />
-        </div>
-      )}
+     
 
       {slotsChunk && (
         <div>
@@ -144,11 +136,7 @@ const DefalutGames = () => {
           </Swiper>
         </div>
       )}
-      {!slotsChunk && (
-        <div className="flex items-center justify-center w-full h-[220px]">
-          <GameCardLoader length={10} />
-        </div>
-      )}
+      
     </div>
   );
 };

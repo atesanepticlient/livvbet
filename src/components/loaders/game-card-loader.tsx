@@ -5,7 +5,7 @@ const GameCardLoader = ({ length = 10 }: { length: number }) => {
   const array = Array.from({ length });
 
   return (
-    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 w-full">
       {array.map((_, i) => (
         <GameLoader key={i} />
       ))}

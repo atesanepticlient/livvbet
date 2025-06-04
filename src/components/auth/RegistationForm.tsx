@@ -370,7 +370,7 @@ const RegistationForm = () => {
             href="/login"
             className="text-[#FFB805] font-medium hover:underline"
           >
-            Log in
+            Registation
           </Link>
         </p>
       </Form>

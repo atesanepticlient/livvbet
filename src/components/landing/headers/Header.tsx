@@ -149,9 +149,13 @@ const Header = () => {
               </MenubarContent>
             </MenubarMenu>
 
+            <Link className="text-black/75 hover:text-black" href="/live">
+              Live
+            </Link>
+
             <MenubarMenu>
               <MenubarTrigger>
-                Spotrs <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
+                SPORTS <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
@@ -162,41 +166,23 @@ const Header = () => {
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
-
+            {/* 
             <MenubarMenu>
-              <MenubarTrigger>
-                Live <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
-              </MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>
-                  <Link href="/sports/loadin">Bet On Your Nation</Link>
-                </MenubarItem>
-                <MenubarItem>
-                  <Link href="/sports/loadin">Multi-Live</Link>
-                </MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-
+              <MenubarItem><Link href="/live">Live</Link></MenubarItem>
+            </MenubarMenu> */}
             <MenubarMenu>
               <MenubarTrigger>
                 Casino <IoMdArrowDropdown className={cn("w-4 h-4 ")} />
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
-                  <Link href="/sports/casino/Slots">SLOT</Link>
+                  <Link href="/casino/slots">SLOT</Link>
                 </MenubarItem>
                 <MenubarItem>
-                  <Link href="/sports/casino">POCKET</Link>
-                </MenubarItem>
-                <MenubarItem>
-                  <Link href="/sports/casino">Routel Wheel</Link>
-                </MenubarItem>
-                <MenubarItem>
-                  <Link href="/sports/casino">Crash</Link>
+                  <Link href="/sports/popular">POPULAR</Link>
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
-
             <MenubarMenu>
               <MenubarTrigger>
                 Esports <IoMdArrowDropdown className={cn("w-4 h-4 ")} />

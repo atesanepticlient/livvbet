@@ -22,7 +22,7 @@ const Footer = () => {
             To register, users must accept the Terms of Service. If updated,
             users may discontinue services before changes take effect, at least
             two weeks after the announcement. While translations may be
-            available, the English version prevails. 1xbet.com is operated by
+            available, the English version prevails. livvbet.com is operated by
             Caecus N.V., registered in Curaçao (163779) and licensed under
             OGL/2024/1262/0493 as of 07/11/2024. Payments are processed by
             Exidna Enterprises LTD (НЕ435756) and Kassifoni Enterprises LTD

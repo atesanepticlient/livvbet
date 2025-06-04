@@ -69,7 +69,6 @@ model admin {
   twoFAEmail          String
   fullName            String
   password            String
-  promo               String
   createdAt           DateTime @default(now())
   eWallet             AdEWallet[]
 }
@@ -154,8 +153,8 @@ model DepositEWallet {
   minDeposit          Decimal
   maxDeposit          Decimal
   rules               String?
-  isRecommended       Boolean @default(true)
-  isActive            Boolean @default(true)
+  isRecommended       Boolean @default(false)
+  isActive            Boolean @default(false)
   trxType             TrxType @default(SENDMONEY)
   deposits            Deposit[]
 
@@ -174,7 +173,7 @@ model WithdrawEWallet {
 model Deposit{
   id                  String @id @default(cuid())
   payFrom             String
-  amount              Int
+  amount              Decimal
   transactionId       String
   status              PaymentStatus @default(PENDING)
   userId              String
@@ -188,7 +187,7 @@ model Deposit{
 model Withdraw{
   id                  String @id @default(cuid())
   paymentWalletNumber               String
-  amount              Int
+  amount              Decimal
   status              PaymentStatus @default(PENDING)
   userId              String
   user                Users @relation(fields: [userId], references: [id])
@@ -246,3 +245,14 @@ model Contact {
   youtube             String?
 }
 
+model Site {
+  id                  String @id @default(cuid())
+  firstDepositBonus   Decimal? @default(0)      
+  maxAgWithdraw       Decimal? @default(0)  
+  maxWithdraw         Decimal? @default(0)
+  minAgWithdraw       Decimal? @default(0)  
+  minWithdraw         Decimal? @default(0)
+  referBonuse         Decimal? @default(0)
+  signupBonus         Decimal? @default(0)
+  turnover            Decimal? @default(0)
+}

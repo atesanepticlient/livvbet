@@ -14,11 +14,15 @@ import { useOpenGameMutation } from "@/lib/features/gamesApiSlice";
 import logo from "@/../public/assets/svg/livvbet-white-logo.svg";
 
 import PlayButton from "./buttons/play-button";
+import { redirect } from "next/navigation";
+import useCurrentUser from "@/hook/useCurrentUser";
 interface GameCardWithProviderProps {
   game: NetEnt;
   gameType?: "live" | "slot";
 }
 export const GameCard = ({ game, gameType }: GameCardWithProviderProps) => {
+  const user = useCurrentUser();
+
   const [imageLoaded, setImageLoad] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -40,23 +44,26 @@ export const GameCard = ({ game, gameType }: GameCardWithProviderProps) => {
   const providerImag = findProviderImage(title);
 
   const handleOpenGame = (gameId: string) => {
-    openGame({ gameId, demo: "0" })
-      .unwrap()
-      .then((res) => {
-        if (res) {
-          const url = res.content.game.url;
-          const iframeMode = res.content.game.iframe;
-          if (iframeMode == "0") {
-            location.href = url;
-          } else {
-            setIframe(url);
-            setShowModal(true);
-          }
-        }
-      })
-      .catch((error) => {
-        console.log("ERRRO ", error);
-      });
+    // openGame({ gameId, demo: "0" })
+    //   .unwrap()
+    //   .then((res) => {
+    //     if (res) {
+    //       const url = res.content.game.url;
+    //       const iframeMode = res.content.game.iframe;
+    //       if (iframeMode == "0") {
+    //         location.href = url;
+    //       } else {
+    //         setIframe(url);
+    //         setShowModal(true);
+    //       }
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log("ERRRO ", error);
+    //   });
+
+    if (!user) return redirect("/login");
+    redirect(`/play?gameId=${gameId}`);
   };
 
   const closeGame = () => {
@@ -140,7 +147,7 @@ export const GameCard = ({ game, gameType }: GameCardWithProviderProps) => {
   );
 };
 
-const GameLoader = () => {
+export const GameLoader = () => {
   return (
     <div className="w-full h-[120px] bg-[#262B31] flex items-center justify-center">
       <Image

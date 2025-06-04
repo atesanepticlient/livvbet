@@ -1,7 +1,7 @@
 "use client";
 import { GameCard } from "@/components/GameCards";
 import GameSectionHeader from "@/components/GameSectionHeader";
-import GamesLoader from "@/components/loaders/games-loader";
+import GameCardLoader from "@/components/loaders/game-card-loader";
 import { useGames } from "@/lib/store.zustond";
 import { Categories } from "@/types/game";
 import React, { useState } from "react";
@@ -44,7 +44,7 @@ const LiveGames = () => {
 
       {!games && (
         <div className="flex items-center justify-center w-full h-[290px]">
-          <GamesLoader />
+          <GameCardLoader length={10} />
         </div>
       )}
     </div>

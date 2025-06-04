@@ -24,9 +24,9 @@ export const POST = async (req: NextRequest) => {
       gameId: gameId,
       cmd: "openGame",
       demo: "0",
-      domain: "https://www.mbuzz88.com/",
+      domain: "https://www.livvbet.com/",
       cdnUrl: "",
-      exitUrl: "https://www.mbuzz88.com/",
+      exitUrl: "https://www.livvbet.com/",
       language: "en",
     });
 
@@ -41,7 +41,6 @@ export const POST = async (req: NextRequest) => {
       data: data,
     };
     const response = await axios.request(config);
-
     if (response.data.status == "fail") {
       return Response.json({ error: "Try Again" }, { status: 500 });
     }

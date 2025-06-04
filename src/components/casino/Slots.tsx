@@ -8,8 +8,8 @@ import "swiper/css/pagination";
 import { useGames } from "@/lib/store.zustond";
 import { GameCard } from "../GameCards";
 import { Categories } from "../types/game";
-import GamesLoader from "../loaders/games-loader";
 import { redirect } from "next/navigation";
+import GameCardLoader from "../loaders/game-card-loader";
 
 const Slots = () => {
   const { getGames } = useGames((state) => state);
@@ -47,7 +47,7 @@ const Slots = () => {
         </>
       )}
 
-      {!games && <GamesLoader />}
+      {!games && <GameCardLoader length={10} />}
     </div>
   );
 };

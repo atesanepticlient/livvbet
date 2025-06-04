@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { chunkIntoPairs } from "@/lib/helpers";
 import { GameCard } from "@/components/GameCards";
-import GamesLoader from "@/components/loaders/games-loader";
+import GameCardLoader from "@/components/loaders/game-card-loader";
 
 const DefalutGames = () => {
   const { getGames } = useGames((state) => state);
@@ -53,7 +53,7 @@ const DefalutGames = () => {
 
       {!popularsChunk && (
         <div className="flex items-center justify-center w-full h-[220px]">
-          <GamesLoader />
+          <GameCardLoader length={10} />
         </div>
       )}
 
@@ -84,7 +84,7 @@ const DefalutGames = () => {
       )}
       {!slotsChunk && (
         <div className="flex items-center justify-center w-full h-[220px]">
-          <GamesLoader />
+          <GameCardLoader length={10} />
         </div>
       )}
 
@@ -115,7 +115,7 @@ const DefalutGames = () => {
       )}
       {!slotsChunk && (
         <div className="flex items-center justify-center w-full h-[220px]">
-          <GamesLoader />
+          <GameCardLoader length={10} />
         </div>
       )}
 
@@ -146,7 +146,7 @@ const DefalutGames = () => {
       )}
       {!slotsChunk && (
         <div className="flex items-center justify-center w-full h-[220px]">
-          <GamesLoader />
+          <GameCardLoader length={10} />
         </div>
       )}
     </div>

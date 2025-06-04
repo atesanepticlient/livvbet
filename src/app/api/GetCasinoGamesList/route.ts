@@ -6,10 +6,9 @@ export const GET = async () => {
     const games = await fetchGamesList({
       consumerId: +process.env.B2B_CONSUMER_ID!,
     });
-    
+
     return Response.json({ payload: games });
-  } catch (error) {
-    console.log({ error });
+  } catch {
     return Response.json({ message: INTERNAL_SERVER_ERROR }, { status: 500 });
   }
 };

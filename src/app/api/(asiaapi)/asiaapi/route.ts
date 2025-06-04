@@ -2,11 +2,10 @@ import { INTERNAL_SERVER_ERROR } from "@/error";
 import axios from "axios";
 
 export const GET = async () => {
-  console.log("Called")
   try {
     const data = JSON.stringify({
-      hall: "941370",
-      key: "ea847187a6ac1bb273648692c83df371",
+      hall: process.env.HALL_ID,
+      key: process.env.HALL_KEY,
       cmd: "getGamesList",
       cdnUrl: "",
       img: "game_img_2",
@@ -15,7 +14,7 @@ export const GET = async () => {
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://asiaapi.net/API/",
+      url: process.env.HALL_HOST,
       headers: {
         Cookie: "PHPSESSID=tc6on5bce3tcgpiu8c9o8mqtb9",
         "Content-Type": "application/json",

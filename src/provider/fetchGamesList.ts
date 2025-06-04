@@ -9,7 +9,7 @@ export const fetchGamesList = async (data: FetchGamesListInput) => {
       data,
       config
     );
-    console.log("Games ", response.data)
+
     return response.data;
   } catch (error) {
     throw error;

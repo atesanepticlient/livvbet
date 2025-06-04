@@ -41,6 +41,7 @@ export const POST = async (req: NextRequest) => {
       data: data,
     };
     const response = await axios.request(config);
+    console.log("data", response.data)
     if (response.data.status == "fail") {
       return Response.json({ error: "Try Again" }, { status: 500 });
     }

@@ -15,6 +15,7 @@ export const publicRoutes = [
   "/sports",
   "/bet-slip",
   "/api/asiaapi",
+  "/api/game/32328e87f8592ed205bbaa065dbacce4",
   "/casino",
   "/casino/slots",
   "/live",

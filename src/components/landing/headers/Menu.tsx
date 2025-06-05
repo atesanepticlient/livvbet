@@ -3,12 +3,7 @@
 
 import * as React from "react";
 
-import { MdSportsCricket } from "react-icons/md";
-import { IoFootball } from "react-icons/io5";
-import { IoMdBasketball } from "react-icons/io";
-import { MdCasino } from "react-icons/md";
-import { IoIosStar } from "react-icons/io";
-import { Home } from "lucide-react";
+import Slots from "@/components/icons/slots";
 
 import {
   Sheet,
@@ -18,6 +13,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
+import Casino from "@/components/icons/casino";
+import BasketBall from "@/components/icons/basketball";
+import Football from "@/components/icons/football";
+import Cricket from "@/components/icons/cricket";
+import Home from "@/components/icons/home";
+import LiveCasino from "@/components/icons/live-casino";
 
 // This is sample data.
 const data = {
@@ -32,37 +33,37 @@ const data = {
     {
       title: "Cricket",
       url: "/sports/loading",
-      icon: MdSportsCricket,
+      icon: Cricket,
       items: [],
     },
     {
       title: "Football",
-      url: "/sports/loading",
-      icon: IoFootball,
+      url: "/",
+      icon: Football,
       items: [],
     },
     {
       title: "Basketball",
-      url: "/sports/loading",
-      icon: IoMdBasketball,
+      url: "/s",
+      icon: BasketBall,
       items: [],
     },
     {
       title: "Casino",
-      url: "/sports/casino",
-      icon: MdCasino,
+      url: "/casino",
+      icon: Casino,
       items: [],
     },
     {
       title: "live",
-      url: "/sports/casino",
-      icon: IoIosStar,
+      url: "/live",
+      icon: LiveCasino,
       items: [],
     },
     {
-      title: "1xGames",
-      url: "/sports/casino",
-      icon: IoIosStar,
+      title: "Slots",
+      url: "/casino/slots",
+      icon: Slots,
       items: [],
     },
   ],
@@ -73,13 +74,13 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
       <SheetContent
-        className="!bg-[#ffd500b0] w-[50%] !border-none"
+        className="!bg-[#212121] w-[50%] !border-none"
         side={"right"}
       >
         <SheetHeader>
           <SheetTitle></SheetTitle>
         </SheetHeader>
-        <div className="mt-3">
+        <div className="mt-3 space-y-3">
           <NavMain items={data.navMain} />
         </div>
       </SheetContent>
@@ -109,8 +110,12 @@ function NavMain({
           className="flex items-center gap-2 justify-start "
           key={i}
         >
-          {item.icon && <item.icon className="w-6 h-6 text-white" />}
-          <span className="text-white text-sm font-semibold">{item.title}</span>
+          {item.icon && (
+            <>
+              <item.icon />
+            </>
+          )}
+          <span className="text-white text-sm font-medium">{item.title}</span>
         </Link>
       ))}
     </>

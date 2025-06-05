@@ -13,7 +13,7 @@ const AuthButtons = () => {
 
   return (
     <div className="flex items-center gap-2 justify-end ">
-      <PrimaryButton>
+      <PrimaryButton className="w-max">
         <Link href="/register">
           Registration{" "}
           <SquarePen className="w-4 h-4 hidden md:block text-white" />

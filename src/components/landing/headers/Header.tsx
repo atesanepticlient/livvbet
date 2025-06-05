@@ -199,7 +199,7 @@ const Header = () => {
           </Menubar>
         </nav>
 
-        <div className="flex md:hidden items-center gap-2 pr-2 py-2 md:py-3">
+        <div className="flex md:hidden items-center gap-1 pr-2 py-2 md:py-3">
           <div className="">
             <AuthButtons />
           </div>
@@ -215,7 +215,7 @@ const Header = () => {
           )}
 
           <AppSidebar>
-            <BiMenuAltRight className="w-6 h-6 ml-2 !text-white" />
+            <BiMenuAltRight className="w-5 h-5 ml-2 !text-white" />
           </AppSidebar>
         </div>
       </div>

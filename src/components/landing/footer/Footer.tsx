@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
 
@@ -11,7 +11,7 @@ import Sponsors from "../sponsors/Sponsors";
 
 const Footer = () => {
   return (
-    <>
+    <div className="mt-5 md:mt-7 lg:mt-12">
       <Sponsors />
       <div className="bg-[#212121] px-4">
         {/* <Contact /> */}
@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

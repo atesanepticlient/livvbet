@@ -9,7 +9,7 @@ import { useGames } from "@/lib/store.zustond";
 import { GameCard } from "../GameCards";
 import { Categories } from "../types/game";
 import { redirect } from "next/navigation";
-import GameCardLoader from "../loaders/game-card-loader";
+import GamesLoader from "../loaders/games-loader";
 
 const Slots = () => {
   const { getGames } = useGames((state) => state);
@@ -47,7 +47,7 @@ const Slots = () => {
         </>
       )}
 
-      {!games && <GameCardLoader length={10} />}
+      {!games && <GamesLoader />}
     </div>
   );
 };

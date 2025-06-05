@@ -40,7 +40,7 @@ const Slider = ({
             >
               <img
                 src={slider.image}
-                className="w-full aspect-auto select-none"
+                className="w-full min-h-[110px] object-fill aspect-auto select-none"
               />
               {/* <div className="shadow-left w-full h-full flex flex-col justify-center pl-20 md:pl-24"></div> */}
             </a>

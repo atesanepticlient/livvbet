@@ -1,4 +1,4 @@
-"use effect";
+"use client";
 import { GameCard } from "@/components/GameCards";
 import GameSectionHeader from "@/components/GameSectionHeader";
 import GamesLoader from "@/components/loaders/games-loader";
@@ -23,7 +23,7 @@ const FilteredGames = ({
   return (
     <div>
       {" "}
-      <GameSectionHeader seeMore={() => console.log("CLIDED")} title="All" />
+      <GameSectionHeader title="All" />
       {gamesList && (
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
           {gamesList.map((game, i) => (

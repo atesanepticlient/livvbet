@@ -7,17 +7,16 @@ import Slider from "../slider";
 const SlotsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-      <div className="">
+      <div className="min-h-screen ">
         <main className=" ">
           <Slider
             sliders={[
               {
-                image: "./assets/images/features/casino/casino-bonus.jpg",
+                image: "/assets/images/features/casino/casino-bonus.jpg",
                 link: "#",
               },
               {
-                image:
-                  "./assets/images/features/casino/casino-vip-cashback.jpg",
+                image: "/assets/images/features/casino/casino-vip-cashback.jpg",
                 link: "#",
               },
             ]}

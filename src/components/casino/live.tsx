@@ -9,6 +9,7 @@ import { useGames } from "@/lib/store.zustond";
 import { GameCard } from "../GameCards";
 import { Categories } from "../types/game";
 import { redirect } from "next/navigation";
+import GamesLoader from "@/app/GamesLoader";
 
 const Live = () => {
   const { getGames } = useGames((state) => state);
@@ -34,6 +35,8 @@ const Live = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {!games && <GamesLoader />}
     </div>
   );
 };

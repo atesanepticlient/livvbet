@@ -116,7 +116,7 @@ export const GameCard = ({ game, gameType }: GameCardWithProviderProps) => {
 
           {gameType == "live" && (
             <div className="absolute px-2 left-0 bottom-0 right-0 w-full py-2 bg-black/75 ">
-              <span className="text-sm font-normal tracking-wide text-white max-w-[70%] line-clamp-1">
+              <span className="text-xs lg:text-sm font-normal tracking-wide text-white max-w-[70%] line-clamp-1">
                 {game.name}
               </span>
             </div>

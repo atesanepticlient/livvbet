@@ -16,12 +16,12 @@ const navs = [
   },
   {
     label: "Aviator",
-    link: "#",
+    link: `/play?gameId=${8890}`,
     isActive: false,
   },
   {
     label: "Jetx",
-    link: "#",
+    link: `/play?gameId=${8891}`,
     isActive: false,
   },
 ];

@@ -12,12 +12,33 @@ const Cateogries = () => {
   } = useGamesFilter((state) => state);
 
   const handleSetCategory = (category: string) => {
+    const currentUrl = window.location.pathname;
+    const base = "/casino";
+
+    let newUrl;
     if (category == "all") {
+      if (currentUrl.startsWith(base)) {
+        const parts = currentUrl.split("/").filter(Boolean);
+        if (parts.length === 1) {
+          newUrl = `${base}`;
+        } else {
+          newUrl = `${base}`;
+        }
+
+        window.history.pushState({}, "", newUrl);
+      }
       clearFilter();
     } else {
-      const currentPath = window.location.pathname;
-      const newUrl = `${currentPath}/${category}`;
-      history.pushState(null, "", newUrl);
+      if (currentUrl.startsWith(base)) {
+        const parts = currentUrl.split("/").filter(Boolean);
+        if (parts.length === 1) {
+          newUrl = `${base}/${category}`;
+        } else {
+          newUrl = `${base}/${category}`;
+        }
+
+        window.history.pushState({}, "", newUrl);
+      }
       setCategory(category);
     }
   };

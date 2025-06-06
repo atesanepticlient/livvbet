@@ -16,3 +16,13 @@ export const nDArrayMaker = <T>(array: Array<any>, n: number) => {
   return nDArray;
 };
 
+export function generateCode(length: number = 6): string {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let code = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    code += characters[randomIndex];
+  }
+  return code;
+}

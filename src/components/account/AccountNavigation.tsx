@@ -37,7 +37,7 @@ const AccountNavigation = () => {
           />
 
           <AccountMenuItem
-            lable="desposit"
+            lable="deposit"
             href="/account/deposit"
             icon={<PiHandDepositBold className="w-5 h-5 text-white" />}
           />

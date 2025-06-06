@@ -75,3 +75,8 @@ export const makeWithdrawScehma = zod.object({
   payTo: zod.string().min(1, "Payment Number is required"),
   amount: zod.string().min(1, "Enter Amount"),
 });
+
+export const cashWithdrawScehma = zod.object({
+  address: zod.string().min(1, "Address is required"),
+  amount: zod.string().min(1, "Enter Amount"),
+});

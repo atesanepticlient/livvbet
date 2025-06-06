@@ -119,14 +119,22 @@ const ProfileInfo = () => {
 
       <div className="block md:hidden pt-2 pb-5 bg-[#fff]">
         <ul className="flex flex-col gap-3">
-          <ProfileInfoItem label="Account Number" value="505046728" />
+          <ProfileInfoItem label="Account Number" value={user!.playerId} />
           <ProfileInfoItem label="Password" value="*******" />
-          <ProfileInfoItem label="Registration date" value="16/05/2024" />
-          <ProfileInfoItem label="Phone" value="01735156550" />
-          <ProfileInfoItem label="Email" value="epti060@gmail.com" />
-          <ProfileInfoItem label="First Name" value="San Bin" />
-          <ProfileInfoItem label="Surname Name" value="San Bin" />
-          <ProfileInfoItem label="Country" value="Bangladesh" />
+          <ProfileInfoItem
+            label="Registration date"
+            value={moment(user?.createdAt).calendar()}
+          />
+          <ProfileInfoItem label="Phone" value={user!.phone} />
+          <ProfileInfoItem label="Email" value={user!.email} />
+          <ProfileInfoItem label="First Name" value={user!.firstName} />
+          <ProfileInfoItem label="Surname Name" value={user!.lastName} />
+          <ProfileInfoItem
+            label="Country"
+            value={
+              countryNameFinder(user!.wallet!.currencyCode) || "Bangladesh"
+            }
+          />
         </ul>
       </div>
     </div>

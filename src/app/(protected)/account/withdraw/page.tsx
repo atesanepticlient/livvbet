@@ -4,7 +4,9 @@ import PaymentFilterButton from "@/components/account/deposit/PaymentFilterButto
 import { RiErrorWarningFill } from "react-icons/ri";
 import Payment from "@/components/payment/Payment";
 import PaymentWapper from "@/components/payment/PaymentWapper";
-const WithdrawPage = () => {
+import { findCurrentUser } from "@/data/user";
+const WithdrawPage = async () => {
+  const user = await findCurrentUser();
   return (
     <div className="bg-white  md:px-4 md:py-5">
       <main>
@@ -13,7 +15,7 @@ const WithdrawPage = () => {
         <div className="p-1">
           <div>
             <h4 className="text-accent uppercase text-base md:text-xl font-semibold md:font-medium">
-              Withdrawing from account 541818217
+              Account Id : {user?.playerId}
             </h4>
             <p className="hidden md:text-sm text-accent">
               Select payment method to withdraw money::

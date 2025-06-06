@@ -16,8 +16,9 @@ const PaymentWapper = ({
   const paymentData = data?.payload;
   const deposits = paymentData?.deposit;
   const withdraws = paymentData?.withdraw;
-
+  console.log("Payment wallets ", data);
   const { setAllMethods, setType } = usePaymentMethods((state) => state);
+
   useEffect(() => {
     if (
       deposits &&

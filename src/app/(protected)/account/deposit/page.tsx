@@ -4,7 +4,9 @@ import PaymentFilterButton from "@/components/account/deposit/PaymentFilterButto
 import { RiErrorWarningFill } from "react-icons/ri";
 import Payment from "@/components/payment/Payment";
 import PaymentWapper from "@/components/payment/PaymentWapper";
-const DepositPage = () => {
+import { findCurrentUser } from "@/data/user";
+const DepositPage = async () => {
+  const user = await findCurrentUser();
   return (
     <div className="bg-white rounded-sm shadow-sm  p-2">
       <main>
@@ -13,7 +15,7 @@ const DepositPage = () => {
         <div className="p-1">
           <div className="py-2">
             <h4 className="text-[#212121] uppercase text-base md:text-xl font-bold md:font-semibold ">
-              Account Id : 18435789
+              Account Id : {user?.playerId}
             </h4>
             <p className="hidden md:text-sm text-accent">
               Select payment method to top up your account:

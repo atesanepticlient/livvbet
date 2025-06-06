@@ -53,7 +53,7 @@ const LogoutModal = ({ children }: { children: React.ReactNode }) => {
               <SecondaryButton
                 onClick={() => handleLogout()}
                 disabled={pending}
-                className="flex-1 !bg-[#212121]"
+                className="flex-1 !bg-[#212121] "
               >
                 {pending ? (
                   <ScaleLoader color="#fff" cssOverride={{ scale: 0.4 }} />

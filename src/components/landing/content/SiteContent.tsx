@@ -85,7 +85,7 @@ const SiteContent = () => {
       </div>
 
       <div>
-        <SiteContentTitle title="1XBET" />
+        <SiteContentTitle title="Livvbet" />
 
         <ul className="flex flex-col mt-4 md:mt-6">
           <li>

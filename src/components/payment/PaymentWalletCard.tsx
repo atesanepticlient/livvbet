@@ -19,7 +19,9 @@ const PaymentWalletCard = ({
             width={90}
             height={40}
             alt={wallet.walletName}
-            className="w-[90px] h-[40px] wallet-image mx-auto object-cover"
+            className={`w-[90px] h-[40px] wallet-image mx-auto object-cover ${
+              !wallet.isActive && "saturate-0"
+            }`}
           />
         </div>
         <div className="bg-[#555555] text-white w-full py-1 md:py-2">

@@ -348,7 +348,7 @@ const RegistationForm = () => {
                     className="-translate-y-4"
                   />
                 ) : (
-                  "Login"
+                  "Registration"
                 )}
               </PrimaryButton>
             </div>
@@ -370,7 +370,7 @@ const RegistationForm = () => {
             href="/login"
             className="text-[#FFB805] font-medium hover:underline"
           >
-            Registation
+            Login
           </Link>
         </p>
       </Form>

@@ -17,6 +17,16 @@ export const cashWithdraw = async (
     const { address, amount } = data;
     const user = await findCurrentUser();
 
+    const site = await db.site.findFirst({ where: {} });
+
+    if (+amount > +site!.maxWithdraw!) {
+      return { error: `Maximum withdraw limit ${site?.maxWithdraw}` };
+    }
+
+    if (+amount < +site!.minWithdraw!) {
+      return { error: `Minimum withdraw limit ${site?.maxWithdraw}` };
+    }
+
     if (!user) {
       return { error: "Please reload the page" };
     }

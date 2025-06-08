@@ -179,7 +179,7 @@ const Header = () => {
                   <Link href="/casino/slots">SLOT</Link>
                 </MenubarItem>
                 <MenubarItem>
-                  <Link href="/sports/popular">POPULAR</Link>
+                  <Link href="/casino/popular">POPULAR</Link>
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>

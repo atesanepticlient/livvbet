@@ -8,7 +8,8 @@ import SiteContent from "../content/SiteContent";
 import About from "../about/About";
 import Sponsors from "../sponsors/Sponsors";
 // import Contact from "../contact/Contact";
-
+import { MdOutlineSupportAgent } from "react-icons/md";
+import PrimaryButton from "@/components/buttons/primary-button";
 const Footer = () => {
   return (
     <div className="mt-5 md:mt-7 lg:mt-12">
@@ -18,6 +19,14 @@ const Footer = () => {
         <SiteContent />
         <About />
         <div className="mt-6 md:mt-8  px-5 md:px-8 py-6 md:py-8 shadow-sm">
+          <div className="flex justify-center py-4 lg:py-6">
+            <a href="https://agent.livvbet.com/signup" target="blank">
+              <PrimaryButton className="flex items-center gap-1">
+                Become an agent
+                <MdOutlineSupportAgent className="w-4 h-4 lg:w-5 lg:h-5" />{" "}
+              </PrimaryButton>
+            </a>
+          </div>
           <p className="text-[10px] md:text-xs text-muted mt-2 md:mt-3 w-[95%] md:w-[70%] mx-auto text-center">
             To register, users must accept the Terms of Service. If updated,
             users may discontinue services before changes take effect, at least

@@ -17,10 +17,7 @@ const Slots = () => {
   const games = getGames(Categories.Slots, undefined, 20);
   return (
     <div>
-      <GameSectionHeader
-        seeMore={() => redirect("/casino/slots")}
-        title="Slots"
-      />
+      <GameSectionHeader seeMore={() => redirect("/casino")} title="Slots" />
 
       {games && (
         <>

@@ -93,24 +93,17 @@ export const POST = async (req: NextRequest) => {
     }
 
     let userBalance = user.wallet?.balance || new Decimal(0);
-
     if (requestBody.cmd === "getBalance") {
       return Response.json({
         success: "success",
         error: "",
         login: user.playerId,
-        balance: user.wallet?.balance || 0.0,
+        balance: user.wallet?.balance.toFixed(2) || 0.0,
         currency: user.wallet?.currencyCode || "BDT",
       });
     }
 
     if (requestBody.cmd === "writeBet") {
-      console.log(
-        "requestBody.bet && requestBody.bet > userBalance ",
-        requestBody.bet && requestBody.bet > userBalance
-      );
-      console.log("user bal", userBalance);
-      console.log("requestBody.bet", requestBody.bet);
       if (requestBody.bet && +requestBody.bet > +userBalance) {
         return Response.json(
           { success: "fail", error: "fail_balance" },
@@ -134,7 +127,7 @@ export const POST = async (req: NextRequest) => {
         success: "success",
         error: "",
         login: user.playerId,
-        balance: userBalance,
+        balance: userBalance.toFixed(2),
         currency: user.wallet?.currencyCode || "BDT",
       });
     }

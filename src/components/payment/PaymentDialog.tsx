@@ -18,6 +18,7 @@ const PaymentDialog = ({
   return (
     <>
       <DialogTrigger
+        disable={!wallet.isActive}
         onClick={() => {
           if (!wallet.isActive) return;
           setDialogShow(true);
@@ -47,9 +48,14 @@ const PaymentDialog = ({
 
 const DialogTrigger: React.FC<{
   children: React.ReactNode;
+  disable: boolean;
   onClick: () => void;
-}> = ({ children, onClick }) => {
-  return <button onClick={() => onClick()}>{children}</button>;
+}> = ({ children, onClick, disable }) => {
+  return (
+    <button disabled={disable} onClick={() => onClick()}>
+      {children}
+    </button>
+  );
 };
 
 const DialogContent = ({
@@ -60,7 +66,7 @@ const DialogContent = ({
   onCloseClick: () => void;
 }) => {
   return (
-    <div className=" fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto mt-24 md:mt-20 w-[95%] md:w-[350px]">
+    <div className="z-[100] fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto mt-24 md:mt-20 w-[95%] md:w-[350px]">
       <div onClick={() => onCloseClick()} className="cursor-pointer">
         <IoMdClose className="w-4 h-4 text-black absolute -right-8 top-4" />
       </div>

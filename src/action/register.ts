@@ -18,8 +18,15 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
     return { error: "The Email already has an account" };
   }
 
-  const { email, firstName, lastName, currencyCode, password, promo, phone } =
-    data;
+  const exitingUserWithPhone = await db.users.findFirst({
+    where: { phone: data.phone },
+  });
+
+  if (exitingUserWithPhone){
+    return { error: "The Phone already has an account" };
+  }
+    const { email, firstName, lastName, currencyCode, password, promo, phone } =
+      data;
 
   try {
     const hasedPassword = bcrypt.hashSync(password, 10);
@@ -34,6 +41,7 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
         password: hasedPassword,
         casinoPassword: password,
         playerId: playerId!,
+        turnOver: {},
         referral: {
           create: {},
         },
@@ -73,6 +81,35 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
           },
         }),
       ]);
+
+      const site = await db.site.findFirst({ where: {} });
+
+      const signupBonus = site!.signupBonus!;
+
+      await db.usersTurnOver.updateMany({
+        where: {
+          userId: newUser.id,
+        },
+        data: {
+          totalTurnOver: {
+            increment: +signupBonus * 3,
+          },
+          activeTurnOver: {
+            increment: +signupBonus * 3,
+          },
+        },
+      });
+
+      await db.message.create({
+        data: {
+          title: `You have received ${signupBonus} Signup bonus`,
+          user: {
+            connect: {
+              id: newUser.id,
+            },
+          },
+        },
+      });
     }
 
     // const casinoAccount = await createAccount({

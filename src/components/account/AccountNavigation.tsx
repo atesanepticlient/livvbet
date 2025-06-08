@@ -5,6 +5,7 @@ import { PiHandDepositBold, PiHandWithdrawFill } from "react-icons/pi";
 import { MdOutlineHistory, MdSecurity } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
+import { FaMessage } from "react-icons/fa6";
 
 import AccountMenuItem from "./AccountMenuItem";
 import LogoutModal from "../LogoutModal";
@@ -28,6 +29,12 @@ const AccountNavigation = () => {
             lable="security"
             href="/account/security"
             icon={<MdSecurity className="w-5 h-5 text-white" />}
+          />
+
+          <AccountMenuItem
+            lable="My Messages"
+            href="/account/messages"
+            icon={<FaMessage className="w-5 h-5 text-white" />}
           />
 
           <AccountMenuItem

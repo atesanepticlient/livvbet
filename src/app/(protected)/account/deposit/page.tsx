@@ -35,7 +35,7 @@ const DepositPage = async () => {
               number, Time, date, Amount , এবং বিকাশ /নগদ /রকেট /উপায় অ্যাপ থেকে
               লেনদেনের স্ক্রিনশট / If You do not receive the deposit amount in
               your gaming account within 72 hours please contact our general
-              queries email ahsanulazim6@gmail.com-team.com with next details:
+              queries email ahsanulazim6@gmail.com with next details:
               Player id, Transaction ID, Client no, Agent number, Time, Date,
               Amount, Transaction Screenshot from app
             </p>

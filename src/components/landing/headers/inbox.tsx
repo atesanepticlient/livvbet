@@ -53,7 +53,7 @@ const Inbox = () => {
 
 export default Inbox;
 
-const MessageBox = ({
+export const MessageBox = ({
   messages,
 }: {
   messages: Prisma.MessageGetPayload<object>[];

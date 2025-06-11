@@ -61,21 +61,21 @@ export const POST = async (req: NextRequest) => {
 
     if (requestBody.cmd !== "getBalance" && requestBody.cmd !== "writeBet") {
       return new Response(
-        JSON.stringify({ success: "fail", error: "cmd_not_found" }),
+        JSON.stringify({ status: "fail", error: "cmd_not_found" }),
         { status: 403 }
       );
     }
 
     if (requestBody.hall !== +process.env.HALL_ID!) {
       return new Response(
-        JSON.stringify({ success: "fail", error: "hall_id_not_found" }),
+        JSON.stringify({ status: "fail", error: "hall_id_not_found" }),
         { status: 403 }
       );
     }
 
     if (requestBody.key != process.env.HALL_KEY) {
       return new Response(
-        JSON.stringify({ success: "fail", error: "hall_key_invalid" }),
+        JSON.stringify({ status: "fail", error: "hall_key_invalid" }),
         { status: 403 }
       );
     }
@@ -87,7 +87,7 @@ export const POST = async (req: NextRequest) => {
 
     if (!user) {
       return new Response(
-        JSON.stringify({ success: "fail", error: "user_not_found" }),
+        JSON.stringify({ status: "fail", error: "user_not_found" }),
         { status: 200 }
       );
     }
@@ -95,7 +95,7 @@ export const POST = async (req: NextRequest) => {
     let userBalance = user.wallet?.balance || new Decimal(0);
     if (requestBody.cmd === "getBalance") {
       return Response.json({
-        success: "success",
+        status: "success",
         error: "",
         login: `${user.playerId}`,
         balance: `${user.wallet?.balance.toFixed(2) || 0.0}`,
@@ -106,7 +106,7 @@ export const POST = async (req: NextRequest) => {
     if (requestBody.cmd === "writeBet") {
       if (requestBody.bet && +requestBody.bet > +userBalance) {
         return Response.json(
-          { success: "fail", error: "fail_balance" },
+          { status: "fail", error: "fail_balance" },
           { status: 403 }
         );
       }
@@ -124,7 +124,7 @@ export const POST = async (req: NextRequest) => {
       });
 
       return Response.json({
-        success: "success",
+        status: "success",
         error: "",
         login: `${user.playerId}`,
         balance: `${userBalance.toFixed(2)}`,
@@ -133,7 +133,7 @@ export const POST = async (req: NextRequest) => {
     }
   } catch (error: any) {
     return Response.json(
-      { success: "fail", error: error.message || "unexpected_error" },
+      { status: "fail", error: error.message || "unexpected_error" },
       { status: 500 }
     );
   }

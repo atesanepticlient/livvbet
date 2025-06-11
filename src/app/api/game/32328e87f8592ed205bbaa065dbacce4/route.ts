@@ -96,9 +96,8 @@ export const POST = async (req: NextRequest) => {
     if (requestBody.cmd === "getBalance") {
       return Response.json({
         success: "success",
-        error: "",
-        login: user.playerId,
-        balance: user.wallet?.balance.toFixed(2) || 0.0,
+        login: `${user.playerId}`,
+        balance: `${user.wallet?.balance.toFixed(2) || 0.00}`,
         currency: user.wallet?.currencyCode || "BDT",
       });
     }
@@ -125,9 +124,8 @@ export const POST = async (req: NextRequest) => {
 
       return Response.json({
         success: "success",
-        error: "",
-        login: user.playerId,
-        balance: userBalance.toFixed(2),
+        login: `${user.playerId}`,
+        balance: `${userBalance.toFixed(2)}`,
         currency: user.wallet?.currencyCode || "BDT",
       });
     }

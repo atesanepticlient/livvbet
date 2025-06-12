@@ -23,6 +23,7 @@ export const publicRoutes = [
   "/casino/new",
   "/casino/slots",
   "/api/contact",
+  "/en"
 ];
 
 /**

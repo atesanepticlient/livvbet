@@ -25,6 +25,7 @@ import PrimaryButton from "../buttons/primary-button";
 import { ScaleLoader } from "react-spinners";
 const LoginForm = () => {
   const loginRedirect = useSearchParams().get("redirect") || "/";
+ 
 
   const [pending, startTransition] = useTransition();
   const form = useForm<zod.infer<typeof loginSchema>>({
@@ -70,6 +71,9 @@ const LoginForm = () => {
       setPasswordType("text");
     }
   };
+
+
+ 
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -163,7 +167,7 @@ const LoginForm = () => {
               </div>
 
               <Link
-                href="#"
+                href="/forgot-password"
                 className="text-[10px] text-xs text-[#c79925] hover:underline hover:text-[#ebbb41]"
               >
                 Forgot your password?

@@ -47,7 +47,7 @@ const PaymentMain = ({
 }) => {
   const type = usePaymentMethods((state) => state.type);
   return (
-    <div className=" w-[90%] md:w-[400px] rounded-sm shadow-sm">
+    <div className=" rounded-sm shadow-sm">
       <div className="bg-white w-full  flex items-center justify-center py-2 md:py-4">
         <Image
           className="wallet-image w-[80px] object-cover mx-auto"

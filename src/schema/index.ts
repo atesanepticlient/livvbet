@@ -80,3 +80,19 @@ export const cashWithdrawScehma = zod.object({
   address: zod.string().min(1, "Address is required"),
   amount: zod.string().min(1, "Enter Amount"),
 });
+
+export const forgotPasswordSchema = zod.object({
+  email: zod.string().email("Please enter a valid email"),
+});
+
+export const resetPasswordSchema = zod
+  .object({
+    email: zod.string().email(),
+    otp: zod.string().min(6, "OTP must be 6 digits"),
+    newPassword: zod.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: zod.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });

@@ -1,14 +1,14 @@
 import FormLoader from "@/components/auth/FormLoader";
-import LoginForm from "@/components/auth/LoginForm";
+import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
 import React, { Suspense } from "react";
 
-const LoginPage = () => {
+const ForgotPasswordPage = () => {
   return (
-    <Suspense >
+    <Suspense>
       <div className="bg-[#1A1A1A] w-full flex justify-center items-center h-screen pb-24 md:pb-32">
         <div className="w-[95%] md:w-[350px] mx-auto">
-          <FormLoader label="Login">
-            <LoginForm />
+          <FormLoader label="Reset Password">
+            <ForgotPasswordForm />
           </FormLoader>
         </div>
       </div>
@@ -16,4 +16,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;

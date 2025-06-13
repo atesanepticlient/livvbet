@@ -5,6 +5,7 @@ import React from "react";
 import DefalutGames from "./defalut-games";
 import FilteredGames from "./filteredGames";
 import { useGamesFilter } from "@/lib/store.zustond";
+import TabBar from "@/components/landing/TabBar";
 
 const Casino = () => {
   const { search, category, provider } = useGamesFilter((state) => state);
@@ -20,6 +21,7 @@ const Casino = () => {
       ) : (
         <FilteredGames />
       )}
+      <TabBar />
     </>
   );
 };

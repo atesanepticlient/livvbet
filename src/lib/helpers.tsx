@@ -1,5 +1,6 @@
 import { currencies } from "@/data/currency";
 import { findUserPlayerId } from "@/data/user";
+import { db } from "./db";
 
 export const playerIdGenerate = async () => {
   let id;
@@ -19,6 +20,30 @@ export const playerIdGenerate = async () => {
   return id?.toString();
 };
 
+export const referIdGenerate = async (length: number = 6) => {
+  let result = "";
+  let hasUser = true;
+  while (hasUser) {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      result += chars[randomIndex];
+    }
+
+    const alreadyExist = await db.users.findFirst({
+      where: { referId: result },
+    });
+
+    if (!alreadyExist) {
+      hasUser = false;
+    }
+  }
+
+  return result;
+};
+
 export const countryNameFinder = (currencyCode: string) => {
   const name = currencies.find((c) => c.currency == currencyCode);
 
@@ -32,3 +57,20 @@ export function chunkIntoPairs<T>(arr: T[]): T[][] {
   }
   return result;
 }
+
+export const reduceTurnOver = async (amount: number, userId: string) => {
+  try {
+    await db.bonusWallet.update({
+      where: {
+        userId: userId,
+      },
+      data: {
+        turnOver: {
+          decrement: amount,
+        },
+      },
+    });
+  } catch {
+    return null;
+  }
+};

@@ -6,7 +6,10 @@ import { NextRequest } from "next/server";
 export const GET = async () => {
   try {
     const user = await findCurrentUser();
-    const messages = await db.message.findMany({ where: { userId: user!.id } });
+    const messages = await db.message.findMany({
+      where: { userId: user!.id },
+      orderBy: { createdAt: "asc" },
+    });
 
     return Response.json({ payload: messages }, { status: 200 });
   } catch {
@@ -16,7 +19,6 @@ export const GET = async () => {
 
 export const PUT = async () => {
   try {
-    console.log("called")
     const user = await findCurrentUser();
 
     await db.message.updateMany({

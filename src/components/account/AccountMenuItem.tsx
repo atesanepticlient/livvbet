@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -23,7 +24,7 @@ const AccountMenuItem = ({ icon, lable, href }: AccountMenuItemProps) => {
     >
       <Link href={href} className="flex items-center justify-between w-full">
         <div className="flex gap-3 items-center ">
-          {icon}
+          <div className={`${isActive && "!text-[#FFB805]"}`}>{icon}</div>
           <span className="text-sm md:text-base font-semibold md:font-medium text-white capitalize">
             {lable}
           </span>

@@ -6,6 +6,7 @@ import { MdOutlineHistory, MdSecurity } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { FaMessage } from "react-icons/fa6";
+import { FaGift } from "react-icons/fa";
 
 import AccountMenuItem from "./AccountMenuItem";
 import LogoutModal from "../LogoutModal";
@@ -34,7 +35,7 @@ const AccountNavigation = () => {
           <AccountMenuItem
             lable="My Messages"
             href="/account/messages"
-            icon={<FaMessage className="w-5 h-5 text-white" />}
+            icon={<FaMessage className="w-4 h-4 text-white" />}
           />
 
           <AccountMenuItem
@@ -59,6 +60,12 @@ const AccountNavigation = () => {
             lable="Transaction history"
             href="/account/transaction"
             icon={<GrTransaction className="w-5 h-5 text-white" />}
+          />
+
+          <AccountMenuItem
+            lable="Invite Friend"
+            href="/invite-friend"
+            icon={<FaGift className="w-5 h-5 text-white" />}
           />
 
           <li>

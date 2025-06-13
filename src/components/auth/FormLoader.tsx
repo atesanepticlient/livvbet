@@ -20,45 +20,6 @@ const FormLoader = ({ children, label }: FormLoaderProps) => {
   );
 };
 
-// interface AuthMethodsComponentProps {
-//   method: AuthMethods;
-//   activeAuthMethod: AuthMethods;
-// }
 
-// const AuthMethodsComponent = ({
-//   method,
-//   activeAuthMethod,
-// }: AuthMethodsComponentProps) => {
-//   const Icon =
-//     method === AuthMethods.BYEMAIL ? (
-//       <AiTwotoneMail className="w-4 h-4 " />
-//     ) : method === AuthMethods.BYPHONE ? (
-//       <IoIosPhonePortrait className="w-4 h-4 " />
-//     ) : (
-//       <TbHandClick className="w-4 h-4 " />
-//     );
-
-//   const handleClick = () => {
-//     if (method !== AuthMethods.BYEMAIL) {
-//       SweetToast.fire({
-//         title: "Warning",
-//         text: "This method is not avilable now! Use Email",
-//         icon: "warning",
-//       });
-//     }
-//   };
-
-//   return (
-//     <button
-//       onClick={handleClick}
-//       className={`flex-1 flex gap-1 md:gap-2 text-primary text-xs px-3 py-2 capitalize bg-[#D7E5F1] ${
-//         method == activeAuthMethod && "bg-primary text-white"
-//       } flex-1`}
-//     >
-//       {Icon}
-//       {method}
-//     </button>
-//   );
-// };
 
 export default FormLoader;

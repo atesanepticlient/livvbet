@@ -1,9 +1,28 @@
 "use client";
 import React from "react";
 import useCurrentUser from "@/hook/useCurrentUser";
+import SecondaryButton from "../buttons/secondary-button";
+import { claimBonus } from "@/action/bonus";
+import SweetToast from "../ui/SweetToast";
 
 const Wallet = () => {
   const user = useCurrentUser();
+
+  const handleTransferBonus = (bonus: number) => {
+    claimBonus({ bonus }).then((res) => {
+      if (res.error) {
+        SweetToast.fire({
+          icon: "error",
+          title: res.error,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } else if (res.success) {
+        // handle success
+      }
+    });
+  };
+
   return (
     <div className="  bg-[#212121]  rounded-md ">
       <div className="bg-[#2E2E2E] rounded-t-md p-3">
@@ -18,20 +37,45 @@ const Wallet = () => {
       </div>
 
       <div className="px-3 py-2">
-        <div className="my-1 md:my-2 flex items-center justify-between">
-          <span className="font-semibold text-[#9999] text-xs md:text-sm">
-            Bonus Points
-          </span>
-          <span className="font-semibold text-white text-sm md:text-base">
-            0
-          </span>
+        <div>
+          <div className="my-1 md:my-2 flex items-center justify-between">
+            <span className="font-semibold text-[#9999] text-xs md:text-sm">
+              Bonus Points
+            </span>
+            <span className="font-semibold text-white text-sm md:text-base">
+              {+user!.bonusWallet!.balance}
+            </span>
+          </div>
+          <div className="flex justify-end items-center gap-3 pt-2">
+            {+user!.bonusWallet!.turnOver !== 0 &&
+              +user!.bonusWallet!.balance !== 0 && (
+                <span className="text-[10px] text-white ">
+                  Bet {+user!.bonusWallet!.turnOver} to Claim
+                </span>
+              )}
+
+            {(+user!.bonusWallet!.balance != 0 ||
+              (+user!.bonusWallet!.turnOver < 0) && (
+                <SecondaryButton
+                  onClick={() =>
+                    handleTransferBonus(+user!.bonusWallet!.balance)
+                  }
+                  disabled={
+                    +user!.bonusWallet!.balance == 0 ||
+                    +user!.bonusWallet!.turnOver > 0
+                  }
+                >
+                  Claim
+                </SecondaryButton>
+              ))}
+          </div>
         </div>
         <div className="my-1 md:my-2 flex items-center justify-between">
           <span className="font-semibold text-[#9999] text-xs md:text-sm">
             Main account
           </span>
           <span className="font-semibold text-white text-sm md:text-base">
-            {user!.wallet!.balance.toString()}
+            {+user!.wallet!.balance}
           </span>
         </div>
       </div>

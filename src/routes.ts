@@ -3,7 +3,7 @@
  * for only unauthorized users
  * @type {string[]}
  */
-export const authRoutes = ["/register", "/login", "/forget-password"];
+export const authRoutes = ["/register", "/login", "/forgot-password"];
 
 /**
  * public routes
@@ -23,7 +23,7 @@ export const publicRoutes = [
   "/casino/new",
   "/casino/slots",
   "/api/contact",
-  "/en"
+  "/en",
 ];
 
 /**

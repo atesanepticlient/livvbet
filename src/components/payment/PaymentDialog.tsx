@@ -29,13 +29,13 @@ const PaymentDialog = ({
 
       <div
         className={cn(
-          "absolute top-0 left-0 w-full h-full  flex justify-center items-center ",
+          "fixed top-0 left-0 z-[100] right-0 w-full h-screen max-h-screen   flex justify-center items-center ",
           `${isDialogShow ? "block" : "hidden"}`
         )}
       >
         <div
           className={cn(
-            "absolute top-0 left-0 w-full h-full bg-[#141B1F]/25 transition-all slider-animation"
+            "absolute top-0 left-0 w-full h-full bg-[#141b1f7f] transition-all slider-animation"
           )}
         ></div>
         <DialogContent onCloseClick={() => setDialogShow(false)}>
@@ -66,9 +66,9 @@ const DialogContent = ({
   onCloseClick: () => void;
 }) => {
   return (
-    <div className="z-[100] fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 mx-auto mt-24 md:mt-20 w-[95%] md:w-[350px]">
+    <div className="z-[100] absolute left-1/2 -translate-x-1/2  top-1/2 -translate-y-1/2  mx-auto mt-24 md:mt-20 w-[95%] md:w-[400px]">
       <div onClick={() => onCloseClick()} className="cursor-pointer">
-        <IoMdClose className="w-4 h-4 text-black absolute -right-8 top-4" />
+        <IoMdClose className="w-4 h-4 text-black absolute right-4 top-4" />
       </div>
       {children}
     </div>

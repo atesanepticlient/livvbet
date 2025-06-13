@@ -56,9 +56,11 @@ const Header = () => {
           <div className="flex items-center gap-4 md:gap-5 lg:gap-7  ">
             <Tooltip>
               <TooltipTrigger>
-                <button className="bg-[#4F4F4F] hover:bg-[#474747] cursor-pointer text-white p-1 rounded-md text-sm flex items-center gap-2 font-medium">
-                  <FaGift className="w-4 h-4" /> 12000BDT
-                </button>
+                <Link href="/invite-friend">
+                  <button className="bg-[#4F4F4F] hover:bg-[#474747] cursor-pointer text-white p-1 rounded-md text-sm flex items-center gap-2 font-medium">
+                    <FaGift className="w-4 h-4" /> 12000BDT
+                  </button>
+                </Link>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Bonus</p>
@@ -125,13 +127,13 @@ const Header = () => {
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
-                  <Link href="/sports/loadin">EPL</Link>
+                  <Link href="/sports">EPL</Link>
                 </MenubarItem>
                 <MenubarItem>
-                  <Link href="/sports/loadin">LaLiga</Link>
+                  <Link href="/sports">LaLiga</Link>
                 </MenubarItem>
                 <MenubarItem>
-                  <Link href="/sports/loadin">IPL</Link>
+                  <Link href="/sports">IPL</Link>
                 </MenubarItem>
                 <MenubarSeparator />
                 {/* <MenubarSub>
@@ -159,10 +161,10 @@ const Header = () => {
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
-                  <Link href="/sports/loadin">Cricket</Link>
+                  <Link href="/sports">Cricket</Link>
                 </MenubarItem>
                 <MenubarItem>
-                  <Link href="/sports/loadin">Soccer</Link>
+                  <Link href="/sports">Soccer</Link>
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>
@@ -189,10 +191,10 @@ const Header = () => {
               </MenubarTrigger>
               <MenubarContent>
                 <MenubarItem>
-                  <Link href="/sports/casino">Live</Link>
+                  <Link href="/sports">Live</Link>
                 </MenubarItem>
                 <MenubarItem>
-                  <Link href="/sports/casino">Pre Match</Link>
+                  <Link href="/sports">Pre Match</Link>
                 </MenubarItem>
               </MenubarContent>
             </MenubarMenu>

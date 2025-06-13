@@ -32,19 +32,19 @@ const data = {
     },
     {
       title: "Cricket",
-      url: "/sports/loading",
+      url: "/sports",
       icon: Cricket,
       items: [],
     },
     {
       title: "Football",
-      url: "/",
+      url: "/sports",
       icon: Football,
       items: [],
     },
     {
       title: "Basketball",
-      url: "/s",
+      url: "/sports",
       icon: BasketBall,
       items: [],
     },

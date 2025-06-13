@@ -2,6 +2,7 @@
 import { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { Decimal } from "@prisma/client/runtime/library";
+import { reduceTurnOver } from "@/lib/helpers";
 
 function parseDecimal(value: any): Decimal | undefined {
   if (value === undefined || value === null || value === "") return undefined;
@@ -113,6 +114,7 @@ export const POST = async (req: NextRequest) => {
 
       if (requestBody.bet) {
         userBalance = userBalance.sub(requestBody.bet);
+        await reduceTurnOver(+requestBody.bet, user.id);
       }
       if (requestBody.win) {
         userBalance = userBalance.add(requestBody.win);

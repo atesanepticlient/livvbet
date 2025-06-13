@@ -36,6 +36,33 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
+    const isFirstDeposit =
+      (
+        await db.deposit.findMany({
+          where: { userId: user!.id },
+        })
+      ).length == 0;
+
+    if (isFirstDeposit) {
+      const site = await db.site.findFirst({
+        where: {},
+        select: { firstDepositBonus: true, turnover: true },
+      });
+
+      await db.bonusWallet.update({
+        where: {
+          userId: user!.id,
+        },
+        data: {
+          balance: { increment: amount * (+site!.firstDepositBonus! / 100) },
+          turnOver: {
+            increment:
+              amount * (+site!.firstDepositBonus! / 100) * +site!.turnover!,
+          },
+        },
+      });
+    }
+
     await db.deposit.create({
       data: {
         amount,

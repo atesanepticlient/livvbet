@@ -25,7 +25,7 @@ export const { signIn, signOut, auth, handlers } = NextAuth({
       if (token.sub && session.user) {
         const user = await db.users.findUnique({
           where: { id: token.sub },
-          include: { wallet: true },
+          include: { wallet: true, bonusWallet: true },
         });
 
         if (user?.password) {

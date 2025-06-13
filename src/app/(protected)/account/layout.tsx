@@ -5,9 +5,9 @@ import React, { Suspense } from "react";
 import Header from "@/components/landing/headers/Header";
 import Footer from "@/components/landing/footer/Footer";
 export const metadata: Metadata = {
-  title: "1xBet - Account",
+  title: "Livvbet - Account",
   description:
-    "Manage your 1xBet Companl account with ease! Check your balance, update details, track bets, and enjoy seamless withdrawals and deposits. Secure and fast access anytime. Log in now!",
+    "Manage your Livvbet Companl account with ease! Check your balance, update details, track bets, and enjoy seamless withdrawals and deposits. Secure and fast access anytime. Log in now!",
 };
 
 const AccountLayout = ({ children }: { children: React.ReactNode }) => {

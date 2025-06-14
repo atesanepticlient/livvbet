@@ -7,7 +7,6 @@ import zod from "zod";
 import { db } from "@/lib/db";
 import { findCurrentUser } from "@/data/user";
 
-import jwt from "jsonwebtoken";
 import { generateCode } from "@/lib/utils";
 
 export const cashWithdraw = async (
@@ -35,23 +34,8 @@ export const cashWithdraw = async (
     }
 
     const addressSegment = address.split(" ");
-    const country = addressSegment[0];
-    const city = addressSegment[1];
-    const postOffice = addressSegment[2];
-    const storeName = addressSegment[3];
 
-    const token = jwt.sign(
-      {
-        country: country.toLowerCase(),
-        city: city.toLowerCase(),
-        postOffice: postOffice.toLowerCase(),
-        storeName: storeName.toLowerCase(),
-      },
-      process.env.JWT_SECRET!,
-      {
-        noTimestamp: true,
-      }
-    );
+    const storeName = addressSegment[3];
 
     const userAgent = await db.users.findUnique({
       where: { id: user.id },
@@ -64,13 +48,13 @@ export const cashWithdraw = async (
       };
     }
 
-    if (token !== userAgent.agent.withdrawAddress?.token) {
-      return {
-        error: "You can withdraw only same payment gateway you used to deposit",
-      };
-    }
+    // if (token !== userAgent.agent.withdrawAddress?.token) {
+    //   return {
+    //     error: "You can withdraw only same payment gateway you used to deposit",
+    //   };
+    // }
 
-    if (storeName !== userAgent.agent.withdrawAddress.storeName) {
+    if (storeName !== userAgent!.agent!.withdrawAddress!.storeName) {
       return {
         error: "You can withdraw only same payment gateway you used to deposit",
       };

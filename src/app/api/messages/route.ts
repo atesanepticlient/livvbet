@@ -8,7 +8,7 @@ export const GET = async () => {
     const user = await findCurrentUser();
     const messages = await db.message.findMany({
       where: { userId: user!.id },
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
     });
 
     return Response.json({ payload: messages }, { status: 200 });

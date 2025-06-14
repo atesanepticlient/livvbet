@@ -559,7 +559,7 @@ const CashContent = ({ walletId }: { walletId: string }) => {
             Withdraw request created successfully.
           </p>
           <div className="flex justify-center items-center py-5 gap-2">
-            <p className="text-center w-[60px] py-1 bg-green-800 text-white ">
+            <p className="text-center w-[60px] py-1 bg-green-800 px-4 rounded-sm text-white ">
               {withdrawCode}
             </p>
             <button

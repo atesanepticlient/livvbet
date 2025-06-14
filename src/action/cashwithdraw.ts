@@ -47,7 +47,9 @@ export const cashWithdraw = async (
         error: "You can withdraw only same payment gateway you used to deposit",
       };
     }
-
+    if (!userAgent.agent?.id) {
+      return { error: "Agent account not found" };
+    }
     // if (token !== userAgent.agent.withdrawAddress?.token) {
     //   return {
     //     error: "You can withdraw only same payment gateway you used to deposit",
@@ -90,7 +92,7 @@ export const cashWithdraw = async (
         withdrawCode,
         agent: {
           connect: {
-            id: userAgent.id,
+            id: userAgent.agent.id,
           },
         },
         user: {
@@ -102,7 +104,8 @@ export const cashWithdraw = async (
     });
 
     return { success: true, code: withdrawCode };
-  } catch {
+  } catch (error) {
+    console.log("Cashwithdraw error ", error);
     return { error: INTERNAL_SERVER_ERROR };
   }
 };

@@ -79,6 +79,7 @@ export const makeWithdrawScehma = zod.object({
 export const cashWithdrawScehma = zod.object({
   address: zod.string().min(1, "Address is required"),
   amount: zod.string().min(1, "Enter Amount"),
+  selectedAddress: zod.string(),
 });
 
 export const forgotPasswordSchema = zod.object({

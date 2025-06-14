@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import useCurrentUser from "@/hook/useCurrentUser";
-import SecondaryButton from "../buttons/secondary-button";
 import { claimBonus } from "@/action/bonus";
 import SweetToast from "../ui/SweetToast";
+import PrimaryButton from "../buttons/primary-button";
 
 const Wallet = () => {
   const user = useCurrentUser();
@@ -49,25 +49,22 @@ const Wallet = () => {
           <div className="flex justify-end items-center gap-3 pt-2">
             {+user!.bonusWallet!.turnOver !== 0 &&
               +user!.bonusWallet!.balance !== 0 && (
-                <span className="text-[10px] text-white ">
+                <span className="text-[10px] text-[#FFB805] ">
                   Bet {+user!.bonusWallet!.turnOver} to Claim
                 </span>
               )}
 
-            {(+user!.bonusWallet!.balance != 0 ||
-              (+user!.bonusWallet!.turnOver < 0) && (
-                <SecondaryButton
+            {+user!.bonusWallet!.balance != 0 &&
+              +user!.bonusWallet!.turnOver == 0 && (
+                <PrimaryButton
+                  className="!py-1"
                   onClick={() =>
                     handleTransferBonus(+user!.bonusWallet!.balance)
                   }
-                  disabled={
-                    +user!.bonusWallet!.balance == 0 ||
-                    +user!.bonusWallet!.turnOver > 0
-                  }
                 >
                   Claim
-                </SecondaryButton>
-              ))}
+                </PrimaryButton>
+              )}
           </div>
         </div>
         <div className="my-1 md:my-2 flex items-center justify-between">

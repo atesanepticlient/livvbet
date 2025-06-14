@@ -53,6 +53,13 @@ const paymentApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    fetchWithdrawAddress: builder.query({
+      query: () => ({
+        url: "/api/withdraw-address",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -62,4 +69,5 @@ export const {
   useMakeWithdrawMutation,
   useFetchTransactionsQuery,
   useFetchWalletQuery,
+  useFetchWithdrawAddressQuery,
 } = paymentApiSlice;

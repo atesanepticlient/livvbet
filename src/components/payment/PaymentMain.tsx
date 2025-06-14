@@ -36,6 +36,7 @@ import SecondaryButton from "../buttons/secondary-button";
 import Link from "next/link";
 import { cashWithdraw } from "@/action/cashwithdraw";
 import { MdContentCopy } from "react-icons/md";
+import { cityOptions } from "@/data/cities";
 
 const PaymentMain = ({
   wallet,
@@ -508,15 +509,66 @@ const CashContent = ({ walletId }: { walletId: string }) => {
   const [created, setCreated] = useState(false);
   const [withdrawCode, setWithdrawCode] = useState("");
   const [pending, startTransition] = useTransition();
+  const [addressOptions, setAddressOptions] = useState<
+    Array<{
+      id: string;
+      label: string;
+      value: string;
+      raw: {
+        country: string;
+        city: string;
+        postOffice: string;
+        storeName: string;
+      };
+    }>
+  >([]);
+  const [loadingAddresses, setLoadingAddresses] = useState(true);
   const user = useCurrentUser();
+
+  // Fetch agent addresses on component mount
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const response = await fetch("/api/withdraw-address");
+        if (response.ok) {
+          const data = await response.json();
+          setAddressOptions(data);
+        } else {
+          console.error("Failed to fetch addresses");
+        }
+      } catch (error) {
+        console.error("Error fetching addresses:", error);
+      } finally {
+        setLoadingAddresses(false);
+      }
+    };
+
+    fetchAddresses();
+  }, []);
 
   const form = useForm<zod.infer<typeof cashWithdrawScehma>>({
     defaultValues: {
       amount: "",
       address: "",
+      selectedAddress: "", // For the dropdown selection
     },
     resolver: zodResolver(cashWithdrawScehma),
   });
+
+  // Update the full address when selection changes
+  useEffect(() => {
+    const selectedStore = form.watch("selectedAddress");
+    if (selectedStore) {
+      const selectedAddress = addressOptions.find(
+        (addr) => addr.value === selectedStore
+      );
+      if (selectedAddress) {
+        const { country, city, postOffice, storeName } = selectedAddress.raw;
+        const fullAddress = `${country} ${city} ${postOffice} ${storeName}`;
+        form.setValue("address", fullAddress);
+      }
+    }
+  }, [form.watch("selectedAddress")]);
 
   const handleSetAmount = (amount: string) => {
     form.setValue("amount", amount);
@@ -538,28 +590,20 @@ const CashContent = ({ walletId }: { walletId: string }) => {
         }
       });
     });
+
   };
 
-  const isLoading = pending;
-
-  useEffect(() => {
-    return () => {
-      if (created) {
-        setCreated(false);
-      }
-    };
-  }, []);
+  const isLoading = pending || loadingAddresses;
 
   return (
     <div className="shadow-sm">
       {created && withdrawCode ? (
         <div className="w-full h-[300px] bg-[#EEEEEE] ">
           <p className="text-center text-sm lg:text-base py-5 text-[#9A9A9A]">
-            {" "}
             Withdraw request created successfully.
           </p>
           <div className="flex justify-center items-center py-5 gap-2">
-            <p className="text-center w-[60px] py-1 bg-green-800 px-4 rounded-sm text-white ">
+            <p className="text-center  py-1 bg-green-800 border-b-2 border-l border-l-green-700 border-b-green-700 px-4 rounded-sm text-white ">
               {withdrawCode}
             </p>
             <button
@@ -570,7 +614,6 @@ const CashContent = ({ walletId }: { walletId: string }) => {
             </button>
           </div>
           <div className="flex justify-center">
-            {" "}
             <Link href="/account/transaction?type=withdraw">
               <SecondaryButton className="mx-auto ">Check</SecondaryButton>
             </Link>
@@ -579,6 +622,7 @@ const CashContent = ({ walletId }: { walletId: string }) => {
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleMakeWithdraw)}>
+            {/* Amount section (unchanged) */}
             <div className="flex justify-between items-center">
               <span className="text-xs md:text-sm max-w-[150px] text-accent font-medium">
                 Amount (Min {300} {user?.wallet?.currencyCode} / Max {25000}{" "}
@@ -595,7 +639,7 @@ const CashContent = ({ walletId }: { walletId: string }) => {
                           disabled={isLoading}
                           {...field}
                           placeholder={`500.00`}
-                          className="bg-white outline-none  placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] "
+                          className="bg-white outline-none placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad]"
                         />
                       </FormControl>
                       <FormMessage />
@@ -616,7 +660,7 @@ const CashContent = ({ walletId }: { walletId: string }) => {
                     disabled={isLoading}
                     type="button"
                     onClick={() => handleSetAmount(r)}
-                    className="px-2 md:px-3 py-1  bg-white border border-border text-black hover:bg-brand-foreground hover:text-white "
+                    className="px-2 md:px-3 py-1 bg-white border border-border text-black hover:bg-brand-foreground hover:text-white"
                   >
                     {r}
                   </button>
@@ -624,26 +668,57 @@ const CashContent = ({ walletId }: { walletId: string }) => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between mt-1">
-              <span className="text-sm text-accent">Address :</span>
-              <div>
+            {/* Address section */}
+            <div className="mt-2">
+              <span className="text-sm text-accent">Withdrawal Address:</span>
+              <div className="flex flex-col gap-2 mt-1">
+                {/* Hidden field for the full address */}
                 <FormField
                   name="address"
                   control={form.control}
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="hidden">
                       <FormControl>
-                        <input
-                          {...field}
-                          disabled={isLoading}
-                          placeholder={"Country City Post StoreName"}
-                          className="bg-white outline-none  placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] "
-                        />
+                        <input {...field} type="hidden" />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
+
+                {/* Address dropdown */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-accent">Select Address:</span>
+                  <FormField
+                    name="selectedAddress"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <select
+                            {...field}
+                            disabled={isLoading}
+                            className="bg-white outline-none text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] w-full max-w-[300px]"
+                          >
+                            <option value="">Select an address</option>
+                            {addressOptions.map((option) => (
+                              <option key={option.id} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Display selected address details */}
+                {form.watch("selectedAddress") && (
+                  <div className="text-xs text-gray-500 mt-1 p-2 bg-gray-50 rounded">
+                    Selected Address: {form.watch("address")}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -652,7 +727,7 @@ const CashContent = ({ walletId }: { walletId: string }) => {
               variant={"destructive"}
               className="bg-brand-foreground hover:bg-brand-foreground/90 w-full mt-2"
             >
-              Confirm
+              {isLoading ? "Loading..." : "Confirm"}
             </Button>
           </form>
         </Form>

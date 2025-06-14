@@ -18,12 +18,12 @@ export const cashWithdraw = async (
 
     const site = await db.site.findFirst({ where: {} });
 
-    if (+amount > +site!.maxWithdraw!) {
-      return { error: `Maximum withdraw limit ${site?.maxWithdraw}` };
+    if (+amount > +site!.maxAgWithdraw!) {
+      return { error: `Maximum withdraw limit ${site?.maxAgWithdraw}` };
     }
 
-    if (+amount < +site!.minWithdraw!) {
-      return { error: `Minimum withdraw limit ${site?.maxWithdraw}` };
+    if (+amount < +site!.minAgWithdraw!) {
+      return { error: `Minimum withdraw limit ${site?.minAgWithdraw}` };
     }
 
     if (!user) {

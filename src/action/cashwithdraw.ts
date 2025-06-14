@@ -16,6 +16,10 @@ export const cashWithdraw = async (
     const { address, amount } = data;
     const user = await findCurrentUser();
 
+    if (user!.isBanned) {
+      return { error: "You ware suspended! Contact to support" };
+    }
+
     const site = await db.site.findFirst({ where: {} });
 
     if (+amount > +site!.maxAgWithdraw!) {

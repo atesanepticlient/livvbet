@@ -14,6 +14,13 @@ export const POST = async (req: NextRequest) => {
       return Response.json({ message: "User not found" }, { status: 401 });
     }
 
+    if (user.isBanned) {
+      return Response.json(
+        { message: "You ware suspended! Contact to support" },
+        { status: 400 }
+      );
+    }
+
     const site = await db.site.findFirst({});
     if (!site) {
       return Response.json(

@@ -26,6 +26,8 @@ export const publicRoutes = [
   "/en",
   "/affiliate",
   "/about-us",
+  "/api/apay/deposit",
+  "/api/apay/withdraw",
 ];
 
 /**

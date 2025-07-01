@@ -6,14 +6,14 @@ import visa_master_card from "@/../public/assets/images/visa_mastercard.png";
 import gcb from "@/../public/assets/svg/gcb-logo--green.svg";
 import SiteContent from "../content/SiteContent";
 import About from "../about/About";
-import Sponsors from "../sponsors/Sponsors";
+// import Sponsors from "../sponsors/Sponsors";
 // import Contact from "../contact/Contact";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import PrimaryButton from "@/components/buttons/primary-button";
 const Footer = () => {
   return (
     <div className="mt-5 md:mt-7 lg:mt-12">
-      <Sponsors />
+      {/* <Sponsors /> */}
       <div className="bg-[#212121] px-4">
         {/* <Contact /> */}
         <SiteContent />

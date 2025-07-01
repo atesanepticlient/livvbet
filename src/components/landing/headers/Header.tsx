@@ -209,14 +209,14 @@ const Header = () => {
           {user && (
             <div className="flex items-center gap-2">
               <Balance />
-              <PrimaryButton>
+              {/* <PrimaryButton>
                 <Link
                   href="/account/deposit"
                   className="flex items-center gap-1"
                 >
                   Deposit
                 </Link>
-              </PrimaryButton>
+              </PrimaryButton> */}
               <Menusm>
                 <FaUser className="w-4 h-4 !text-white" />
               </Menusm>

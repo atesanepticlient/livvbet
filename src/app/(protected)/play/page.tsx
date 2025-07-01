@@ -16,7 +16,7 @@ const Play = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    openGame({ gameId, demo: "0" })
+    openGame({ gameId, demo: "0", gameType: "CASINO" })
       .unwrap()
       .then((res) => {
         if (res) {
@@ -38,7 +38,7 @@ const Play = () => {
 
   return (
     <div>
-      {(isLoading || isIframeLoading) && <GameOpeningLoader />}
+      {(isLoading || isIframeLoading) && !error && <GameOpeningLoader />}
       {!isLoading && !error && iframe && (
         <div className="w-full h-screen ">
           <iframe

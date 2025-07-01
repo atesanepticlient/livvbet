@@ -290,6 +290,12 @@ export const verifyOtpAndRegister = async (
             currencyCode,
           },
         },
+        bettingRecord: {
+          create: {
+            totalBet: 0,
+            totalWin: 0,
+          },
+        },
       },
       include: { wallet: true },
     });

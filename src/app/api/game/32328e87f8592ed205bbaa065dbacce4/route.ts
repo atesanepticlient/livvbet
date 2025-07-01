@@ -88,7 +88,7 @@ export const POST = async (req: NextRequest) => {
 
     const user = await db.users.findFirst({
       where: { playerId: requestBody.login },
-      include: { wallet: true },
+      include: { wallet: true, bettingRecord: true },
     });
 
     if (!user) {
@@ -117,6 +117,19 @@ export const POST = async (req: NextRequest) => {
         );
       }
       const betRecord: Prisma.BettingRecordUpdateInput = {};
+      if (!user.bettingRecord) {
+        await db.bettingRecord.create({
+          data: {
+            totalBet: 0,
+            totalWin: 0,
+            user: {
+              connect: {
+                id: user.id,
+              },
+            },
+          },
+        });
+      }
       if (requestBody.bet) {
         userBalance = userBalance.sub(requestBody.bet);
         await reduceTurnOver(+requestBody.bet, user.id);

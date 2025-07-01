@@ -1,18 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import PaymentMain from "./PaymentMain";
 import { cn } from "@/lib/utils";
-import { Prisma } from "@prisma/client";
 
 const PaymentDialog = ({
   children,
   wallet,
 }: {
   children: React.ReactNode;
-  wallet:
-    | Prisma.DepositEWalletGetPayload<object>
-    | Prisma.DepositEWalletGetPayload<object>;
+  wallet: any;
 }) => {
   const [isDialogShow, setDialogShow] = useState(false);
   return (

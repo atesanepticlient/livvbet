@@ -225,8 +225,7 @@ export const register = async (data: zod.infer<typeof registerSchema>) => {
       requiresOtp: true,
       email: data.email,
     };
-  } catch (error) {
-    console.log("OTP sending error ", error);
+  } catch {
     return { error: INTERNAL_SERVER_ERROR };
   }
 };
@@ -272,10 +271,12 @@ export const verifyOtpAndRegister = async (
         casinoPassword: password,
         playerId: playerId!,
         referId,
+
         turnOver: {},
         referral: {
           create: {},
         },
+
         wallet: {
           create: {
             balance: 0,

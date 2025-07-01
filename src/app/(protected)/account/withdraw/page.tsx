@@ -5,6 +5,7 @@ import { RiErrorWarningFill } from "react-icons/ri";
 import Payment from "@/components/payment/Payment";
 import PaymentWapper from "@/components/payment/PaymentWapper";
 import { findCurrentUser } from "@/data/user";
+import SupportMailText from "@/components/support-mail-text";
 const WithdrawPage = async () => {
   const user = await findCurrentUser();
   return (
@@ -29,11 +30,11 @@ const WithdrawPage = async () => {
 
             <p className="text-[#2d3842] text-xs md:text-sm w-[70%]">
               আপনি যদি ৭২ ঘন্টার মধ্যে ডিপোজিটের টাকা না পান, তাহলে অনুগ্রহ করে
-              সকল স্টেটমেন্ট সহ ahsanulazim6@gmail.com ইমেইলে যোগাযোগ করুন
-              পরবর্তী বিবরণে দয়া করে লিখুন আপনার Player id, Wallet Number, Date,
-              Time, Amount, Request ID, ২ দিন সময়কালের ভিডিও/ If You have not
-              received funds within 72 hours, please write to email
-              ahsanulazim6@gmail.com with next details: Player id, Wallet number,
+              সকল স্টেটমেন্ট সহ <SupportMailText /> ইমেইলে যোগাযোগ করুন পরবর্তী
+              বিবরণে দয়া করে লিখুন আপনার Player id, Wallet Number, Date, Time,
+              Amount, Request ID, ২ দিন সময়কালের ভিডিও/ If You have not received
+              funds within 72 hours, please write to email
+              <SupportMailText /> with next details: Player id, Wallet number,
               Date, Time, Amount, Request ID and Video including 1 day before
               and after withdraw date
             </p>

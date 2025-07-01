@@ -21,7 +21,10 @@ const gamesApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    openGame: builder.mutation<GameContent, { gameId: string; demo: string }>({
+    openGame: builder.mutation<
+      GameContent,
+      { gameId: string; demo: string; gameType?: string }
+    >({
       query: (body) => ({
         url: `api/open-game`,
         method: "POST",

@@ -7,13 +7,13 @@ import React, { useEffect, useState } from "react";
 
 const Sports = () => {
   const [openGame, { isLoading }] = useOpenGameMutation();
-
+  const [isIframeLoading, setIsLoading] = useState(true);
   const [iframe, setIframe] = useState("");
 
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    openGame({ gameId: "3000", demo: "0" })
+    openGame({ gameId: "3000", demo: "0", gameType: "SPORTS" })
       .unwrap()
       .then((res) => {
         if (res) {
@@ -35,11 +35,12 @@ const Sports = () => {
 
   return (
     <div>
-      {isLoading && <GameOpeningLoader />}
+      {(isLoading || isIframeLoading) && <GameOpeningLoader />}
       {!isLoading && !error && iframe && (
         <div className="w-full h-screen ">
           <iframe
             src={iframe}
+            onLoad={() => setIsLoading(false)}
             className="w-full h-full border-0 rounded-b-lg"
             allowFullScreen
           />

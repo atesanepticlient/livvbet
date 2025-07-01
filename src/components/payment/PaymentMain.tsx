@@ -13,6 +13,8 @@ import { IoIosCopy } from "react-icons/io";
 import zod from "zod";
 import {
   cashWithdrawScehma,
+  makeAPayDepositScehma,
+  makeAPayWithdrawScehma,
   makeDepositScehma,
   makeWithdrawScehma,
 } from "@/schema";
@@ -25,6 +27,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import {
+  useMakeApayDepositMutation,
+  useMakeApayWithdrawMutation,
   useMakeDepositMutation,
   useMakeWithdrawMutation,
 } from "@/lib/features/paymentApiSlice";
@@ -36,24 +40,16 @@ import SecondaryButton from "../buttons/secondary-button";
 import Link from "next/link";
 import { cashWithdraw } from "@/action/cashwithdraw";
 import { MdContentCopy } from "react-icons/md";
-import { cityOptions } from "@/data/cities";
 
-const PaymentMain = ({
-  wallet,
-}: {
-  wallet:
-    | Prisma.DepositEWalletGetPayload<object>
-    | Prisma.DepositEWalletGetPayload<object>
-    | any;
-}) => {
+const PaymentMain = ({ wallet }: { wallet: any }) => {
   const type = usePaymentMethods((state) => state.type);
   return (
     <div className=" rounded-sm shadow-sm">
       <div className="bg-white w-full  flex items-center justify-center py-2 md:py-4">
         <Image
           className="wallet-image w-[80px] object-cover mx-auto"
-          src={wallet.walletImage}
-          alt={wallet.walletName}
+          src={wallet.image}
+          alt={wallet.label}
           width={80}
           height={40}
         />
@@ -61,18 +57,16 @@ const PaymentMain = ({
 
       <div className="p-2 md:p-3 bg-[#EDEDED]">
         {type == "deposit" && (
-          <DepositContent
-            walletId={wallet.id}
-            maxDeposit={+wallet.maxDeposit}
-            minDeposit={+wallet.minDeposit}
-            walletNumber={wallet.walletNumber}
-            trxType={wallet.trxType}
+          <DepositContentApay
+            maxDeposit={wallet.max_deposit}
+            minDeposit={wallet.min_deposit}
+            ps={wallet.name}
           />
         )}
       </div>
       <div className="p-2 md:p-3 bg-[#EDEDED]">
         {type == "withdraw" && wallet.type != "cash" && (
-          <WithdrawContent walletId={wallet.id} />
+          <WithdrawContentApay wallet={wallet} />
         )}
         {type == "withdraw" && wallet.type == "cash" && (
           <CashContent walletId={wallet.id} />
@@ -335,6 +329,166 @@ const DepositContent = ({
   );
 };
 
+const DepositContentApay = ({
+  minDeposit,
+  maxDeposit,
+  ps,
+}: {
+  minDeposit: number;
+  maxDeposit: number;
+  ps: string;
+}) => {
+  const [created, setCreated] = useState(false);
+
+  const [pending, startTransition] = useTransition();
+
+  const user = useCurrentUser();
+
+  const form = useForm<zod.infer<typeof makeAPayDepositScehma>>({
+    defaultValues: {
+      accountNumber: "",
+      amount: "",
+    },
+    resolver: zodResolver(makeAPayDepositScehma),
+  });
+
+  const handleSetAmount = (amount: number) => {
+    form.setValue("amount", amount.toString());
+  };
+
+  const [depositApi, { isLoading: apiLoading }] = useMakeApayDepositMutation();
+
+  const handleMakeDeposit = (data: zod.infer<typeof makeAPayDepositScehma>) => {
+    startTransition(async () => {
+      depositApi({
+        amount: +data.amount,
+        account_number: data.accountNumber,
+        ps: ps,
+      })
+        .unwrap()
+        .then((res) => {
+          if (res.success) {
+            // SweetToast.fire({
+            //   icon: "success",
+            //   title: res.message,
+            //   showConfirmButton: false,
+            //   timer: 2000,
+            // });
+            location.href = `${res.payload.data.paymentpage_url}`;
+            // TODO : redirect to transition history
+          }
+        })
+        .catch((error: FetchQueryError) => {
+          if (error?.data.message) {
+            SweetToast.fire({
+              icon: "error",
+              title: error?.data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          } else {
+            SweetToast.fire({
+              icon: "error",
+              title: INTERNAL_SERVER_ERROR,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        });
+    });
+  };
+
+  const isLoading = apiLoading || pending;
+
+  return (
+    <>
+      <div className="shadow-sm">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleMakeDeposit)}>
+            <div className="flex justify-between items-center">
+              <span className="text-xs md:text-sm max-w-[150px] text-accent font-medium">
+                Amount (Min {+minDeposit} {user?.wallet?.currencyCode} / Max{" "}
+                {+maxDeposit} {user?.wallet?.currencyCode}):
+              </span>
+              <div>
+                <FormField
+                  name="amount"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <input
+                          disabled={isLoading}
+                          {...field}
+                          placeholder={`${minDeposit}`}
+                          className="bg-white outline-none  placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] "
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            <div className="mt-2">
+              <span className="text-[#666] text-xs md:text-sm">
+                Please enter or select your deposit amount
+              </span>
+              <div className="flex flex-wrap gap-1">
+                {[400, 500, 1000, 5000].map((r, i) => (
+                  <button
+                    key={i}
+                    disabled={isLoading}
+                    type="button"
+                    onClick={() => handleSetAmount(r)}
+                    className="px-2 md:px-3 py-1  bg-white border border-border text-black hover:bg-brand-foreground hover:text-white "
+                  >
+                    {r}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-xs md:text-sm max-w-[150px] text-accent font-medium">
+                Account Number (Optional)
+              </span>
+              <div>
+                <FormField
+                  name="accountNumber"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <input
+                          {...field}
+                          disabled={isLoading}
+                          placeholder={"Enter Your Account Number"}
+                          className="bg-white outline-none  placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] "
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            <Button
+              disabled={isLoading}
+              variant={"destructive"}
+              className="bg-brand-foreground hover:bg-brand-foreground/90 w-full mt-2"
+            >
+              Confirm
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </>
+  );
+};
+
 const WithdrawContent = ({ walletId }: { walletId: string }) => {
   const [created, setCreated] = useState(false);
 
@@ -505,6 +659,175 @@ const WithdrawContent = ({ walletId }: { walletId: string }) => {
   );
 };
 
+const WithdrawContentApay = ({ wallet }: { wallet: any }) => {
+  const [created, setCreated] = useState(false);
+
+  const [pending, startTransition] = useTransition();
+  const user = useCurrentUser();
+
+  const form = useForm<zod.infer<typeof makeAPayWithdrawScehma>>({
+    defaultValues: {
+      accountNumber: "",
+      amount: "",
+    },
+    resolver: zodResolver(makeAPayWithdrawScehma),
+  });
+
+  const handleSetAmount = (amount: string) => {
+    form.setValue("amount", amount);
+  };
+
+  const [withdrawApi, { isLoading: apiLoading }] =
+    useMakeApayWithdrawMutation();
+
+  const handleMakeWithdraw = (
+    data: zod.infer<typeof makeAPayWithdrawScehma>
+  ) => {
+    console.log({ data });
+    startTransition(async () => {
+      withdrawApi({
+        amount: +data.amount,
+        account_number: data.accountNumber,
+        ps: wallet.name,
+      })
+        .unwrap()
+        .then((res) => {
+          if (res.success) {
+            setCreated(true);
+            // TODO : redirect to transition history
+          }
+        })
+        .catch((error: FetchQueryError) => {
+          if (error?.data.message) {
+            SweetToast.fire({
+              icon: "error",
+              title: error?.data.message,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          } else {
+            SweetToast.fire({
+              icon: "error",
+              title: INTERNAL_SERVER_ERROR,
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        });
+    });
+  };
+
+  const isLoading = apiLoading || pending;
+
+  useEffect(() => {
+    return () => {
+      if (created) {
+        setCreated(false);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="shadow-sm">
+      {created ? (
+        <div className="w-full h-[300px] bg-[#EEEEEE] ">
+          <p className="text-center text-sm lg:text-base py-5 text-[#9A9A9A]">
+            {" "}
+            Withdraw request created successfully.
+          </p>
+          <div className="flex justify-center">
+            {" "}
+            <Link href="/account/transaction?type=withdraw">
+              <SecondaryButton className="mx-auto ">Check</SecondaryButton>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleMakeWithdraw)}>
+            <div className="flex justify-between items-center">
+              <span className="text-xs md:text-sm max-w-[150px] text-accent font-medium">
+                Amount (Min {wallet.min_withdrawals}{" "}
+                {user?.wallet?.currencyCode} / Max {wallet.min_withdrawals}{" "}
+                {wallet.max_withdrawals}):
+              </span>
+              <div>
+                <FormField
+                  name="amount"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <input
+                          disabled={isLoading}
+                          {...field}
+                          placeholder={`500.00`}
+                          className="bg-white outline-none  placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] "
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            <div className="mt-2">
+              <span className="text-[#666] text-xs md:text-sm">
+                Please enter or select your deposit amount
+              </span>
+              <div className="flex flex-wrap gap-1">
+                {["500", "1000", "5000"].map((r: string, i: number) => (
+                  <button
+                    key={i}
+                    disabled={isLoading}
+                    type="button"
+                    onClick={() => handleSetAmount(r)}
+                    className="px-2 md:px-3 py-1  bg-white border border-border text-black hover:bg-brand-foreground hover:text-white "
+                  >
+                    {r}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-sm text-accent">Account number:</span>
+              <div>
+                <FormField
+                  name="accountNumber"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <input
+                          {...field}
+                          disabled={isLoading}
+                          placeholder={"Enter Your Account Number"}
+                          className="bg-white outline-none  placeholder:text-gray-400 text-xs p-1 text-center border border-[#8f9da8] border-t-[#8f9da8] border-r-white border-b-white border-l-[#8f9da8] text-[#1f72ad] "
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
+            <Button
+              disabled={isLoading}
+              variant={"destructive"}
+              className="bg-brand-foreground hover:bg-brand-foreground/90 w-full mt-2"
+            >
+              Confirm
+            </Button>
+          </form>
+        </Form>
+      )}
+    </div>
+  );
+};
+
 const CashContent = ({ walletId }: { walletId: string }) => {
   const [created, setCreated] = useState(false);
   const [withdrawCode, setWithdrawCode] = useState("");
@@ -590,7 +913,6 @@ const CashContent = ({ walletId }: { walletId: string }) => {
         }
       });
     });
-
   };
 
   const isLoading = pending || loadingAddresses;
@@ -702,7 +1024,10 @@ const CashContent = ({ walletId }: { walletId: string }) => {
                             <option value="">Select an address</option>
                             {addressOptions.map((option) => (
                               <option key={option.id} value={option.value}>
-                                {option.label}
+                                {option.label.replace(
+                                  option.label.split(" ")[0],
+                                  ""
+                                )}
                               </option>
                             ))}
                           </select>

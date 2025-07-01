@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from "react";
@@ -5,7 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import useCurrentUser from "@/hook/useCurrentUser";
 import { useFetchTransactionsQuery } from "@/lib/features/paymentApiSlice";
-import { PaymentStatus } from "@prisma/client";
 import moment from "moment";
 import { ScaleLoader } from "react-spinners";
 
@@ -14,7 +14,7 @@ const TransactionList = () => {
 
   const withdraws = data?.payload?.withdraws;
   const deposits = data?.payload?.deposits;
-  console.log({ data });
+  console.log("DEPOSIT : ", deposits);
   const user = useCurrentUser();
 
   return (
@@ -60,18 +60,17 @@ const TransactionList = () => {
 
               {deposits!.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-5">
-                  {deposits?.map((deposit, i) => (
+                  {deposits?.map((deposit: any, i: number) => (
                     <div
                       key={i}
                       className="bg-white flex items-center justify-between px-3 py-2 rounded-sm shadow-sm"
                     >
                       <div>
                         <h4 className="text-sm font-semibold text-[#1A1A1A] tracking-wide">
-                          {+deposit.amount} {user?.wallet?.currencyCode} Deposit
-                          Request
+                          {+deposit.amount} {deposit.currency} Deposit Request
                         </h4>
                         <span className="text-xs font-normal text-[#1a1a1acb]">
-                          {moment(deposit.createdAt).calendar()}
+                          {moment.unix(deposit.created_at).calendar()}
                         </span>
                       </div>
                       <PaymentStatusText status={deposit.status} />
@@ -96,21 +95,21 @@ const TransactionList = () => {
             )}
             {withdraws!.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-5">
-                {deposits?.map((deposit, i) => (
+                {withdraws?.map((withdraw: any, i: number) => (
                   <div
                     key={i}
                     className="bg-white flex items-center justify-between px-3 py-2 rounded-sm shadow-sm"
                   >
                     <div>
                       <h4 className="text-sm font-semibold text-[#1A1A1A] tracking-wide">
-                        {+deposit.amount} {user?.wallet?.currencyCode} Deposit
+                        {+withdraw.amount} {user?.wallet?.currencyCode} Withdraw
                         Request
                       </h4>
                       <span className="text-xs font-normal text-[#1a1a1acb]">
-                        {moment(deposit.createdAt).calendar()}
+                        {moment.unix(withdraw.created_at).calendar()}
                       </span>
                     </div>
-                    <PaymentStatusText status={deposit.status} />
+                    <PaymentStatusText status={withdraw.status} />
                   </div>
                 ))}
               </div>
@@ -122,13 +121,13 @@ const TransactionList = () => {
   );
 };
 
-const PaymentStatusText = ({ status }: { status: PaymentStatus }) => {
+const PaymentStatusText = ({ status }: { status: any }) => {
   return (
     <span
       className={`px-2 lg:px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase ${
-        status === "PENDING"
+        status === "Pending"
           ? "text-[#FFC107] bg-[#ffc10728]"
-          : status === "ACCEPTED"
+          : status === "Success"
           ? "bg-blue-600 bg-blue-600/15"
           : "text-red-600 bg-red-600/15"
       }`}

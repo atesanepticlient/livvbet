@@ -45,7 +45,8 @@ export const cashWithdraw = async (
       where: { id: user.id },
       include: { agent: { include: { withdrawAddress: true } } },
     });
-
+    console.log("Withdraw address : ", userAgent?.agent?.withdrawAddress);
+    console.log({ storeName });
     if (!userAgent?.agent) {
       return {
         error: "You can withdraw only same payment gateway you used to deposit",

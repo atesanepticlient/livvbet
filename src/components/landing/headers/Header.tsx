@@ -40,6 +40,7 @@ import Inbox from "./inbox";
 import User from "./user";
 import Logout from "./logout";
 import LogoutModal from "@/components/LogoutModal";
+
 import Contact from "./contact";
 // import Balance from "./balance";
 // import Inbox from "./inbox";
@@ -207,8 +208,14 @@ const Header = () => {
           </div>
           {user && (
             <div className="flex items-center gap-2">
+              <Balance />
               <PrimaryButton>
-                <Link href="/account/deposit">Deposit</Link>
+                <Link
+                  href="/account/deposit"
+                  className="flex items-center gap-1"
+                >
+                  Deposit
+                </Link>
               </PrimaryButton>
               <Menusm>
                 <FaUser className="w-4 h-4 !text-white" />

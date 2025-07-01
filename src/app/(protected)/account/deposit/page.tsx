@@ -5,6 +5,7 @@ import { RiErrorWarningFill } from "react-icons/ri";
 import Payment from "@/components/payment/Payment";
 import PaymentWapper from "@/components/payment/PaymentWapper";
 import { findCurrentUser } from "@/data/user";
+import SupportMailText from "@/components/support-mail-text";
 const DepositPage = async () => {
   const user = await findCurrentUser();
   return (
@@ -30,14 +31,14 @@ const DepositPage = async () => {
             <p className="text-[#2d3842] text-xs md:text-sm w-[70%]">
               আপনি যদি ৭২ ঘন্টার মধ্যে আপনার গেমিং অ্যাকাউন্টে ডিপোজিটের টাকা না
               পান তাহলে অনুগ্রহ করে লেনদেনের প্রমাণ সহ আমাদের সাধারণ ইমেইল
-              এ্যাড্রেস ahsanulazim6@gmail.com-এ যোগাযোগ করুন পরবর্তী বিবরণে দয়া
+              এ্যাড্রেস <SupportMailText /> -এ যোগাযোগ করুন পরবর্তী বিবরণে দয়া
               করে লিখুন আপনার Player id, Transaction ID, Client no, Agent
               number, Time, date, Amount , এবং বিকাশ /নগদ /রকেট /উপায় অ্যাপ থেকে
               লেনদেনের স্ক্রিনশট / If You do not receive the deposit amount in
               your gaming account within 72 hours please contact our general
-              queries email ahsanulazim6@gmail.com with next details:
-              Player id, Transaction ID, Client no, Agent number, Time, Date,
-              Amount, Transaction Screenshot from app
+              queries email <SupportMailText /> with next details: Player id,
+              Transaction ID, Client no, Agent number, Time, Date, Amount,
+              Transaction Screenshot from app
             </p>
           </div>
         </div>

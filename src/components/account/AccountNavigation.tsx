@@ -2,7 +2,7 @@ import React from "react";
 import Wallet from "./Wallet";
 import { GrTransaction } from "react-icons/gr";
 import { PiHandDepositBold, PiHandWithdrawFill } from "react-icons/pi";
-import { MdOutlineHistory, MdSecurity } from "react-icons/md";
+import {MdSecurity } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { FaMessage } from "react-icons/fa6";
@@ -36,12 +36,6 @@ const AccountNavigation = () => {
             lable="My Messages"
             href="/account/messages"
             icon={<FaMessage className="w-4 h-4 text-white" />}
-          />
-
-          <AccountMenuItem
-            lable="bet history"
-            href="/account/bet-history"
-            icon={<MdOutlineHistory className="w-5 h-5 text-white" />}
           />
 
           <AccountMenuItem

@@ -1,3 +1,5 @@
+"use client";
+import { useFetchContactQuery } from "@/lib/features/contactApiSlice";
 import Link from "next/link";
 import React from "react";
 
@@ -11,86 +13,17 @@ const SiteContentTitle = ({ title }: { title: string }) => {
 };
 
 const SiteContent = () => {
+  const { data } = useFetchContactQuery();
+  const email = data?.payload.email;
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-8 mt-6 md:mt-8   px-5 md:px-8 py-6 md:py-8 shadow-sm">
-      <div>
-        <SiteContentTitle title="Betting" />
-
-        <ul className="flex flex-col mt-4 md:mt-6">
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              About us
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Terms and Conditions
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Affiliate Program
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              B2B
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Become an agent
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Bet slip check
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Mobile version
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Contacts
-            </Link>
-          </li>
-        </ul>
-      </div>
-
       <div>
         <SiteContentTitle title="Livvbet" />
 
         <ul className="flex flex-col mt-4 md:mt-6">
           <li>
             <Link
-              href="#"
+              href="/about-us"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
               About us
@@ -98,58 +31,34 @@ const SiteContent = () => {
           </li>
           <li>
             <Link
-              href="#"
+              href="/register"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              Terms and Conditions
+              Registration
+            </Link>
+          </li>
+          <li>
+            <a
+              href="https://agent.livvbet.com/signup"
+              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
+            >
+              Become an Agent
+            </a>
+          </li>
+          <li>
+            <Link
+              href="/affiliate"
+              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
+            >
+              Affiliate
             </Link>
           </li>
           <li>
             <Link
-              href="#"
+              href="/account/profile"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              Affiliate Program
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              B2B
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Become an agent
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Bet slip check
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Mobile version
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Contacts
+              Profile
             </Link>
           </li>
         </ul>
@@ -161,138 +70,60 @@ const SiteContent = () => {
         <ul className="flex flex-col mt-4 md:mt-6">
           <li>
             <Link
-              href="#"
+              href="/casino"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              About us
+              Casino Games
             </Link>
           </li>
           <li>
             <Link
-              href="#"
+              href="/casino/slot"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              Terms and Conditions
+              Slot Games
             </Link>
           </li>
           <li>
             <Link
-              href="#"
+              href="/live"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              Affiliate Program
+              Live
             </Link>
           </li>
           <li>
             <Link
-              href="#"
+              href="/sports"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              B2B
+              Cricket
             </Link>
           </li>
           <li>
             <Link
-              href="#"
+              href="/sports"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              Become an agent
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Bet slip check
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Mobile version
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Contacts
+              Football
             </Link>
           </li>
         </ul>
       </div>
 
       <div>
-        <SiteContentTitle title="Statistics" />
+        <SiteContentTitle title="Support" />
 
         <ul className="flex flex-col mt-4 md:mt-6">
           <li>
-            <Link
-              href="#"
+            <a
+              target="_blank"
+              href={`mailto:${email}`}
+              rel="noreferrer"
               className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
             >
-              About us
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Terms and Conditions
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Affiliate Program
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              B2B
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Become an agent
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Bet slip check
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Mobile version
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="text-[#d3e0f0] text-xs md:text-sm content-link font-normal"
-            >
-              Contacts
-            </Link>
+              Contact Us
+            </a>
           </li>
         </ul>
       </div>

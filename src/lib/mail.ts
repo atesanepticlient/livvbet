@@ -7,19 +7,21 @@ export const generateToken = () => {
 
 // Create transporter for Google SMTP
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: process.env.SMTP_HOST, // e.g. mail.yourdomain.com
+  port: parseInt(process.env.SMTP_PORT || "465"),
+  secure: process.env.SMTP_SECURE === "true", // true for 465, false for 587
   auth: {
-    user: process.env.SMTP_USERNAME,
-    pass: process.env.SMTP_PASSWORD,
+    user: process.env.SMTP_USERNAME, // your@yourdomain.com
+    pass: process.env.SMTP_PASSWORD, // email password
   },
 });
 
 export const sendVerificationEmail = async (email: string, token: string) => {
   try {
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: process.env.SMTP_USERNAME,
       to: email,
-      subject: "Verify your email",
+      subject: `Livvbet <${process.env.SMTP_USERNAME}>`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;">
           <h1 style="color: #333; text-align: center;">Email Verification</h1>
@@ -35,7 +37,8 @@ export const sendVerificationEmail = async (email: string, token: string) => {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    const res = await transporter.sendMail(mailOptions);
+    console.log("Email : ", res);
     return true;
   } catch (error) {
     console.error("Error sending verification email:", error);

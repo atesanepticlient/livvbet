@@ -1,91 +1,165 @@
 import { findCurrentUser } from "@/data/user";
 import { INTERNAL_SERVER_ERROR } from "@/error";
 import { db } from "@/lib/db";
-import { MakeDepositInput } from "@/types/api";
+import { generateTrxId } from "@/lib/utils";
 import { NextRequest } from "next/server";
+
+// export const POST = async (req: NextRequest) => {
+//   try {
+//     const { amount, transactionId, payFrom, walletId } =
+//       (await req.json()) as MakeDepositInput;
+
+//     const user = await findCurrentUser();
+
+//     const depositWallet = await db.depositEWallet.findUnique({
+//       where: { id: walletId },
+//     });
+
+//     if (!depositWallet) {
+//       return Response.json(
+//         { message: "Try with another Payment Wallet" },
+//         { status: 404 }
+//       );
+//     }
+
+//     if (amount < +depositWallet.minDeposit) {
+//       return Response.json(
+//         { message: `Minimum deposit amount ${depositWallet.minDeposit}` },
+//         { status: 400 }
+//       );
+//     }
+
+//     if (amount > +depositWallet.maxDeposit) {
+//       return Response.json(
+//         { message: `Miximum deposit amount ${depositWallet.maxDeposit}` },
+//         { status: 400 }
+//       );
+//     }
+
+//     const isFirstDeposit =
+//       (
+//         await db.deposit.findMany({
+//           where: { userId: user!.id },
+//         })
+//       ).length == 0;
+
+//     if (isFirstDeposit) {
+//       const site = await db.site.findFirst({
+//         where: {},
+//         select: { firstDepositBonus: true, turnover: true },
+//       });
+
+//       await db.bonusWallet.update({
+//         where: {
+//           userId: user!.id,
+//         },
+//         data: {
+//           balance: { increment: amount * (+site!.firstDepositBonus! / 100) },
+//           turnOver: {
+//             increment:
+//               amount * (+site!.firstDepositBonus! / 100) * +site!.turnover!,
+//           },
+//         },
+//       });
+//     }
+
+//     await db.deposit.create({
+//       data: {
+//         amount,
+//         payFrom,
+//         transactionId,
+//         ewallet: {
+//           connect: {
+//             id: walletId,
+//           },
+//         },
+//         user: {
+//           connect: {
+//             id: user!.id,
+//           },
+//         },
+//       },
+//     });
+
+//     return Response.json(
+//       { message: "Deposit Successfully Added" },
+//       { status: 201 }
+//     );
+//   } catch {
+//     return Response.json({ message: INTERNAL_SERVER_ERROR }, { status: 500 });
+//   }
+// };
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { amount, transactionId, payFrom, walletId } =
-      (await req.json()) as MakeDepositInput;
+    const { account_number, amount, ps } = await req.json();
 
     const user = await findCurrentUser();
-
-    const depositWallet = await db.depositEWallet.findUnique({
-      where: { id: walletId },
-    });
-
-    if (!depositWallet) {
+    if (!user)
       return Response.json(
-        { message: "Try with another Payment Wallet" },
-        { status: 404 }
+        { message: "Authentication failed" },
+        { status: 401 }
       );
+
+    const return_url = "https://www.livvbet.com";
+
+    let data = {};
+    switch (ps) {
+      case "bkash_a":
+        data = { return_url, account_number: account_number || user.phone };
+        break;
+      case "nagad_a":
+        data = { return_url };
+        break;
+      case "upay":
+        data = { return_url };
+        break;
     }
 
-    if (amount < +depositWallet.minDeposit) {
-      return Response.json(
-        { message: `Minimum deposit amount ${depositWallet.minDeposit}` },
-        { status: 400 }
-      );
-    }
+    const trx_id = generateTrxId();
 
-    if (amount > +depositWallet.maxDeposit) {
-      return Response.json(
-        { message: `Miximum deposit amount ${depositWallet.maxDeposit}` },
-        { status: 400 }
-      );
-    }
-
-    const isFirstDeposit =
-      (
-        await db.deposit.findMany({
-          where: { userId: user!.id },
-        })
-      ).length == 0;
-
-    if (isFirstDeposit) {
-      const site = await db.site.findFirst({
-        where: {},
-        select: { firstDepositBonus: true, turnover: true },
-      });
-
-      await db.bonusWallet.update({
-        where: {
-          userId: user!.id,
+    const response = await fetch(
+      `${process.env.APAY_DOMAIN}/Remotes/create-deposit?project_id=${process.env.APAY_PROJECT_ID}`,
+      {
+        method: "POST",
+        headers: {
+          apikey: `${process.env.APAY_API_KEY}`,
+          "Content-Type": "application/json",
         },
-        data: {
-          balance: { increment: amount * (+site!.firstDepositBonus! / 100) },
-          turnOver: {
-            increment:
-              amount * (+site!.firstDepositBonus! / 100) * +site!.turnover!,
-          },
-        },
-      });
+        body: JSON.stringify({
+          amount: amount,
+          currency: "BDT",
+          payment_system: ps,
+          custom_transaction_id: trx_id,
+          custom_user_id: user.playerId,
+          data,
+        }),
+      }
+    );
+    const paymentData = await response.json();
+
+    if (!paymentData.success) {
+      return Response.json({ message: "Deposit Failed" }, { status: 500 });
     }
 
-    await db.deposit.create({
+    await db.aPayDeposit.create({
       data: {
-        amount,
-        payFrom,
-        transactionId,
-        ewallet: {
-          connect: {
-            id: walletId,
-          },
-        },
+        orderId: paymentData.order_id,
+        trxId: trx_id,
         user: {
           connect: {
-            id: user!.id,
+            id: user.id,
           },
         },
       },
     });
 
     return Response.json(
-      { message: "Deposit Successfully Added" },
-      { status: 201 }
+      { payload: paymentData, success: true },
+      { status: 200 }
     );
-  } catch {
+  } catch (error) {
+    console.log({ error });
     return Response.json({ message: INTERNAL_SERVER_ERROR }, { status: 500 });
   }
 };

@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { db } from "@/lib/db";
 import { Decimal } from "@prisma/client/runtime/library";
 import { reduceTurnOver } from "@/lib/helpers";
+import { Prisma } from "@prisma/client";
 
 function parseDecimal(value: any): Decimal | undefined {
   if (value === undefined || value === null || value === "") return undefined;
@@ -67,7 +68,11 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
-    if (requestBody.hall !== +process.env.HALL_ID!) {
+    if (
+      ![+process.env.HALL_ID!, +process.env.HALL_ID_TBS!].includes(
+        requestBody.hall
+      )
+    ) {
       return new Response(
         JSON.stringify({ status: "fail", error: "hall_id_not_found" }),
         { status: 403 }
@@ -111,18 +116,27 @@ export const POST = async (req: NextRequest) => {
           { status: 403 }
         );
       }
-
+      const betRecord: Prisma.BettingRecordUpdateInput = {};
       if (requestBody.bet) {
         userBalance = userBalance.sub(requestBody.bet);
         await reduceTurnOver(+requestBody.bet, user.id);
+        betRecord.totalBet = {
+          increment: requestBody.bet,
+        };
       }
       if (requestBody.win) {
         userBalance = userBalance.add(requestBody.win);
+        betRecord.totalWin = {
+          increment: requestBody.win,
+        };
       }
 
-      await db.wallet.update({
-        where: { id: user.wallet!.id },
-        data: { balance: userBalance },
+      await db.users.update({
+        where: { id: user!.id },
+        data: {
+          wallet: { update: { balance: userBalance } },
+          bettingRecord: { update: { ...betRecord } },
+        },
       });
 
       return Response.json({

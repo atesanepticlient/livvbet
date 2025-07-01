@@ -70,9 +70,18 @@ export const makeDepositScehma = zod.object({
   amount: zod.string().min(1, "Enter Amount"),
   transactionId: zod.string().min(1, "Transaction Id is require"),
 });
+export const makeAPayDepositScehma = zod.object({
+  accountNumber: zod.optional(zod.string()),
+  amount: zod.string().min(1, "Enter Amount"),
+});
 
 export const makeWithdrawScehma = zod.object({
   payTo: zod.string().min(1, "Payment Number is required"),
+  amount: zod.string().min(1, "Enter Amount"),
+});
+
+export const makeAPayWithdrawScehma = zod.object({
+  accountNumber: zod.string().min(1, "Account number is required"),
   amount: zod.string().min(1, "Enter Amount"),
 });
 

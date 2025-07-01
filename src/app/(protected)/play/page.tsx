@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 
 const Play = () => {
   const [openGame, { isLoading }] = useOpenGameMutation();
+  const [isIframeLoading, setIsLoading] = useState(true);
   const gameId = useSearchParams().get("gameId") || "";
 
   const [iframe, setIframe] = useState("");
@@ -37,12 +38,13 @@ const Play = () => {
 
   return (
     <div>
-      {isLoading && <GameOpeningLoader />}
+      {(isLoading || isIframeLoading) && <GameOpeningLoader />}
       {!isLoading && !error && iframe && (
         <div className="w-full h-screen ">
           <iframe
             src={iframe}
             className="w-full h-full border-0 rounded-b-lg"
+            onLoad={() => setIsLoading(false)}
             allowFullScreen
           />
         </div>

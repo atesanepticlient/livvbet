@@ -115,13 +115,13 @@ export const MessageBox = ({
   return (
     <div className=" ">
       {messages?.length == 0 && (
-        <div className="w-full rounded-md bg-[#F2F2F2] h-[120px] flex justify-center items-center text-sm font-normal text-[#212121]">
+        <div className="w-full rounded-md bg-[#F2F2F2] max-h-[120px]  flex justify-center items-center text-sm font-normal text-[#212121]">
           You have no messages at the moment
         </div>
       )}
 
       {messages!.length > 0 && (
-        <>
+        <div className="overflow-y-auto max-h-[250px]">
           <h3 className="uppercase font-semibold text-base text-[#2E2E2E]">
             Messages
           </h3>
@@ -154,21 +154,22 @@ export const MessageBox = ({
               </li>
             ))}
           </ul>
-
-          <SecondaryButton
-            disabled={selectedMessages.length == 0}
-            onClick={handleDeleteMessages}
-            className="flex items-center disabled:opacity-50 justify-center gap-2 w-full mt-3"
-          >
-            {deleteLoading ? (
-              <ScaleLoader color="#fff" cssOverride={{ scale: 0.4 }} />
-            ) : (
-              <>
-                <AiFillDelete className="w-4 h-4" /> Clear
-              </>
-            )}
-          </SecondaryButton>
-        </>
+          <div className="bg-white sticky left-0 bottom-0 ">
+            <SecondaryButton
+              disabled={selectedMessages.length == 0}
+              onClick={handleDeleteMessages}
+              className="flex items-center disabled:opacity-50 justify-center gap-2 w-full mt-3"
+            >
+              {deleteLoading ? (
+                <ScaleLoader color="#fff" cssOverride={{ scale: 0.4 }} />
+              ) : (
+                <>
+                  <AiFillDelete className="w-4 h-4" /> Clear
+                </>
+              )}
+            </SecondaryButton>
+          </div>
+        </div>
       )}
     </div>
   );

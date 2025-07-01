@@ -21,14 +21,17 @@ export const POST = async (req: NextRequest) => {
       })
     )?.playerId;
 
-    const { gameId, demo } = await req.json();
+    const { gameId, demo, gameType } = await req.json();
 
     if (!gameId) {
       return Response.json({ error: "Game Id is required" }, { status: 400 });
     }
-
+    const hallid =
+      gameType == "CASINO" ? process.env.HALL_ID : process.env.HALL_ID_TBS;
+    const host =
+      gameType == "CASINO" ? process.env.HALL_HOST : process.env.HALL_HOST_TBS;
     const data = JSON.stringify({
-      hall: process.env.HALL_ID,
+      hall: hallid,
       key: process.env.HALL_KEY,
       login: playerId,
       gameId: gameId,
@@ -43,7 +46,7 @@ export const POST = async (req: NextRequest) => {
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: `${process.env.HALL_HOST}/openGame/`,
+      url: `${host}/openGame/`,
       headers: {
         Cookie: "PHPSESSID=tc6on5bce3tcgpiu8c9o8mqtb9",
         "Content-Type": "application/json",

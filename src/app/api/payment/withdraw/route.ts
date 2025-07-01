@@ -125,7 +125,7 @@ import { NextRequest } from "next/server";
 export const POST = async (req: NextRequest) => {
   try {
     const { account_number, amount, ps } = await req.json();
-    console.log({account_number, amount, ps})
+    console.log({ account_number, amount, ps });
     const user = await findCurrentUser();
     if (!user)
       return Response.json(
@@ -162,6 +162,7 @@ export const POST = async (req: NextRequest) => {
           payment_system: ps,
           custom_transaction_id: trx_id,
           custom_user_id: user.playerId,
+          webhook_id: process.env.APAY_WEBHOOK_ID,
           data,
         }),
       }
